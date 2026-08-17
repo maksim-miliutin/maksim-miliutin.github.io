@@ -74,8 +74,6 @@ for (const file of files) {
   console.log(`${basename(file)}: ${found} symbols`);
 }
 
-const sprite = `<svg class="sprite" width="0" height="0" aria-hidden="true">${[...symbols.values()].join('')}</svg>`;
-
 const html = readFileSync('index.html', 'utf8');
 const code = readdirSync('src')
   .filter(f => f.endsWith('.ts'))
@@ -91,6 +89,8 @@ const used = new Set([
 const missing = [...used].filter(id => !symbols.has(id));
 const dropped = [...symbols.keys()].filter(id => !used.has(id));
 for (const id of dropped) symbols.delete(id);
+
+const sprite = `<svg class="sprite" width="0" height="0" aria-hidden="true">${[...symbols.values()].join('')}</svg>`;
 
 const start = html.indexOf('<!-- icons:start');
 const end = html.indexOf('<!-- icons:end -->');
