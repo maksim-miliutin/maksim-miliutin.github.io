@@ -2,7 +2,7 @@ import { $$, ease, need } from './dom';
 import { onLanguageChange, t } from './i18n';
 import type { Key } from './i18n-data';
 
-type CityId = 'moscow' | 'paris' | 'dublin';
+export type CityId = 'moscow' | 'paris' | 'dublin';
 
 type City = {
     x: number;
@@ -10,13 +10,20 @@ type City = {
     key: Key;
 };
 
-const CITIES: Record<CityId, City> = {
-    moscow: { x: 327.5, y: 57.5, key: 'map.moscow' },
+export const CITIES: Record<CityId, City> = {
+    moscow: { x: 327.4, y: 57.4, key: 'map.moscow' },
     paris: { x: 92.3, y: 126.4, key: 'map.paris' },
     dublin: { x: 34.9, y: 81.5, key: 'map.dublin' },
 };
 
-const HOME: CityId = 'moscow';
+export const HOME: CityId = 'moscow';
+
+// the map was rasterised from Natural Earth at 0.3 degrees per cell,
+// 2 units wide and 3 tall; a city has to land on the same grid as the coastline
+export const project = (lon: number, lat: number) => ({
+    x: Math.round(((lon + 11.5) / 0.3) * 2 * 10) / 10,
+    y: Math.round(((61.5 - lat) / 0.3) * 3 * 10) / 10,
+});
 
 export function initAtlas() {
     const map = document.querySelector('#map');
