@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 — Maksim Miliutin</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2C2545">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@700&display=swap">
+<script>
+(function () {
+  var t = 'light';
+  try {
+    var saved = localStorage.getItem('mm-theme');
+    if (saved === 'dark' || saved === 'light') t = saved;
+    else if (matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+  } catch (e) {}
+  document.documentElement.dataset.theme = t;
+})();
+</script>
+<style>
+  :root {
+    --desk: #2C2545; --desk-alt: #251F3B;
+    --face: #D8D5E4; --face-hi: #FFFFFF; --face-lo: #9B95B4; --face-dk: #48435F;
+    --paper: #F6F5FB; --ink: #16121F; --ink-dim: #4E4867;
+    --title-a: #2B33C0; --title-b: #7C8CF5;
+  }
+  [data-theme="dark"] {
+    --desk: #0C0A13; --desk-alt: #14101F;
+    --face: #2A2440; --face-hi: #4E4770; --face-lo: #191428; --face-dk: #0A0810;
+    --paper: #1B1730; --ink: #ECE8F6; --ink-dim: #ADA4C6;
+    --title-a: #3A44D8; --title-b: #8C9BFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background-color: var(--desk);
+    background-image: repeating-conic-gradient(var(--desk) 0% 25%, var(--desk-alt) 0% 50%);
+    background-size: 4px 4px;
+    color: var(--ink);
+    font: 15px/1.55 Tahoma, "MS Sans Serif", Geneva, Verdana, sans-serif;
+  }
+  .win {
+    width: min(460px, 100%);
+    padding: 3px;
+    background: var(--face);
+    border: 2px solid;
+    border-color: var(--face-hi) var(--face-dk) var(--face-dk) var(--face-hi);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+  }
+  .bar {
+    padding: 4px 7px;
+    background: linear-gradient(90deg, var(--title-a), var(--title-b));
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .body {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-top: 3px;
+    padding: 20px;
+    background: var(--paper);
+    border: 2px solid;
+    border-color: var(--face-dk) var(--face-hi) var(--face-hi) var(--face-dk);
+  }
+  img { width: 92px; height: auto; flex-shrink: 0; }
+  h1 {
+    font-family: "Pixelify Sans", Tahoma, sans-serif;
+    font-size: 2.6rem;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  p { color: var(--ink-dim); font-size: 13.5px; }
+  .go {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 6px 16px;
+    background: var(--face);
+    color: var(--ink);
+    font-size: 13px;
+    text-decoration: none;
+    border: 2px solid;
+    border-color: var(--face-hi) var(--face-dk) var(--face-dk) var(--face-hi);
+  }
+  .go:active { border-color: var(--face-dk) var(--face-hi) var(--face-hi) var(--face-dk); }
+  .go:focus-visible { outline: 1px dotted currentColor; outline-offset: -4px; }
+</style>
+</head>
+<body>
+  <div class="win">
+    <div class="bar">error.dlg</div>
+    <div class="body">
+        <div>
+        <h1>404</h1>
+        <p>Page not found</p>
+        <p>Страница не найдена</p>
+        <p>Page introuvable</p>
+        <a class="go" href="/">OK</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

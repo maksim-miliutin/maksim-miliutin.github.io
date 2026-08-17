@@ -1,0 +1,16 @@
+{
+  "name": "miliutin-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "icons": "node tools/build-sprite.mjs tools/icons-source.svg"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.9"
+  }
+}
