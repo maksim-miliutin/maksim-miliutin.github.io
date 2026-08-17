@@ -60,11 +60,11 @@ export const en = {
     heading: "How I work",
     seams: {
       title: "Bugs live between modules",
-      body: "Almost every defect I have found sat in the seam, not inside a unit: a column that was renamed on one side only, a rule declared in two places, a contract field written but never read. So the seams get their own tests — schema against queries, contract against both ends."
+      body: "Almost every defect I have found sat in the seam, not inside a unit: a column renamed on one side only, a rule declared in two places, a contract field written but never read. So the seams get their own tests: schema against queries, contract against both ends."
     },
     correctness: {
       title: "Money code gets tests",
-      body: "Reste has 67 tests and Veilla 103, all passing. Not because tests are a ritual, but because a wrong number about someone's money is worse than no number at all — it is confidently wrong."
+      body: "Reste has 67 tests and Veilla 103. Not because tests are a ritual, but because a wrong number about someone's money is worse than no number: the user has no way to tell it is wrong."
     },
     data: {
       title: "Rates are data, not constants",
@@ -72,11 +72,11 @@ export const en = {
     },
     honesty: {
       title: "\"Cannot compute\" is a valid answer",
-      body: "When a line has no known reimbursement base, Reste says so instead of quietly treating it as zero. A line without a base looks exactly like an honest full-cost line, and the total would lie with the same confidence it is right everywhere else."
+      body: "When a line has no known reimbursement base, Reste says so instead of treating it as zero. A line without a base looks exactly like an honest full-cost line, so a silent zero would put a wrong total next to four right ones."
     },
     scope: {
       title: "What I leave out",
-      body: "No invented regional averages, no annual cap I cannot verify. If the data to do it honestly does not exist, the feature does not ship. In a product about money, a plausible guess is a liability."
+      body: "No invented regional averages, no annual cap I cannot verify. If the data to do it honestly does not exist, the feature does not ship."
     }
   },
 
@@ -300,23 +300,23 @@ const fr: Dict = {
     heading: "Ma façon de travailler",
     seams: {
       title: "Les bugs vivent entre les modules",
-      body: "Presque tous les défauts que j'ai trouvés étaient dans la jointure, pas dans un module : une colonne renommée d'un seul côté, une règle déclarée à deux endroits, un champ de contrat écrit et jamais lu. Les jointures ont donc leurs propres tests — le schéma contre les requêtes, le contrat contre ses deux extrémités."
+      body: "Presque tous les défauts que j'ai trouvés étaient dans la jointure, pas dans un module : une colonne renommée d'un seul côté, une règle déclarée à deux endroits, un champ de contrat écrit et jamais lu. Les jointures ont donc leurs propres tests : le schéma contre les requêtes, le contrat contre ses deux extrémités."
     },
     correctness: {
       title: "Le code qui touche à l'argent est testé",
-      body: "67 tests pour Reste, 103 pour Veilla, tous au vert. Pas par rituel : un chiffre faux sur l'argent de quelqu'un est pire que pas de chiffre du tout — il est faux avec assurance."
+      body: "Reste a 67 tests et Veilla 103. Non par rituel, mais parce qu'un chiffre faux sur l'argent de quelqu'un est pire qu'aucun chiffre : l'utilisateur n'a aucun moyen de voir qu'il est faux."
     },
     data: {
       title: "Les tarifs sont des données, pas des constantes",
-      body: "La consultation est passée de 26,50 € à 30 € en décembre 2024. Les valeurs en dur périment en silence et continuent de répondre. Chaque taux porte sa période de validité et sa source ; chaque calcul se fait à une date donnée."
+      body: "La consultation d'un généraliste est passée de 26,50 € à 30 € en décembre 2024. Les valeurs codées en dur périment en silence et continuent de répondre. Chaque tarif dans Reste porte une période de validité et une source, et chaque calcul se fait à une date donnée."
     },
     honesty: {
       title: "« Impossible à calculer » est une réponse valable",
-      body: "Sans base de remboursement connue, Reste le dit au lieu de la traiter comme zéro. Une ligne sans base ressemble à une ligne honnête, et le total mentirait avec la même assurance qu'ailleurs."
+      body: "Quand une ligne n'a pas de base de remboursement connue, Reste le dit au lieu de la traiter comme zéro. Une ligne sans base ressemble exactement à une ligne honnête au prix plein : un zéro silencieux mettrait un total faux à côté de quatre justes."
     },
     scope: {
       title: "Ce que je laisse de côté",
-      body: "Pas de moyennes régionales inventées, pas de plafond annuel invérifiable. Si les données honnêtes n'existent pas, la fonctionnalité n'existe pas."
+      body: "Pas de moyennes régionales inventées, pas de plafond annuel que je ne peux pas vérifier. Si les données pour le faire honnêtement n'existent pas, la fonctionnalité ne sort pas."
     }
   },
 
@@ -537,23 +537,23 @@ const ru: Dict = {
     heading: "Как я работаю",
     seams: {
       title: "Ошибки живут между модулями",
-      body: "Почти все дефекты, которые я находил, сидели на стыке, а не внутри модуля: колонка, переименованная с одной стороны; правило, объявленное в двух местах; поле контракта, которое пишут и не читают. Поэтому у стыков свои тесты — схема против запросов, контракт против обоих концов."
+      body: "Почти все дефекты, которые я находил, сидели на стыке, а не внутри модуля: колонка, переименованная с одной стороны; правило, объявленное в двух местах; поле контракта, которое пишут и не читают. Поэтому у стыков свои тесты: схема против запросов, контракт против обоих концов."
     },
     correctness: {
       title: "Код про деньги покрыт тестами",
-      body: "В Reste 67 тестов, в Veilla 103, все проходят. Не ради ритуала: неверная цифра о чужих деньгах хуже, чем её отсутствие — она уверенно неверна."
+      body: "У Reste 67 тестов, у Veilla 103. Не потому что тесты это ритуал, а потому что неверное число про чужие деньги хуже, чем никакого: пользователю нечем понять, что оно неверное."
     },
     data: {
       title: "Тарифы — данные, а не константы",
-      body: "Приём терапевта во Франции вырос с 26,50 € до 30 € в декабре 2024. Захардкоженные цифры устаревают молча и продолжают выдавать ответы. Каждая ставка в Reste хранится с периодом действия и ссылкой на источник, а расчёт делается на конкретную дату."
+      body: "Приём терапевта во Франции подорожал с 26,50 € до 30 € в декабре 2024-го. Зашитые в код цифры устаревают молча и продолжают отвечать. У каждого тарифа в Reste есть период действия и источник, а расчёт делается на конкретную дату."
     },
     honesty: {
       title: "«Посчитать нельзя» — тоже ответ",
-      body: "Если у строки нет известной базы возмещения, Reste так и говорит, а не считает её нулём. Строка без базы выглядит точно так же, как честно посчитанная, и итог соврал бы с той же уверенностью, с какой он прав в остальных случаях."
+      body: "Если у строки нет известной базы возмещения, Reste так и говорит, а не считает её нулём. Строка без базы выглядит точно как честная строка на полную стоимость, и тихий ноль подставил бы неверный итог рядом с четырьмя верными."
     },
     scope: {
       title: "Чего я не делаю",
-      body: "Никаких выдуманных средних цен по региону и никакого годового лимита, который я не могу проверить. Если честных данных нет — фичи нет. В продукте про деньги правдоподобная догадка это риск."
+      body: "Никаких выдуманных средних по региону и годовых потолков, которые я не могу проверить. Если данных, чтобы сделать честно, нет, функция не выходит."
     }
   },
 

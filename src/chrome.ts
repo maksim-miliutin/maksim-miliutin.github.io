@@ -1,4 +1,4 @@
-import { $, $$, ease, need } from './dom';
+import { $, $$, need } from './dom';
 import { currentLang, onLanguageChange, t } from './i18n';
 import type { Key } from './i18n-data';
 
@@ -181,32 +181,6 @@ export function initClock() {
     paint();
     setInterval(paint, 15_000);
     onLanguageChange(paint);
-}
-
-export function initCounters() {
-    const counters = $$('[data-count-to]');
-    if (!counters.length) return;
-
-    const io = new IntersectionObserver(
-        entries => {
-            for (const entry of entries) {
-                if (!entry.isIntersecting) continue;
-                io.unobserve(entry.target);
-
-                const el = entry.target as HTMLElement;
-                const target = Number(el.dataset.countTo);
-                const suffix = el.dataset.suffix ?? '';
-                if (!Number.isFinite(target)) continue;
-
-                ease(800, p => {
-                    el.textContent = Math.round(p * target) + suffix;
-                });
-            }
-        },
-        { threshold: 0.6 },
-    );
-
-    for (const el of counters) io.observe(el);
 }
 
 export const label = (key: Key) => t(key);
