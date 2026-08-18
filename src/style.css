@@ -429,6 +429,9 @@ p { color: var(--ink-dim); }
   shape-rendering: crispEdges;
 }
 
+.map.busy,
+.map.busy .key { cursor: wait; }
+
 .map .land { fill: var(--land); }
 
 .map .route {
@@ -555,6 +558,8 @@ p { color: var(--ink-dim); }
 }
 .files p { font-size: 13.5px; }
 .fmeta { font-family: var(--mono); font-size: 11px; color: var(--ink-dim); }
+
+.job { max-width: 78ch; }
 
 .job-line {
   display: flex;
@@ -685,6 +690,8 @@ p { color: var(--ink-dim); }
   font-size: 13px;
   color: var(--ink);
 }
+.note-strip.warn { border-left-color: var(--lamp-warn); }
+
 
 .wallmark {
   max-width: 1180px;
@@ -750,6 +757,9 @@ p { color: var(--ink-dim); }
   height: auto;
   shape-rendering: crispEdges;
 }
+
+.map.busy,
+.map.busy .key { cursor: wait; }
 
 .map .land { fill: var(--land); }
 
@@ -918,6 +928,21 @@ p { color: var(--ink-dim); }
 .b-any { background: linear-gradient(180deg, #A15C00, #16121F); color: #F6F5FB; }
 .b-pages { background: #16121F; color: #F6F5FB; }
 .b-pages i { color: #7C8CF5; }
+
+.taskbar {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 36px;
+  padding: 0 5px;
+  background: var(--face);
+  border: 2px solid;
+  border-color: var(--face-hi) transparent transparent transparent;
+  box-shadow: inset 1px 1px 0 var(--face);
+}
 
 .start {
   flex-shrink: 0;
