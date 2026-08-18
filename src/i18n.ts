@@ -3,72 +3,129 @@ import { isLang, translations, type Key, type Lang } from './i18n-data';
 
 const STORAGE_KEY = 'mm-lang';
 
-let lang: Lang = 'en';
-
 const listeners = new Set<() => void>();
 
-export const currentLang = () => lang;
+let lang: Lang = 'en';
 
-export const onLanguageChange = (fn: () => void) => {
+export const currentLang = (): Lang => lang;
+
+export function onLanguageChange(fn: () => void): () => void
+{
     listeners.add(fn);
     return () => listeners.delete(fn);
-};
+}
 
-export function t(key: Key): string {
+export function t(key: Key): string
+{
     const value = key.split('.').reduce<unknown>(
-        (node, part) => (node && typeof node === 'object' ? (node as Record<string, unknown>)[part] : undefined),
+        (node, part) => (node !== null && typeof node === 'object')
+            ? (node as Record<string, unknown>)[part]
+            : undefined,
         translations[lang],
     );
+
     return typeof value === 'string' ? value : key;
 }
 
-export function setLanguage(next: Lang) {
+export function setLanguage(next: Lang): void
+{
     lang = next;
     document.documentElement.lang = next;
 
-    for (const el of $$('[data-i18n]')) {
-        const key = el.dataset.i18n as Key | undefined;
-        if (!key) continue;
+    for (const element of $$('[data-i18n]'))
+    {
+        const key = element.dataset.i18n as Key | undefined;
 
-        const icon = $('.ico', el);
-        el.textContent = t(key);
-        if (icon) el.prepend(icon);
+        if (key === undefined)
+        {
+            continue;
+        }
+
+        const value = t(key);
+
+        if (value === key)
+        {
+            continue;
+        }
+
+        // textContent wipes children, so the icon is lifted out and put back
+        const icon = $('.ico', element);
+        element.textContent = value;
+
+        if (icon !== null)
+        {
+            element.prepend(icon);
+        }
     }
 
     document.title = t('meta.title');
 
-    for (const btn of $$<HTMLButtonElement>('.lang button')) {
-        btn.setAttribute('aria-pressed', String(btn.dataset.lang === next));
+    for (const button of $$<HTMLButtonElement>('.lang button'))
+    {
+        button.setAttribute('aria-pressed', String(button.dataset.lang === next));
     }
 
-    for (const fn of listeners) fn();
-
-    try {
-        localStorage.setItem(STORAGE_KEY, next);
-    } catch {
-        // private mode, nothing to do
+    for (const fn of listeners)
+    {
+        fn();
     }
+
+    remember(next);
 }
 
-export function initLanguage() {
-    for (const btn of $$<HTMLButtonElement>('.lang button')) {
-        btn.addEventListener('click', () => {
-            const next = btn.dataset.lang;
-            if (next && isLang(next)) setLanguage(next);
+export function initLanguage(): void
+{
+    for (const button of $$<HTMLButtonElement>('.lang button'))
+    {
+        button.addEventListener('click', () =>
+        {
+            const next = button.dataset.lang;
+
+            if (next !== undefined && isLang(next))
+            {
+                setLanguage(next);
+            }
         });
     }
 
     setLanguage(preferred());
 }
 
-function preferred(): Lang {
-    try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved && isLang(saved)) return saved;
-    } catch {
-        // ignore
+function preferred(): Lang
+{
+    const saved = recall();
+
+    if (saved !== null)
+    {
+        return saved;
     }
 
     const browser = navigator.language.slice(0, 2).toLowerCase();
     return isLang(browser) ? browser : 'en';
+}
+
+function recall(): Lang | null
+{
+    try
+    {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return (saved !== null && isLang(saved)) ? saved : null;
+    }
+    catch (err)
+    {
+        // private mode denies storage; the browser language is a fine fallback
+        return null;
+    }
+}
+
+function remember(next: Lang): void
+{
+    try
+    {
+        localStorage.setItem(STORAGE_KEY, next);
+    }
+    catch (err)
+    {
+        // nothing to do: the choice simply will not survive a reload
+    }
 }

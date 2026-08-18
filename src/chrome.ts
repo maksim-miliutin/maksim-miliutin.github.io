@@ -1,181 +1,255 @@
 import { $, $$, need } from './dom';
 import { currentLang, onLanguageChange, t } from './i18n';
-import type { Key } from './i18n-data';
 
-const SVG = 'http://www.w3.org/2000/svg';
+const SVG_NS = 'http://www.w3.org/2000/svg';
 
-export function icon(name: string) {
-    const svg = document.createElementNS(SVG, 'svg');
+const DESK_COLOUR = { light: '#2C2545', dark: '#0C0A13' } as const;
+
+/** Builds a reference into the sprite that sits inlined at the top of the document. */
+export function icon(name: string): SVGSVGElement
+{
+    const svg = document.createElementNS(SVG_NS, 'svg');
     svg.setAttribute('class', 'ico');
     svg.setAttribute('viewBox', '0 0 24 24');
     svg.setAttribute('aria-hidden', 'true');
 
-    const use = document.createElementNS(SVG, 'use');
+    const use = document.createElementNS(SVG_NS, 'use');
     use.setAttribute('href', `#i-${name}`);
     svg.append(use);
 
     return svg;
 }
 
-export function mountIcons(root: ParentNode = document) {
-    for (const el of $$('[data-icon]', root)) {
-        if (!$('.ico', el) && el.dataset.icon) el.prepend(icon(el.dataset.icon));
+export function mountIcons(root: ParentNode = document): void
+{
+    for (const element of $$('[data-icon]', root))
+    {
+        const name = element.dataset.icon;
+
+        if (name !== undefined && $('.ico', element) === null)
+        {
+            element.prepend(icon(name));
+        }
     }
 }
 
-export function initTheme() {
+export function initTheme(): void
+{
     const button = need<HTMLButtonElement>('#theme-toggle');
     const label = need('#theme-label');
     const meta = need<HTMLMetaElement>('meta[name="theme-color"]');
-    const desk = { light: '#2C2545', dark: '#0C0A13' } as const;
 
-    const dark = () => document.documentElement.dataset.theme === 'dark';
+    const dark = (): boolean => document.documentElement.dataset.theme === 'dark';
 
-    const paint = () => {
+    // the button offers the other mode, so its label is the one you are not in
+    const paint = (): void =>
+    {
         label.textContent = dark() ? t('ui.day') : t('ui.night');
         need('.sr-only', button).textContent = dark() ? t('a11y.themeLight') : t('a11y.themeDark');
         button.setAttribute('aria-pressed', String(dark()));
     };
 
-    button.addEventListener('click', () => {
+    button.addEventListener('click', () =>
+    {
         const next = dark() ? 'light' : 'dark';
+
         document.documentElement.dataset.theme = next;
-        meta.content = desk[next];
+        meta.content = DESK_COLOUR[next];
         paint();
 
-        try {
+        try
+        {
             localStorage.setItem('mm-theme', next);
-        } catch {
-            // ignore
+        }
+        catch (err)
+        {
+            // private mode denies storage; the theme just will not survive a reload
         }
     });
 
     onLanguageChange(paint);
 }
 
-export function initWindows() {
-    for (const button of $$<HTMLButtonElement>('[data-shade]')) {
-        button.addEventListener('click', () => {
-            const body = need('.body', button.closest('.win')!);
-            const open = button.getAttribute('aria-expanded') === 'true';
+export function initWindows(): void
+{
+    for (const button of $$<HTMLButtonElement>('[data-shade]'))
+    {
+        button.addEventListener('click', () =>
+        {
+            const win = button.closest('.win');
 
-            body.hidden = open;
-            button.setAttribute('aria-expanded', String(!open));
-            need('use', button).setAttribute('href', open ? '#i-restore' : '#i-collapse');
-            need('.sr-only', button).textContent = open ? t('ui.expand') : t('ui.collapse');
+            if (win === null)
+            {
+                return;
+            }
+
+            roll(win, button.getAttribute('aria-expanded') !== 'true');
         });
     }
 }
 
-export function initSpy() {
+export function initSpy(): void
+{
     const tasks = $$<HTMLAnchorElement>('.task');
     const windows = $$('main section[id]');
-    const now = document.querySelector('#taskbar-now');
-
-    for (const win of windows) win.dataset.file = need('.bar-title', win).textContent!.trim();
-    const address = document.querySelector<HTMLInputElement>('#address');
+    const now = $('#taskbar-now');
+    const address = $<HTMLInputElement>('#address');
     const base = location.origin + location.pathname;
 
     let here = base;
 
-    if (address) {
+    for (const win of windows)
+    {
+        win.dataset.file = need('.bar-title', win).textContent?.trim() ?? '';
+    }
+
+    if (address !== null)
+    {
         address.value = base;
         address.addEventListener('focus', () => address.select());
 
-        document.addEventListener('mouseover', event => {
-            const link = (event.target as Element | null)?.closest?.('a[href]');
-            if (link) address.value = (link as HTMLAnchorElement).href;
+        // a real browser shows the link you are pointing at, so this one does too
+        document.addEventListener('mouseover', (event) =>
+        {
+            const link = linkUnder(event.target);
+
+            if (link !== null)
+            {
+                address.value = link.href;
+            }
         });
 
-        document.addEventListener('mouseout', event => {
-            if ((event.target as Element | null)?.closest?.('a[href]')) address.value = here;
+        document.addEventListener('mouseout', (event) =>
+        {
+            if (linkUnder(event.target) !== null)
+            {
+                address.value = here;
+            }
         });
     }
 
-    const spy = new IntersectionObserver(
-        entries => {
-            for (const entry of entries) {
-                if (!entry.isIntersecting) continue;
-
-                for (const task of tasks) {
-                    const active = task.dataset.target === entry.target.id;
-                    task.setAttribute('aria-current', active ? 'true' : 'false');
-                }
-
-                if (now) now.textContent = (entry.target as HTMLElement).dataset.file ?? '';
-
-                here = `${base}#${entry.target.id}`;
-                if (address && document.activeElement !== address) address.value = here;
+    const spy = new IntersectionObserver((entries) =>
+    {
+        for (const entry of entries)
+        {
+            if (!entry.isIntersecting)
+            {
+                continue;
             }
-        },
-        { rootMargin: '-40% 0px -50% 0px' },
-    );
 
-    for (const win of windows) spy.observe(win);
+            const win = entry.target as HTMLElement;
 
-    // clicking a task button on a rolled-up window opens it again
-    for (const task of tasks) {
-        task.addEventListener('click', () => {
+            for (const task of tasks)
+            {
+                task.setAttribute('aria-current', String(task.dataset.target === win.id));
+            }
+
+            if (now !== null)
+            {
+                now.textContent = win.dataset.file ?? '';
+            }
+
+            here = `${base}#${win.id}`;
+
+            if (address !== null && document.activeElement !== address)
+            {
+                address.value = here;
+            }
+        }
+    },
+    {
+        rootMargin: '-40% 0px -50% 0px',
+    });
+
+    for (const win of windows)
+    {
+        spy.observe(win);
+    }
+
+    for (const task of tasks)
+    {
+        task.addEventListener('click', () =>
+        {
             const win = document.getElementById(task.dataset.target ?? '');
-            const body = win && $('.body', win);
-            const button = win && $<HTMLButtonElement>('[data-shade]', win);
-            if (!body || !button || !body.hidden) return;
 
-            body.hidden = false;
-            button.setAttribute('aria-expanded', 'true');
-            need('use', button).setAttribute('href', '#i-collapse');
-            need('.sr-only', button).textContent = t('ui.collapse');
+            if (win !== null)
+            {
+                roll(win, true);
+            }
         });
     }
 }
 
-export function initStart() {
-    const button = document.querySelector<HTMLButtonElement>('#start');
-    const menu = document.querySelector<HTMLElement>('#startmenu');
-    if (!button || !menu) return;
+export function initStart(): void
+{
+    const button = $<HTMLButtonElement>('#start');
+    const menu = $('#startmenu');
 
-    const setOpen = (open: boolean) => {
+    if (button === null || menu === null)
+    {
+        return;
+    }
+
+    const setOpen = (open: boolean): void =>
+    {
         menu.hidden = !open;
         button.setAttribute('aria-expanded', String(open));
         button.setAttribute('aria-pressed', String(open));
     };
 
-    button.addEventListener('click', event => {
+    button.addEventListener('click', (event) =>
+    {
         event.stopPropagation();
         setOpen(menu.hidden);
     });
 
-    for (const link of $$('a', menu)) link.addEventListener('click', () => setOpen(false));
+    for (const link of $$('a', menu))
+    {
+        link.addEventListener('click', () => setOpen(false));
+    }
 
-    document.addEventListener('click', event => {
-        if (!menu.hidden && !menu.contains(event.target as Node)) setOpen(false);
+    document.addEventListener('click', (event) =>
+    {
+        if (!menu.hidden && !menu.contains(event.target as Node))
+        {
+            setOpen(false);
+        }
     });
 
-    document.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && !menu.hidden) {
+    document.addEventListener('keydown', (event) =>
+    {
+        if (event.key === 'Escape' && !menu.hidden)
+        {
             setOpen(false);
             button.focus();
         }
     });
 }
 
-export function initClock() {
+export function initClock(): void
+{
     const clock = need('#clock');
 
-    const paint = () => {
+    const paint = (): void =>
+    {
         const now = new Date();
-        const date = new Intl.DateTimeFormat(currentLang(), {
+        const lang = currentLang();
+
+        const date = new Intl.DateTimeFormat(lang,
+        {
             day: '2-digit',
             month: 'short',
             year: 'numeric',
-        }).format(now);
-        const time = new Intl.DateTimeFormat(currentLang(), {
+        });
+
+        const time = new Intl.DateTimeFormat(lang,
+        {
             hour: '2-digit',
             minute: '2-digit',
             hour12: false,
-        }).format(now);
+        });
 
-        clock.textContent = `${date}  ${time}`;
+        clock.textContent = `${date.format(now)}  ${time.format(now)}`;
     };
 
     paint();
@@ -183,4 +257,24 @@ export function initClock() {
     onLanguageChange(paint);
 }
 
-export const label = (key: Key) => t(key);
+/** Rolls a window up or down and keeps the shade button telling the truth. */
+function roll(win: Element, open: boolean): void
+{
+    const body = $('.body', win);
+    const button = $<HTMLButtonElement>('[data-shade]', win);
+
+    if (body === null || button === null || body.hidden !== open)
+    {
+        return;
+    }
+
+    body.hidden = !open;
+    button.setAttribute('aria-expanded', String(open));
+    need('use', button).setAttribute('href', open ? '#i-collapse' : '#i-restore');
+    need('.sr-only', button).textContent = open ? t('ui.collapse') : t('ui.expand');
+}
+
+function linkUnder(target: EventTarget | null): HTMLAnchorElement | null
+{
+    return target instanceof Element ? target.closest('a[href]') : null;
+}

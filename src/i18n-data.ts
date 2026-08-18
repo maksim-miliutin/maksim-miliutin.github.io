@@ -15,8 +15,8 @@ export const en = {
   hero: {
     kicker: "Full-stack engineer · open to relocation",
     headline: "I built a marketplace on my own. It has been in production ever since.",
-    lead: "Schema, API, storefront, deploy pipeline — one engineer, end to end. Bronyka Shop runs on NestJS, PostgreSQL and Docker, and I am the one who ships it and keeps it up.",
-    lead2: "Beyond it: Trellis, a language-learning platform at 97,000 lines and 598 tests, plus five smaller products. Around 170,000 lines of TypeScript, and a habit of testing anything that touches someone's money or their progress.",
+    lead: "Schema, API, storefront, deploy pipeline. One engineer, start to finish. Bronyka Shop runs on NestJS, PostgreSQL and Docker, and I am the one who ships it and gets the call when it breaks.",
+    lead2: "Beside it: Trellis at 97,494 lines, and five smaller products. 173,099 lines of TypeScript in total. Anything that touches someone's money or their progress gets tests.",
     cv: "Download CV (PDF)",
     work: "See the work",
     email: "Email me"
@@ -49,7 +49,7 @@ export const en = {
 
   about: {
     heading: "About",
-    p1: "I am a full-stack engineer with production experience rather than a folder of tutorials. I designed and built an online marketplace from an empty repository: database schema, backend, frontend, infrastructure. It now serves real customers and processes real orders, and every incident on it is mine to fix.",
+    p1: "I have shipped one thing that real people pay money through, and I maintain it. I designed and built the marketplace from an empty repository: database schema, backend, frontend, infrastructure. Every incident on it is mine to fix.",
     p2: "Two years of Computer Science at RTU MIREA gave me the fundamentals; everything past that I learned by shipping. I am looking for a team where I can bring the same ownership — and learn from engineers who have run systems larger than mine.",
     k1: "Shipped solo", v1: "One marketplace in production, five more products beside it",
     k2: "Comfortable with", v2: "Owning a feature from schema to production",
@@ -68,7 +68,7 @@ export const en = {
     },
     data: {
       title: "Rates are data, not constants",
-      body: "The French GP consultation went from €26.50 to €30 in December 2024. Hardcoded figures go stale silently and keep returning answers. Every rate in Reste carries a validity period and a source, and every calculation is made as of a date."
+      body: "The French GP consultation went from €26.50 to €30 in December 2024. Hardcoded figures go stale silently and keep answering. Every rate in Reste carries the dates it was in force and a link to the source it came from, and every calculation is made as of a date."
     },
     honesty: {
       title: "\"Cannot compute\" is a valid answer",
@@ -98,6 +98,8 @@ export const en = {
     degree: "Computer Science — two years completed"
   },
 
+  work: { shot: "bronykashop.com — the storefront customers see" },
+
   projects: {
     heading: "Projects",
     bronykaLead: "A collectibles marketplace with real-time buyer–seller chat, order management and a mobile-first PWA storefront. Built solo, running in production.",
@@ -109,8 +111,8 @@ export const en = {
     academicTitle: "Academic web projects",
     academicDesc: "Full-stack coursework projects, built and hosted end to end.",
     siteTitle: "This site",
-    siteDesc: "TypeScript, Vite and hand-written CSS. Three languages, two themes, a pixel icon set and a map built from real geodata.",
-    github: "More on GitHub"
+    siteDesc: "Hand-written TypeScript, CSS and HTML. No UI framework, no component library, just Vite to bundle it. Three languages, two themes, a pixel icon set and a map built from real geodata.",
+    github: "Other work"
   },
 
   side: {
@@ -123,23 +125,23 @@ export const en = {
     },
     veilla: {
       name: "Veilla",
-      tag: "Monorepo · 7 packages · 54 + 103 checks",
-      body: "A daily check-in call for an elderly parent living alone, scheduled in the parent's timezone. Transcript and audio are never stored — only structure leaves the call. The product is not the call: it is the decision about when to wake the daughter at two in the morning, and, more importantly, when not to. Suppressed alarms are a measured number."
+      tag: "Monorepo · 7 packages · 157 checks",
+      body: "A daily check-in call for an elderly parent living alone, scheduled in the parent's timezone. Transcript and audio are never stored: only structure leaves the call. But the call is the easy part. Anyone can place a call. The hard part is deciding whether what you heard is worth waking the daughter at two in the morning, and far more often, deciding that it is not. Get that wrong in one direction and someone lies on a floor until morning. Get it wrong the other way often enough and the family mutes the app, which is the same outcome with extra steps. So suppressed alarms are a number I measure, not a footnote."
     },
     pasmurno: {
       name: "Pasmurno",
       tag: "NestJS · Prisma · PostgreSQL · Expo · 8 languages",
-      body: "A mood journal for a circle of five people rather than a feed — no likes, no algorithm. The AI companion answers at four in the morning and says plainly that it is not a therapist. Chat never reaches the server and sits encrypted on the device. When the words sound like a real crisis, it surfaces the helplines for the user's country."
+      body: "A mood journal for a circle of five close people. No feed, no likes, no algorithm. The AI companion answers at four in the morning and says plainly that it is not a therapist. Chat never reaches the server and sits encrypted on the device. When the words sound like a real crisis, it surfaces the helplines for the user's country."
     },
     vydokh: {
       name: "Vydokh",
       tag: "Expo · Supabase · 7 languages · 262 core tests",
-      body: "Quitting vape without shame. A slip resets the streak and nothing else: current streak, best streak and total clean days are three separate numbers, and the last two never burn. Money saved counts every clean day, because it really was not spent. There is no red anywhere in the palette — a slip is data, not a failure."
+      body: "Quitting vape without shame. Three numbers: current streak, best streak, total clean days. A slip resets the first and leaves the other two alone. Money saved counts every clean day, because it really was not spent. There is no red anywhere in the palette; a slip just moves one number."
     },
     mira: {
       name: "Mira",
       tag: "Expo SDK 57 · React 19 · 8 languages",
-      body: "Point the camera at a plate for calories and macros, or at yourself for a face and skin read. It keeps both histories and correlates habits against the face score with a lag of nought to two days, entirely on device — always with the sample size, never claiming a cause. Barcodes are scored from Open Food Facts with a source link on every finding."
+      body: "Camera on a plate for calories and macros, camera on yourself for a face and skin read. It correlates the two histories on device, with a lag of nought to two days, and always shows the sample size."
     },
     note: "Full source and READMEs on GitHub."
   },
@@ -235,7 +237,7 @@ export const en = {
     colBuilt: "Built with"
   },
 
-  footer: { built: "TypeScript and Vite, hand-written CSS, pixel icons on a 24 grid." }
+  footer: { built: "Hand-written TypeScript, CSS and HTML. No UI framework, just Vite to bundle it.", updated: "Last updated: August 2026" }
 };
 
 export type Dict = typeof en;
@@ -254,8 +256,8 @@ const fr: Dict = {
   hero: {
     kicker: "Ingénieur full-stack · ouvert à la mobilité",
     headline: "J'ai construit une marketplace seul. Elle tourne en production depuis.",
-    lead: "Schéma, API, boutique, pipeline de déploiement — un seul ingénieur, de bout en bout. Bronyka Shop tourne sur NestJS, PostgreSQL et Docker, et c'est moi qui livre et qui maintiens.",
-    lead2: "À côté : Trellis, une plateforme d'apprentissage des langues de 97 000 lignes et 598 tests, plus cinq produits plus petits. Environ 170 000 lignes de TypeScript.",
+    lead: "Schéma, API, boutique, pipeline de déploiement. Un seul ingénieur, du début à la fin. Bronyka Shop tourne sur NestJS, PostgreSQL et Docker, et c'est moi qui le livre et qu'on appelle quand il casse.",
+    lead2: "À côté : Trellis, 97 494 lignes, et cinq produits plus petits. 173 099 lignes de TypeScript au total. Tout ce qui touche à l'argent ou aux progrès de quelqu'un est couvert par des tests.",
     cv: "Télécharger le CV (PDF)",
     work: "Voir les projets",
     email: "M'écrire"
@@ -288,7 +290,7 @@ const fr: Dict = {
 
   about: {
     heading: "À propos",
-    p1: "Je suis ingénieur full-stack avec une vraie expérience en production, pas un dossier de tutoriels. J'ai conçu et développé une marketplace à partir d'un dépôt vide : schéma de base de données, backend, frontend, infrastructure. Elle sert aujourd'hui de vrais clients et traite de vraies commandes, et chaque incident est à moi de le régler.",
+    p1: "J'ai livré une chose par laquelle de vraies personnes paient, et je la maintiens. J'ai conçu et construit la place de marché à partir d'un dépôt vide : schéma de base, backend, frontend, infrastructure. Chaque incident est à moi de réparer.",
     p2: "Deux années d'informatique à RTU MIREA m'ont donné les fondamentaux ; tout le reste, je l'ai appris en livrant. Je cherche une équipe où apporter le même sens de la responsabilité — et apprendre d'ingénieurs qui ont opéré des systèmes plus grands que le mien.",
     k1: "Livré en solo", v1: "Une marketplace en production, cinq autres produits à côté",
     k2: "À l'aise pour", v2: "Porter une fonctionnalité du schéma à la production",
@@ -307,7 +309,7 @@ const fr: Dict = {
     },
     data: {
       title: "Les tarifs sont des données, pas des constantes",
-      body: "La consultation d'un généraliste est passée de 26,50 € à 30 € en décembre 2024. Les valeurs codées en dur périment en silence et continuent de répondre. Chaque tarif dans Reste porte une période de validité et une source, et chaque calcul se fait à une date donnée."
+      body: "La consultation d'un généraliste est passée de 26,50 € à 30 € en décembre 2024. Les valeurs codées en dur périment en silence et continuent de répondre. Chaque tarif dans Reste porte les dates où il était en vigueur et un lien vers sa source, et chaque calcul se fait à une date donnée."
     },
     honesty: {
       title: "« Impossible à calculer » est une réponse valable",
@@ -337,6 +339,8 @@ const fr: Dict = {
     degree: "Informatique — deux années"
   },
 
+  work: { shot: "bronykashop.com — la boutique telle que les clients la voient" },
+
   projects: {
     heading: "Projets",
     bronykaLead: "Une marketplace de collection avec chat acheteur–vendeur en temps réel, gestion des commandes et boutique PWA mobile-first. Construite seul, en production.",
@@ -348,8 +352,8 @@ const fr: Dict = {
     academicTitle: "Projets web académiques",
     academicDesc: "Projets full-stack réalisés et hébergés de bout en bout pendant les études.",
     siteTitle: "Ce site",
-    siteDesc: "TypeScript, Vite et CSS écrit à la main. Trois langues, deux thèmes, un jeu d'icônes pixel et une carte construite à partir de vraies données géographiques.",
-    github: "Plus sur GitHub"
+    siteDesc: "TypeScript, CSS et HTML écrits à la main. Aucun framework d'interface, aucune bibliothèque de composants, juste Vite pour le bundle. Trois langues, deux thèmes, un jeu d'icônes pixel et une carte construite à partir de vraies données géographiques.",
+    github: "Autres travaux"
   },
 
   side: {
@@ -362,23 +366,23 @@ const fr: Dict = {
     },
     veilla: {
       name: "Veilla",
-      tag: "Monorepo · 7 paquets · 54 + 103 vérifications",
-      body: "Un appel quotidien pour un parent âgé qui vit seul, planifié dans son fuseau horaire. Ni transcription ni audio ne sont conservés — seule la structure sort de l'appel. Le produit n'est pas l'appel : c'est la décision de réveiller la fille à deux heures du matin, et surtout celle de ne pas la réveiller. Les alertes supprimées sont un chiffre mesuré."
+      tag: "Monorepo · 7 paquets · 157 vérifications",
+      body: "Un appel quotidien pour un parent âgé qui vit seul, planifié dans son fuseau horaire. Ni transcription ni audio ne sont conservés : seule la structure sort de l'appel. Mais l'appel est la partie facile. N'importe qui sait téléphoner. Le difficile, c'est de décider si ce qu'on a entendu mérite de réveiller la fille à deux heures du matin, et bien plus souvent, de décider que non. Se tromper dans un sens, et quelqu'un reste par terre jusqu'au matin. Se tromper assez souvent dans l'autre, et la famille coupe les notifications, ce qui revient au même en plus long. Les alertes supprimées sont donc un chiffre que je mesure, pas une note de bas de page."
     },
     pasmurno: {
       name: "Pasmurno",
       tag: "NestJS · Prisma · PostgreSQL · Expo · 8 langues",
-      body: "Un journal d'humeur pour un cercle de cinq proches, pas pour un fil — sans likes, sans algorithme. L'IA répond à quatre heures du matin et dit clairement qu'elle n'est pas thérapeute. La conversation n'atteint jamais le serveur et reste chiffrée sur l'appareil. Si les mots évoquent une vraie crise, l'application affiche les lignes d'écoute du pays de l'utilisateur."
+      body: "Un journal d'humeur pour un cercle de cinq proches. Pas de fil, pas de likes, pas d'algorithme. L'IA répond à quatre heures du matin et dit clairement qu'elle n'est pas thérapeute. La conversation n'atteint jamais le serveur et reste chiffrée sur l'appareil. Si les mots évoquent une vraie crise, l'application affiche les lignes d'écoute du pays de l'utilisateur."
     },
     vydokh: {
       name: "Vydokh",
       tag: "Expo · Supabase · 7 langues · 262 tests du cœur",
-      body: "Arrêter la vape sans honte. Une rechute remet à zéro la série et rien d'autre : série en cours, meilleure série et total de jours propres sont trois nombres distincts, et les deux derniers ne brûlent jamais. L'argent économisé compte chaque jour propre, parce qu'il n'a effectivement pas été dépensé. Aucun rouge dans la palette — une rechute est une donnée, pas un échec."
+      body: "Arrêter la vape sans honte. Trois nombres : série en cours, meilleure série, total de jours propres. Une rechute remet le premier à zéro et laisse les deux autres tranquilles. L'argent économisé compte chaque jour propre, parce qu'il n'a effectivement pas été dépensé. Aucun rouge dans la palette ; une rechute déplace simplement un nombre."
     },
     mira: {
       name: "Mira",
       tag: "Expo SDK 57 · React 19 · 8 langues",
-      body: "La caméra sur l'assiette pour les calories et les macros, ou sur soi pour une lecture du visage et de la peau. L'application garde les deux historiques et corrèle les habitudes au score du visage avec un décalage de zéro à deux jours, entièrement sur l'appareil — toujours avec la taille de l'échantillon, jamais en affirmant une cause. Les codes-barres sont notés à partir d'Open Food Facts, chaque constat avec sa source."
+      body: "La caméra sur l'assiette pour les calories et les macros, sur soi pour une lecture du visage et de la peau. L'application corrèle les deux historiques sur l'appareil, avec un décalage de zéro à deux jours, et affiche toujours la taille de l'échantillon."
     },
     note: "Sources et READMEs sur GitHub."
   },
@@ -474,7 +478,7 @@ const fr: Dict = {
     colBuilt: "Construit avec"
   },
 
-  footer: { built: "TypeScript et Vite, CSS écrit à la main, icônes pixel sur une grille de 24." }
+  footer: { built: "TypeScript, CSS et HTML écrits à la main. Aucun framework d'interface, juste Vite pour le bundle.", updated: "Mise à jour : août 2026" }
 };
 
 const ru: Dict = {
@@ -490,8 +494,8 @@ const ru: Dict = {
   hero: {
     kicker: "Full-stack разработчик · готов к переезду",
     headline: "Я в одиночку собрал маркетплейс. С тех пор он работает в продакшене.",
-    lead: "Схема базы, API, витрина, пайплайн деплоя — один разработчик, от начала до конца. Bronyka Shop работает на NestJS, PostgreSQL и Docker; я выкатываю релизы и держу сервис живым.",
-    lead2: "Кроме него: Trellis — платформа для изучения языков на 97 000 строк и 598 тестов, плюс пять продуктов поменьше. Около 170 000 строк TypeScript и привычка покрывать тестами всё, что касается чужих денег или чужого прогресса.",
+    lead: "Схема, API, витрина, деплой. Один инженер от начала до конца. Bronyka Shop работает на NestJS, PostgreSQL и Docker, и звонят мне, когда он падает.",
+    lead2: "Рядом: Trellis на 97 494 строки и пять продуктов поменьше. Всего 173 099 строк TypeScript. Всё, что касается чужих денег или чужого прогресса, покрыто тестами.",
     cv: "Скачать CV (PDF)",
     work: "Смотреть проекты",
     email: "Написать"
@@ -524,7 +528,7 @@ const ru: Dict = {
 
   about: {
     heading: "Обо мне",
-    p1: "Я full-stack разработчик с продакшен-опытом, а не с папкой туториалов. Спроектировал и собрал маркетплейс из пустого репозитория: схема базы, backend, frontend, инфраструктура. Сейчас им пользуются реальные покупатели и через него проходят реальные заказы, и любой инцидент чиню я.",
+    p1: "Я сделал вещь, через которую живые люди платят деньги, и я её поддерживаю. Маркетплейс собран с пустого репозитория: схема базы, бэкенд, фронтенд, инфраструктура. Каждый инцидент на нём чиню я.",
     p2: "Два курса информатики в РТУ МИРЭА дали базу; всё остальное я выучил, выкатывая продукты. Ищу команду, куда можно принести такой же уровень ответственности — и поучиться у инженеров, которые работали с системами больше моей.",
     k1: "Сделано в одиночку", v1: "Маркетплейс в продакшене и ещё пять продуктов рядом",
     k2: "Умею", v2: "Вести фичу от схемы базы до продакшена",
@@ -543,7 +547,7 @@ const ru: Dict = {
     },
     data: {
       title: "Тарифы — данные, а не константы",
-      body: "Приём терапевта во Франции подорожал с 26,50 € до 30 € в декабре 2024-го. Зашитые в код цифры устаревают молча и продолжают отвечать. У каждого тарифа в Reste есть период действия и источник, а расчёт делается на конкретную дату."
+      body: "Приём терапевта во Франции подорожал с 26,50 € до 30 € в декабре 2024-го. Зашитые в код цифры устаревают молча и продолжают отвечать. У каждого тарифа в Reste есть даты, когда он действовал, и ссылка на источник, а расчёт делается на конкретную дату."
     },
     honesty: {
       title: "«Посчитать нельзя» — тоже ответ",
@@ -573,6 +577,8 @@ const ru: Dict = {
     degree: "Информатика — два курса"
   },
 
+  work: { shot: "bronykashop.com — витрина, которую видят покупатели" },
+
   projects: {
     heading: "Проекты",
     bronykaLead: "Маркетплейс коллекционных товаров: чат покупатель–продавец в реальном времени, управление заказами и mobile-first PWA-витрина. Собран в одиночку, работает в продакшене.",
@@ -584,8 +590,8 @@ const ru: Dict = {
     academicTitle: "Учебные веб-проекты",
     academicDesc: "Full-stack проекты, собранные и развёрнутые целиком в рамках учёбы.",
     siteTitle: "Этот сайт",
-    siteDesc: "TypeScript, Vite и CSS руками. Три языка, две темы, пиксельный набор иконок и карта из настоящих геоданных.",
-    github: "Ещё на GitHub"
+    siteDesc: "TypeScript, CSS и HTML написаны руками. Ни UI-фреймворка, ни библиотеки компонентов, только Vite для сборки. Три языка, две темы, пиксельный набор иконок и карта из настоящих геоданных.",
+    github: "Другие работы"
   },
 
   side: {
@@ -598,23 +604,23 @@ const ru: Dict = {
     },
     veilla: {
       name: "Veilla",
-      tag: "Монорепо · 7 пакетов · 54 + 103 проверки",
-      body: "Ежедневный звонок пожилому родителю, который живёт один, по его часовому поясу. Ни транскрипт, ни аудио не сохраняются — наружу выходит только структура. Продукт — не звонок: продукт это решение, когда будить дочь в два часа ночи и, что важнее, когда её не будить. Подавленные тревоги — измеряемая величина."
+      tag: "Монорепо · 7 пакетов · 157 проверок",
+      body: "Ежедневный звонок пожилому родителю, который живёт один, по его часовому поясу. Ни транскрипт, ни аудио не сохраняются: наружу выходит только структура. Но звонок — простая часть. Позвонить умеет любой. Сложное — решить, стоит ли услышанное того, чтобы будить дочь в два часа ночи, и гораздо чаще решить, что не стоит. Ошибись в одну сторону — человек пролежит на полу до утра. Ошибайся достаточно часто в другую — семья отключит уведомления, и это тот же исход, только длиннее. Поэтому подавленные тревоги я измеряю, а не упоминаю сноской."
     },
     pasmurno: {
       name: "Pasmurno",
       tag: "NestJS · Prisma · PostgreSQL · Expo · 8 языков",
-      body: "Дневник настроения для круга из пяти близких, а не для ленты — без лайков и алгоритмов. ИИ-собеседник отвечает и в четыре утра, и честно говорит, что он не терапевт. Переписка не доходит до сервера и лежит на устройстве зашифрованной. Если в словах слышится настоящий кризис, приложение показывает живые линии помощи страны пользователя."
+      body: "Дневник настроения для круга из пяти близких. Без ленты, без лайков, без алгоритмов. ИИ-собеседник отвечает и в четыре утра, и честно говорит, что он не терапевт. Переписка не доходит до сервера и лежит на устройстве зашифрованной. Если в словах слышится настоящий кризис, приложение показывает живые линии помощи страны пользователя."
     },
     vydokh: {
       name: "Vydokh",
       tag: "Expo · Supabase · 7 языков · 262 теста ядра",
-      body: "Бросить вейп без стыда. Срыв обнуляет серию и больше ничего: текущая серия, лучшая серия и всего чистых дней — три разных числа, и последние два не сгорают никогда. Сэкономленные деньги считаются от всех чистых дней, потому что они и правда не потрачены. В палитре нет красного — срыв это данные, а не провал."
+      body: "Бросить вейп без стыда. Три числа: текущая серия, лучшая серия, всего чистых дней. Срыв обнуляет первое и не трогает остальные два. Сэкономленные деньги считаются от всех чистых дней, потому что они и правда не потрачены. В палитре нет красного; срыв просто сдвигает одно число."
     },
     mira: {
       name: "Mira",
       tag: "Expo SDK 57 · React 19 · 8 языков",
-      body: "Камера на тарелку — калории и макросы, камера на себя — разбор лица и кожи. Приложение держит обе истории и сопоставляет привычки с оценкой лица со сдвигом в ноль-два дня, целиком на устройстве: всегда показывает размер выборки и никогда не утверждает причину. Штрихкоды оцениваются по Open Food Facts, у каждого вывода своя ссылка на источник."
+      body: "Камера на тарелку — калории и макросы, камера на себя — разбор лица и кожи. Приложение сопоставляет две истории на устройстве со сдвигом в ноль-два дня и всегда показывает размер выборки."
     },
     note: "Исходники и README на GitHub."
   },
@@ -710,7 +716,7 @@ const ru: Dict = {
     colBuilt: "На чём"
   },
 
-  footer: { built: "TypeScript и Vite, CSS написан руками, пиксельные иконки по сетке 24." }
+  footer: { built: "TypeScript, CSS и HTML написаны руками. Без UI-фреймворка, только Vite для сборки.", updated: "Обновлено: август 2026" }
 };
 
 export const translations = { en, fr, ru };

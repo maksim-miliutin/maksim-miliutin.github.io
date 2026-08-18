@@ -1,41 +1,46 @@
-import { $$, need } from './dom';
+import { $, $$, need } from './dom';
 import { icon } from './chrome';
 import { currentLang, onLanguageChange, t } from './i18n';
 import { posts, type Post } from './posts';
 
-export function initNotes() {
-    const list = document.querySelector('#notes-list');
-    const reader = document.querySelector<HTMLElement>('#reader');
-    if (!list || !reader) return;
+const COPIED_MS = 1400;
 
-    const address = document.querySelector<HTMLInputElement>('#address');
-    const progress = document.querySelector<HTMLElement>('#reader-progress');
-    const copyButton = document.querySelector<HTMLButtonElement>('#reader-copy');
+export function initNotes(): void
+{
+    const list = $('#notes-list');
+    const reader = $('#reader');
+
+    if (list === null || reader === null)
+    {
+        return;
+    }
+
+    const address = $<HTMLInputElement>('#address');
+    const progress = $('#reader-progress');
+    const copyButton = $<HTMLButtonElement>('#reader-copy');
     const body = need('#reader-body', reader);
     const scroller = need('.body', reader);
 
-    const linkFor = (id: string) => `${location.origin}${location.pathname}#note-${id}`;
-    const copyFor = (post: Post) => post[currentLang()];
+    const linkFor = (id: string): string => `${location.origin}${location.pathname}#note-${id}`;
 
     let lastFocus: HTMLElement | null = null;
     let openId: string | null = null;
 
-    const paintProgress = () => {
-        if (!progress) return;
+    const paintProgress = (): void =>
+    {
+        if (progress === null)
+        {
+            return;
+        }
+
         const room = scroller.scrollHeight - scroller.clientHeight;
-        progress.style.width = `${room > 0 ? Math.round((scroller.scrollTop / room) * 100) : 100}%`;
+        const share = room > 0 ? Math.round((scroller.scrollTop / room) * 100) : 100;
+        progress.style.width = `${share}%`;
     };
 
-    const cell = (className: string, text: string, glyph?: string) => {
-        const el = document.createElement('span');
-        el.className = className;
-        el.textContent = text;
-        if (glyph) el.prepend(icon(glyph));
-        return el;
-    };
-
-    const open = (post: Post) => {
-        const copy = copyFor(post);
+    const open = (post: Post): void =>
+    {
+        const copy = post[currentLang()];
         openId = post.id;
 
         need('#reader-file', reader).textContent = `${post.id}.txt`;
@@ -44,26 +49,38 @@ export function initNotes() {
         need('#reader-title', reader).textContent = copy.title;
 
         body.textContent = '';
-        for (const paragraph of copy.body) {
+
+        for (const paragraph of copy.body)
+        {
             const p = document.createElement('p');
             p.textContent = paragraph;
             body.append(p);
         }
 
-        lastFocus = document.activeElement as HTMLElement | null;
+        lastFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
         reader.hidden = false;
         document.documentElement.style.overflow = 'hidden';
         need<HTMLButtonElement>('.shade', reader).focus();
 
+        // a note is worth sharing on its own, so it gets an address of its own
         history.replaceState(null, '', `#note-${post.id}`);
-        if (address) address.value = linkFor(post.id);
+
+        if (address !== null)
+        {
+            address.value = linkFor(post.id);
+        }
 
         scroller.scrollTop = 0;
         paintProgress();
     };
 
-    const close = () => {
-        if (reader.hidden) return;
+    const close = (): void =>
+    {
+        if (reader.hidden)
+        {
+            return;
+        }
+
         reader.hidden = true;
         openId = null;
         document.documentElement.style.overflow = '';
@@ -71,11 +88,13 @@ export function initNotes() {
         lastFocus?.focus();
     };
 
-    const render = () => {
+    const render = (): void =>
+    {
         list.textContent = '';
 
-        for (const post of posts) {
-            const copy = copyFor(post);
+        for (const post of posts)
+        {
+            const copy = post[currentLang()];
 
             const button = document.createElement('button');
             button.type = 'button';
@@ -83,56 +102,66 @@ export function initNotes() {
             button.textContent = t('notes.read');
             button.addEventListener('click', () => open(post));
 
-            const li = document.createElement('li');
-            li.append(
+            const item = document.createElement('li');
+            item.append(
                 cell('note-tag', post.tag),
                 cell('note-name', copy.title, 'document'),
                 button,
                 cell('note-meta', `${copy.readingTime} · ${post.date}`),
             );
-            list.append(li);
+
+            list.append(item);
         }
     };
 
-    for (const el of $$('[data-close]', reader)) el.addEventListener('click', close);
+    for (const element of $$('[data-close]', reader))
+    {
+        element.addEventListener('click', close);
+    }
 
     scroller.addEventListener('scroll', paintProgress);
 
-    copyButton?.addEventListener('click', async () => {
-        if (!openId) return;
-
-        try {
-            await navigator.clipboard.writeText(linkFor(openId));
-        } catch {
+    copyButton?.addEventListener('click', () =>
+    {
+        if (openId === null)
+        {
             return;
         }
 
-        const label = copyButton.lastChild;
-        if (!label) return;
+        navigator.clipboard.writeText(linkFor(openId)).then(() =>
+        {
+            const label = copyButton.lastChild;
 
-        label.textContent = t('ui.copied');
-        setTimeout(() => {
-            label.textContent = t('ui.copy');
-        }, 1400);
+            if (label === null)
+            {
+                return;
+            }
+
+            label.textContent = t('ui.copied');
+            setTimeout(() => { label.textContent = t('ui.copy'); }, COPIED_MS);
+        },
+        () =>
+        {
+            // clipboard denied; the address bar still shows the same link
+        });
     });
 
-    document.addEventListener('keydown', event => {
-        if (reader.hidden) return;
+    document.addEventListener('keydown', (event) =>
+    {
+        if (reader.hidden)
+        {
+            return;
+        }
 
-        if (event.key === 'Escape') return close();
-        if (event.key !== 'Tab') return;
+        if (event.key === 'Escape')
+        {
+            close();
+            return;
+        }
 
-        const focusable = $$<HTMLElement>('a[href], button', reader).filter(el => el.offsetParent !== null);
-        const first = focusable.at(0);
-        const last = focusable.at(-1);
-        if (!first || !last) return;
-
-        if (event.shiftKey && document.activeElement === first) {
-            event.preventDefault();
-            last.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-            event.preventDefault();
-            first.focus();
+        if (event.key === 'Tab')
+        {
+            trap(event, reader);
         }
     });
 
@@ -140,6 +169,50 @@ export function initNotes() {
     onLanguageChange(render);
 
     const wanted = location.hash.replace('#note-', '');
-    const deep = posts.find(post => post.id === wanted);
-    if (deep) open(deep);
+    const deep = posts.find((post) => post.id === wanted);
+
+    if (deep !== undefined)
+    {
+        open(deep);
+    }
+}
+
+function cell(className: string, text: string, glyph?: string): HTMLSpanElement
+{
+    const element = document.createElement('span');
+    element.className = className;
+    element.textContent = text;
+
+    if (glyph !== undefined)
+    {
+        element.prepend(icon(glyph));
+    }
+
+    return element;
+}
+
+function trap(event: KeyboardEvent, reader: Element): void
+{
+    const focusable = $$<HTMLElement>('a[href], button', reader)
+        .filter((el) => el.offsetParent !== null);
+    const first = focusable.at(0);
+    const last = focusable.at(-1);
+
+    if (first === undefined || last === undefined)
+    {
+        return;
+    }
+
+    if (event.shiftKey && document.activeElement === first)
+    {
+        event.preventDefault();
+        last.focus();
+        return;
+    }
+
+    if (!event.shiftKey && document.activeElement === last)
+    {
+        event.preventDefault();
+        first.focus();
+    }
 }

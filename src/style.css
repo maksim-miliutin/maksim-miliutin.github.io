@@ -1260,3 +1260,26 @@ p { color: var(--ink-dim); }
   .theme { min-width: 46px; font-size: 12px; }
   .tray span { font-size: 10px; padding: 0 5px; }
 }
+
+.shot {
+  margin: 18px 0 22px;
+  padding: 6px;
+  background: var(--face);
+  border: 2px solid;
+  border-color: var(--face-dk) var(--face-hi) var(--face-hi) var(--face-dk);
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--face-lo);
+}
+
+.shot figcaption {
+  padding: 7px 2px 1px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-dim);
+  text-align: center;
+}

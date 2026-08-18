@@ -1,53 +1,69 @@
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 
-function seo(siteUrl: string): Plugin {
-  return {
-    name: 'seo-files',
-    apply: 'build',
-    generateBundle() {
-      this.emitFile({
-        type: 'asset',
-        fileName: 'robots.txt',
-        source: `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`,
-      });
+/** Writes the files that have to carry the live domain: robots, sitemap and CNAME. */
+function seo(siteUrl: string): Plugin
+{
+    return {
+        name: 'seo-files',
+        apply: 'build',
 
-      this.emitFile({
-        type: 'asset',
-        fileName: 'sitemap.xml',
-        source: [
-          '<?xml version="1.0" encoding="UTF-8"?>',
-          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-          '  <url>',
-          `    <loc>${siteUrl}/</loc>`,
-          `    <lastmod>${new Date().toISOString().slice(0, 10)}</lastmod>`,
-          '    <changefreq>monthly</changefreq>',
-          '    <priority>1.0</priority>',
-          '  </url>',
-          '</urlset>',
-          '',
-        ].join('\n'),
-      });
+        generateBundle()
+        {
+            this.emitFile(
+            {
+                type: 'asset',
+                fileName: 'robots.txt',
+                source: `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`,
+            });
 
-      const host = new URL(siteUrl).hostname;
+            this.emitFile(
+            {
+                type: 'asset',
+                fileName: 'sitemap.xml',
+                source: sitemap(siteUrl),
+            });
 
-      // GitHub Pages wipes CNAME on every Actions deploy unless the artifact
-      // carries it, so the custom domain is emitted from the same env value
-      if (!host.endsWith('.github.io')) {
-        this.emitFile({ type: 'asset', fileName: 'CNAME', source: `${host}\n` });
-      }
-    },
-  };
+            const host = new URL(siteUrl).hostname;
+
+            // an Actions deploy replaces the published tree, so a CNAME that lives only in
+            // the Pages settings is wiped on the next push
+            if (!host.endsWith('.github.io'))
+            {
+                this.emitFile({ type: 'asset', fileName: 'CNAME', source: `${host}\n` });
+            }
+        },
+    };
 }
 
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), 'VITE_');
-  const siteUrl = (env.VITE_SITE_URL ?? '').replace(/\/$/, '');
+function sitemap(siteUrl: string): string
+{
+    return [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        '  <url>',
+        `    <loc>${siteUrl}/</loc>`,
+        `    <lastmod>${new Date().toISOString().slice(0, 10)}</lastmod>`,
+        '    <changefreq>monthly</changefreq>',
+        '    <priority>1.0</priority>',
+        '  </url>',
+        '</urlset>',
+        '',
+    ].join('\n');
+}
 
-  if (!siteUrl) throw new Error('VITE_SITE_URL is not set — see .env');
+export default defineConfig(({ mode }) =>
+{
+    const siteUrl = loadEnv(mode, process.cwd(), 'VITE_').VITE_SITE_URL;
 
-  return {
-    base: './',
-    build: { target: 'es2022', assetsInlineLimit: 0 },
-    plugins: [seo(siteUrl)],
-  };
+    if (siteUrl === undefined || siteUrl === '')
+    {
+        throw new Error('VITE_SITE_URL is missing; canonical, og:url and CNAME all read from it');
+    }
+
+    return {
+        // relative paths so the same build works at a domain root and under a subfolder
+        base: './',
+        plugins: [seo(siteUrl.replace(/\/$/, ''))],
+        build: { target: 'es2022', cssTarget: 'chrome100' },
+    };
 });
