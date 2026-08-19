@@ -14,8 +14,8 @@ export const en = {
 
   hero: {
     kicker: "Full-stack engineer · open to relocation",
-    headline: "I built a marketplace on my own. It has been in production ever since.",
-    lead: "Schema, API, storefront, deploy pipeline. One engineer, start to finish. Bronyka Shop runs on NestJS, PostgreSQL and Docker, and I am the one who ships it and gets the call when it breaks.",
+    headline: "I built Bronyka Shop alone. It has been in production ever since.",
+    lead: "Database, API, storefront, deploy pipeline: all mine. What I remember is not the features. It is one order that came out as two purchase requests in the chat, and messages that reached everyone except the buyer.",
     lead2: "Beside it: Trellis at 97,494 lines, and five smaller products. 173,099 lines of TypeScript in total. Anything that touches someone's money or their progress gets tests.",
     cv: "Download CV (PDF)",
     work: "See the work",
@@ -255,8 +255,8 @@ const fr: Dict = {
 
   hero: {
     kicker: "Ingénieur full-stack · ouvert à la mobilité",
-    headline: "J'ai construit une marketplace seul. Elle tourne en production depuis.",
-    lead: "Schéma, API, boutique, pipeline de déploiement. Un seul ingénieur, du début à la fin. Bronyka Shop tourne sur NestJS, PostgreSQL et Docker, et c'est moi qui le livre et qu'on appelle quand il casse.",
+    headline: "J'ai construit Bronyka Shop seul. Il tourne en production depuis.",
+    lead: "Base de données, API, boutique, pipeline de déploiement : tout est à moi. Ce dont je me souviens, ce ne sont pas les fonctionnalités. C'est une commande qui ressortait en deux demandes d'achat dans le chat, et des messages qui arrivaient partout sauf chez l'acheteur.",
     lead2: "À côté : Trellis, 97 494 lignes, et cinq produits plus petits. 173 099 lignes de TypeScript au total. Tout ce qui touche à l'argent ou aux progrès de quelqu'un est couvert par des tests.",
     cv: "Télécharger le CV (PDF)",
     work: "Voir les projets",
@@ -493,8 +493,8 @@ const ru: Dict = {
 
   hero: {
     kicker: "Full-stack разработчик · готов к переезду",
-    headline: "Я в одиночку собрал маркетплейс. С тех пор он работает в продакшене.",
-    lead: "Схема, API, витрина, деплой. Один инженер от начала до конца. Bronyka Shop работает на NestJS, PostgreSQL и Docker, и звонят мне, когда он падает.",
+    headline: "Я собрал Bronyka Shop один. С тех пор он работает в проде.",
+    lead: "База, API, витрина, деплой — всё моё. Запомнились не фичи. Запомнился заказ, который выходил двумя заявками в чате, и сообщения, доходившие до всех, кроме покупателя.",
     lead2: "Рядом: Trellis на 97 494 строки и пять продуктов поменьше. Всего 173 099 строк TypeScript. Всё, что касается чужих денег или чужого прогресса, покрыто тестами.",
     cv: "Скачать CV (PDF)",
     work: "Смотреть проекты",
