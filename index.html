@@ -140,7 +140,7 @@
             <div><dt data-i18n="id.role">Role</dt><dd data-i18n="id.roleValue">Full-stack engineer</dd></div>
             <div><dt data-i18n="id.based">Based in</dt><dd data-i18n="id.basedValue">Russia · open to relocation &amp; visa sponsorship</dd></div>
             <div><dt data-i18n="id.study">Education</dt><dd data-i18n="id.studyValue">Computer Science, RTU MIREA — two years completed</dd></div>
-            <div><dt data-i18n="id.langs">Languages</dt><dd data-i18n="id.langsValue">Russian, Ukrainian — native · English — improving toward B2</dd></div>
+            <div><dt data-i18n="id.langs">Languages</dt><dd data-i18n="id.langsValue">Russian, Ukrainian: native. English: reading and writing daily, still pulling it up</dd></div>
           </dl>
         </div>
       </div>
@@ -172,16 +172,16 @@
 
 
 
-      <p class="note-strip warn" data-icon="warning" data-i18n="building.honest">Not shipped yet. The learning logic, the schema contracts and the seams between layers are covered by tests; the app has not been run end to end. The first real launch will find things, and that is worth budgeting for rather than hiding.</p>
+      <p class="note-strip warn" data-icon="warning" data-i18n="building.honest">Not shipped yet. The learning logic, the schema contracts and the seams between layers are covered by tests; the app has not been run end to end. The first real launch will find things, and I would rather budget for that than hide it.</p>
 
       <h3 class="sub" data-i18n="ui.decisions">Design decisions</h3>
       <div class="cols">
         <p><b data-i18n="building.d1.title">Questions are not generated at runtime</b><br><span data-i18n="building.d1.body">Templates are expanded ahead of time and slots are filled only with words the learner already knows.</span></p>
-        <p><b data-i18n="building.d2.title">Slots are not independent</b><br><span data-i18n="building.d2.body">Hence compatibility tags and links between slots, rather than filling each one at random.</span></p>
+        <p><b data-i18n="building.d2.title">Slots are not independent</b><br><span data-i18n="building.d2.body">"Read" goes with a book and not with a car, boring requires bored, Russian past tense agrees with gender. Hence compatibility tags and links between slots, so a generated sentence stays legal.</span></p>
         <p><b data-i18n="building.d3.title">Mistakes are seeded from the native language</b><br><span data-i18n="building.d3.body">The error-hunt exercise corrupts sentences along interference patterns.</span></p>
         <p><b data-i18n="building.d4.title">Pseudo-words in the placement test</b><br><span data-i18n="building.d4.body">If a false positive costs nothing, the measurement does not work.</span></p>
-        <p><b data-i18n="building.d5.title">Learning logic knows no framework</b><br><span data-i18n="building.d5.body">Server, app and tests run the same code.</span></p>
-        <p><b data-i18n="building.d6.title">The seams are tested on purpose</b><br><span data-i18n="building.d6.body">Almost every bug found so far lived between modules, not inside them.</span></p>
+        <p><b data-i18n="building.d5.title">Learning logic knows no framework</b><br><span data-i18n="building.d5.body">It does not import Nest, Prisma or React. Server, app and tests run the same code. Three implementations of one rule would drift, and the drift would not show as a crash but as "for some reason it doesn't count on my phone".</span></p>
+        <p><b data-i18n="building.d6.title">The seams are tested on purpose</b><br><span data-i18n="building.d6.body">Almost every bug found so far lived between modules: a field the code asks the database for and the column is missing, a rule declared twice and grown apart, a contract line the server fills and the client never reads. None of them crashed anything.</span></p>
       </div>
 
       <dl class="props wide">
@@ -219,7 +219,7 @@
         <div><dt data-i18n="board.users">Users</dt><dd><b data-count-to="250" data-suffix="+">250+</b></dd></div>
         <div><dt data-i18n="board.products">Products</dt><dd><b data-count-to="252">252</b></dd></div>
         <div><dt data-i18n="board.orders">Orders</dt><dd><b data-count-to="70" data-suffix="+">70+</b></dd></div>
-        <div><dt data-i18n="board.owner">Owner</dt><dd class="txt" data-i18n="board.ownerValue">1 engineer — architecture to deploy</dd></div>
+        <div><dt data-i18n="board.owner">Owner</dt><dd class="txt" data-i18n="board.ownerValue">1 engineer, architecture to deploy</dd></div>
       </dl>
 
       <dl class="props wide">
@@ -267,7 +267,7 @@
     </div>
     <div class="body">
       <h2 data-i18n="side.heading">Beyond the marketplace</h2>
-      <p class="stand" data-i18n="side.lead">Bronyka Shop pays the bills. These are the products I build when I get to choose the problem — mostly things I needed myself and could not find.</p>
+      <p class="stand" data-i18n="side.lead">Bronyka Shop pays the bills. These are the products I build when I get to choose the problem, mostly things I needed myself and could not find.</p>
 
       <div class="files">
         <div class="fhead" aria-hidden="true">
@@ -278,7 +278,7 @@
         <ul>
           <li data-href="https://github.com/maksim-miliutin/Reste">
             <a class="fopen" hidden rel="noopener" target="_blank"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-link-out"/></svg></a><span class="fname notranslate" translate="no" data-icon="folder" data-i18n="side.reste.name">Reste</span>
-            <p data-i18n="side.reste.body">French medical quotes advertise "70% reimbursed" and mean 70% of a reimbursement base that can be a fifth of the price. An €800 crown returns €84, not €560. Reste reads the quote and shows what you will actually pay, with every number traced to its official source.</p>
+            <p data-i18n="side.reste.body">French medical quotes advertise "70% reimbursed" and mean 70% of a reimbursement base that can be a fifth of the price. An €800 crown returns €84. Reste reads the quote and shows what you will actually pay, with every number traced to its official source.</p>
             <span class="fmeta" data-i18n="side.reste.tag">React Native · TypeScript · 67 tests</span>
           </li>
           <li data-href="">
@@ -323,9 +323,9 @@
       <h2 data-i18n="how.heading">How I work</h2>
       <div class="cols">
         <p><b data-i18n="how.correctness.title">Money code gets tests</b><br><span data-i18n="how.correctness.body">Reste has 67 tests and Veilla 103. Not because tests are a ritual, but because a wrong number about someone's money is worse than no number: the user has no way to tell it is wrong.</span></p>
-        <p><b data-i18n="how.data.title">Rates are data, not constants</b><br><span data-i18n="how.data.body">The French GP consultation went from €26.50 to €30 in December 2024. Hardcoded figures go stale silently and keep answering. Every rate in Reste carries the dates it was in force and a link to the source it came from, and every calculation is made as of a date.</span></p>
+        <p><b data-i18n="how.data.title">Every rate carries its dates</b><br><span data-i18n="how.data.body">The French GP consultation went from €26.50 to €30 in December 2024. Hardcoded figures go stale silently and keep answering. Every rate in Reste carries the dates it was in force and a link to the source it came from, and every calculation is made as of a date.</span></p>
         <p><b data-i18n="how.honesty.title">"Cannot compute" is a valid answer</b><br><span data-i18n="how.honesty.body">When a line has no known reimbursement base, Reste says so instead of treating it as zero. A line without a base looks exactly like an honest full-cost line, so a silent zero would put a wrong total next to four right ones.</span></p>
-        <p><b data-i18n="how.seams.title">Bugs live between modules</b><br><span data-i18n="how.seams.body">Almost every defect I have found sat in the seam, not inside a unit: a column renamed on one side only, a rule declared in two places, a contract field written but never read. So the seams get their own tests: schema against queries, contract against both ends.</span></p>
+        <p><b data-i18n="how.seams.title">Bugs live between modules</b><br><span data-i18n="how.seams.body">Almost every defect I have found sat in the seam between two units: a column renamed on one side only, a rule declared in two places, a contract field written and never read. So the seams get their own tests. Schema against queries, contract against both ends.</span></p>
         <p><b data-i18n="how.scope.title">What I leave out</b><br><span data-i18n="how.scope.body">No invented regional averages, no annual cap I cannot verify. If the data to do it honestly does not exist, the feature does not ship.</span></p>
       </div>
     </div>
@@ -344,7 +344,7 @@
       <h2 data-i18n="about.heading">About</h2>
       <div class="cols">
         <p data-i18n="about.p1">I have shipped one thing that real people pay money through, and I maintain it. I designed and built the marketplace from an empty repository: database schema, backend, frontend, infrastructure. Every incident on it is mine to fix.</p>
-        <p data-i18n="about.p2">Two years of Computer Science at RTU MIREA gave me the fundamentals; everything past that I learned by shipping. I am looking for a team where I can bring the same ownership — and learn from engineers who have run systems larger than mine.</p>
+        <p data-i18n="about.p2">Two years of Computer Science at RTU MIREA gave me the fundamentals; everything past that I learned by shipping. I am looking for a team where I can bring the same ownership and learn from engineers who have run systems larger than mine.</p>
       </div>
       <dl class="props wide">
         <div><dt data-i18n="about.k1">Shipped solo</dt><dd data-i18n="about.v1">One marketplace in production, five more products beside it</dd></div>
@@ -375,7 +375,7 @@
         <p class="job-org notranslate" translate="no">Bronyka Shop — bronykashop.com</p>
         <ul class="bullets">
           <li data-i18n="resume.b0">Owned the whole stack: architecture, development, deployment and production upkeep across backend, frontend and infrastructure.</li>
-          <li data-i18n="resume.b1">Backend on NestJS, Prisma and PostgreSQL — REST API, JWT auth with access/refresh rotation, role-based access control, rate limiting.</li>
+          <li data-i18n="resume.b1">Backend on NestJS, Prisma and PostgreSQL. REST API, JWT auth with access/refresh rotation, role-based access control, rate limiting.</li>
           <li data-i18n="resume.b2">Buyer–seller messaging over WebSockets (Socket.IO), with an admin panel that watches live message flow.</li>
           <li data-i18n="resume.b3">Storefront on React and Vite: catalog, cart, checkout, order tracking, RU/EN localisation, mobile-first PWA with offline support.</li>
           <li data-i18n="resume.b4">Ran it as a business: checkout funnel, SEO (sitemap, Open Graph), and customer orders handled through the built-in chat.</li>
@@ -556,7 +556,7 @@
     </div>
     <div class="body">
       <h2 data-i18n="contact.heading">Get in touch</h2>
-      <p class="stand" data-i18n="contact.lead">Open to full-stack and backend roles. Relocation welcome — I am actively planning a move to the EU and can start the paperwork on my side.</p>
+      <p class="stand" data-i18n="contact.lead">Open to full-stack and backend roles. Relocation welcome: I am actively planning a move to the EU and can start the paperwork on my side.</p>
 
       <dl class="fields">
         <div>

@@ -30,13 +30,13 @@ export const en = {
     study: "Education",
     studyValue: "Computer Science, RTU MIREA — two years completed",
     langs: "Languages",
-    langsValue: "Russian, Ukrainian — native · English — improving toward B2"
+    langsValue: "Russian, Ukrainian: native. English: reading and writing daily, still pulling it up"
   },
 
   board: {
     state: "operational",
     owner: "Owner",
-    ownerValue: "1 engineer — architecture to deploy",
+    ownerValue: "1 engineer, architecture to deploy",
     users: "Users",
     products: "Products",
     orders: "Orders",
@@ -50,7 +50,7 @@ export const en = {
   about: {
     heading: "About",
     p1: "I have shipped one thing that real people pay money through, and I maintain it. I designed and built the marketplace from an empty repository: database schema, backend, frontend, infrastructure. Every incident on it is mine to fix.",
-    p2: "Two years of Computer Science at RTU MIREA gave me the fundamentals; everything past that I learned by shipping. I am looking for a team where I can bring the same ownership — and learn from engineers who have run systems larger than mine.",
+    p2: "Two years of Computer Science at RTU MIREA gave me the fundamentals; everything past that I learned by shipping. I am looking for a team where I can bring the same ownership and learn from engineers who have run systems larger than mine.",
     k1: "Shipped solo", v1: "One marketplace in production, five more products beside it",
     k2: "Comfortable with", v2: "Owning a feature from schema to production",
     k3: "Looking for", v3: "Full-stack or backend role, relocation welcome"
@@ -60,14 +60,14 @@ export const en = {
     heading: "How I work",
     seams: {
       title: "Bugs live between modules",
-      body: "Almost every defect I have found sat in the seam, not inside a unit: a column renamed on one side only, a rule declared in two places, a contract field written but never read. So the seams get their own tests: schema against queries, contract against both ends."
+      body: "Almost every defect I have found sat in the seam between two units: a column renamed on one side only, a rule declared in two places, a contract field written and never read. So the seams get their own tests. Schema against queries, contract against both ends."
     },
     correctness: {
       title: "Money code gets tests",
       body: "Reste has 67 tests and Veilla 103. Not because tests are a ritual, but because a wrong number about someone's money is worse than no number: the user has no way to tell it is wrong."
     },
     data: {
-      title: "Rates are data, not constants",
+      title: "Every rate carries its dates",
       body: "The French GP consultation went from €26.50 to €30 in December 2024. Hardcoded figures go stale silently and keep answering. Every rate in Reste carries the dates it was in force and a link to the source it came from, and every calculation is made as of a date."
     },
     honesty: {
@@ -86,7 +86,7 @@ export const en = {
     roleTitle: "Founder & lead full-stack developer",
     period: "2026 — present",
     b0: "Owned the whole stack: architecture, development, deployment and production upkeep across backend, frontend and infrastructure.",
-    b1: "Backend on NestJS, Prisma and PostgreSQL — REST API, JWT auth with access/refresh rotation, role-based access control, rate limiting.",
+    b1: "Backend on NestJS, Prisma and PostgreSQL. REST API, JWT auth with access/refresh rotation, role-based access control, rate limiting.",
     b2: "Buyer–seller messaging over WebSockets (Socket.IO), with an admin panel that watches live message flow.",
     b3: "Storefront on React and Vite: catalog, cart, checkout, order tracking, RU/EN localisation, mobile-first PWA with offline support.",
     b4: "Ran it as a business: checkout funnel, SEO (sitemap, Open Graph), and customer orders handled through the built-in chat.",
@@ -117,11 +117,11 @@ export const en = {
 
   side: {
     heading: "Beyond the marketplace",
-    lead: "Bronyka Shop pays the bills. These are the products I build when I get to choose the problem — mostly things I needed myself and could not find.",
+    lead: "Bronyka Shop pays the bills. These are the products I build when I get to choose the problem, mostly things I needed myself and could not find.",
     reste: {
       name: "Reste",
       tag: "React Native · TypeScript · 67 tests",
-      body: "French medical quotes advertise \"70% reimbursed\" and mean 70% of a reimbursement base that can be a fifth of the price. An €800 crown returns €84, not €560. Reste reads the quote and shows what you will actually pay, with every number traced to its official source."
+      body: "French medical quotes advertise \"70% reimbursed\" and mean 70% of a reimbursement base that can be a fifth of the price. An €800 crown returns €84. Reste reads the quote and shows what you will actually pay, with every number traced to its official source."
     },
     veilla: {
       name: "Veilla",
@@ -154,7 +154,7 @@ export const en = {
 
   contact: {
     heading: "Get in touch",
-    lead: "Open to full-stack and backend roles. Relocation welcome — I am actively planning a move to the EU and can start the paperwork on my side.",
+    lead: "Open to full-stack and backend roles. Relocation welcome: I am actively planning a move to the EU and can start the paperwork on my side.",
     availability: "Available for remote work now; on site from 2027.",
     email: "Email",
     telegram: "Telegram",
@@ -169,14 +169,14 @@ export const en = {
     tagline: "Grammar is a dependency graph, not a list of topics",
     lead: "A language app from A0 to C2 where topics unlock when their prerequisites are consolidated, explanations are written for the learner's native language, and essays feed back into the same graph: a mistake in your text drops the topic and schedules it for review.",
     scale: "97,494 lines · 358 files · 598 tests · six languages",
-    honest: "Not shipped yet. The learning logic, the schema contracts and the seams between layers are covered by tests; the app has not been run end to end. The first real launch will find things, and that is worth budgeting for rather than hiding.",
+    honest: "Not shipped yet. The learning logic, the schema contracts and the seams between layers are covered by tests; the app has not been run end to end. The first real launch will find things, and I would rather budget for that than hide it.",
     d1: {
       title: "Questions are not generated at runtime",
       body: "Templates are expanded ahead of time and slots are filled only with words the learner already knows. An unfamiliar word in a Present Simple exercise turns a grammar check into a vocabulary check, and the result stops meaning what it claims to measure."
     },
     d2: {
       title: "Slots are not independent",
-      body: "\"Read\" goes with a book and not with a car, boring requires bored, Russian past tense agrees with gender. Hence compatibility tags and links between slots, rather than filling each one at random."
+      body: "\"Read\" goes with a book and not with a car, boring requires bored, Russian past tense agrees with gender. Hence compatibility tags and links between slots, so a generated sentence stays legal."
     },
     d3: {
       title: "Mistakes are seeded from the native language",
@@ -188,11 +188,11 @@ export const en = {
     },
     d5: {
       title: "Learning logic knows no framework",
-      body: "It does not import Nest, Prisma or React. Server, app and tests run the same code — three implementations of one rule would drift, and the drift would not show as a crash but as \"for some reason it doesn't count on my phone\"."
+      body: "It does not import Nest, Prisma or React. Server, app and tests run the same code. Three implementations of one rule would drift, and the drift would not show as a crash but as \"for some reason it doesn't count on my phone\"."
     },
     d6: {
       title: "The seams are tested on purpose",
-      body: "Almost every bug found so far lived between modules, not inside them: a field the code asks the database for and the column is missing, a rule declared twice and grown apart, a contract line the server fills and the client never reads. None of them crashed anything."
+      body: "Almost every bug found so far lived between modules: a field the code asks the database for and the column is missing, a rule declared twice and grown apart, a contract line the server fills and the client never reads. None of them crashed anything."
     },
     stackLabel: "Stack",
     stack: "TypeScript · gRPC · Prisma · Expo · React Native · monorepo"
@@ -271,13 +271,13 @@ const fr: Dict = {
     study: "Formation",
     studyValue: "Informatique, RTU MIREA — deux années",
     langs: "Langues",
-    langsValue: "Russe, ukrainien — natif · Anglais — en progression vers B2"
+    langsValue: "Russe, ukrainien : natif. Anglais : lu et écrit tous les jours, encore en progression"
   },
 
   board: {
     state: "en production",
     owner: "Responsable",
-    ownerValue: "1 ingénieur — de l'architecture au déploiement",
+    ownerValue: "1 ingénieur, de l'architecture au déploiement",
     users: "Utilisateurs",
     products: "Produits",
     orders: "Commandes",
@@ -291,7 +291,7 @@ const fr: Dict = {
   about: {
     heading: "À propos",
     p1: "J'ai livré une chose par laquelle de vraies personnes paient, et je la maintiens. J'ai conçu et construit la place de marché à partir d'un dépôt vide : schéma de base, backend, frontend, infrastructure. Chaque incident est à moi de réparer.",
-    p2: "Deux années d'informatique à RTU MIREA m'ont donné les fondamentaux ; tout le reste, je l'ai appris en livrant. Je cherche une équipe où apporter le même sens de la responsabilité — et apprendre d'ingénieurs qui ont opéré des systèmes plus grands que le mien.",
+    p2: "Deux ans d'informatique à RTU MIREA m'ont donné les bases ; tout le reste, je l'ai appris en livrant. Je cherche une équipe où apporter la même prise de responsabilité et apprendre d'ingénieurs qui ont fait tourner des systèmes plus grands que le mien.",
     k1: "Livré en solo", v1: "Une marketplace en production, cinq autres produits à côté",
     k2: "À l'aise pour", v2: "Porter une fonctionnalité du schéma à la production",
     k3: "Je cherche", v3: "Un poste full-stack ou backend, mobilité bienvenue"
@@ -301,14 +301,14 @@ const fr: Dict = {
     heading: "Ma façon de travailler",
     seams: {
       title: "Les bugs vivent entre les modules",
-      body: "Presque tous les défauts que j'ai trouvés étaient dans la jointure, pas dans un module : une colonne renommée d'un seul côté, une règle déclarée à deux endroits, un champ de contrat écrit et jamais lu. Les jointures ont donc leurs propres tests : le schéma contre les requêtes, le contrat contre ses deux extrémités."
+      body: "Presque tous les défauts que j'ai trouvés étaient à la jointure entre deux modules : une colonne renommée d'un seul côté, une règle déclarée à deux endroits, un champ de contrat écrit et jamais lu. Les jointures ont donc leurs propres tests. Le schéma contre les requêtes, le contrat contre ses deux extrémités."
     },
     correctness: {
       title: "Le code qui touche à l'argent est testé",
       body: "Reste a 67 tests et Veilla 103. Non par rituel, mais parce qu'un chiffre faux sur l'argent de quelqu'un est pire qu'aucun chiffre : l'utilisateur n'a aucun moyen de voir qu'il est faux."
     },
     data: {
-      title: "Les tarifs sont des données, pas des constantes",
+      title: "Chaque tarif porte ses dates",
       body: "La consultation d'un généraliste est passée de 26,50 € à 30 € en décembre 2024. Les valeurs codées en dur périment en silence et continuent de répondre. Chaque tarif dans Reste porte les dates où il était en vigueur et un lien vers sa source, et chaque calcul se fait à une date donnée."
     },
     honesty: {
@@ -327,7 +327,7 @@ const fr: Dict = {
     roleTitle: "Fondateur & développeur full-stack principal",
     period: "2026 — aujourd'hui",
     b0: "Responsable de toute la stack : architecture, développement, déploiement et maintien en production (backend, frontend, infrastructure).",
-    b1: "Backend en NestJS, Prisma et PostgreSQL — API REST, authentification JWT avec rotation access/refresh, contrôle d'accès par rôles, limitation de débit.",
+    b1: "Backend sur NestJS, Prisma et PostgreSQL. API REST, authentification JWT avec rotation access/refresh, contrôle d'accès par rôles, limitation de débit.",
     b2: "Messagerie acheteur–vendeur en WebSockets (Socket.IO), avec un panneau d'administration qui suit les messages en direct.",
     b3: "Boutique en React et Vite : catalogue, panier, paiement, suivi des commandes, localisation RU/EN, PWA mobile-first avec mode hors ligne.",
     b4: "Gérée comme une vraie activité : tunnel de commande, SEO (sitemap, Open Graph) et suivi client via le chat intégré.",
@@ -358,11 +358,11 @@ const fr: Dict = {
 
   side: {
     heading: "Au-delà de la marketplace",
-    lead: "Bronyka Shop, c'est le travail. Voici les produits que je construis quand je choisis le problème moi-même — surtout des choses dont j'avais besoin et que je n'ai pas trouvées.",
+    lead: "Bronyka Shop paie les factures. Voici les produits que je construis quand je choisis le problème, surtout des choses dont j'avais besoin et que je n'ai pas trouvées.",
     reste: {
       name: "Reste",
       tag: "React Native · TypeScript · 67 tests",
-      body: "Un devis annonce « remboursé à 70 % » et veut dire 70 % d'une base de remboursement qui peut valoir un cinquième du prix. Une couronne à 800 € rapporte 84 €, pas 560 €. Reste lit le devis et affiche ce que vous paierez vraiment, chaque chiffre relié à sa source officielle."
+      body: "Les devis médicaux français annoncent « remboursé à 70 % » et sous-entendent 70 % d'une base de remboursement qui peut valoir un cinquième du prix. Une couronne à 800 € rapporte 84 €. Reste lit le devis et montre ce que vous paierez vraiment, chaque chiffre relié à sa source officielle."
     },
     veilla: {
       name: "Veilla",
@@ -395,7 +395,7 @@ const fr: Dict = {
 
   contact: {
     heading: "Me contacter",
-    lead: "Ouvert aux postes full-stack et backend. Relocalisation bienvenue — un déménagement vers l'UE est en préparation de mon côté.",
+    lead: "Ouvert aux postes full-stack et backend. Mobilité bienvenue : je prépare activement une installation dans l'UE et peux lancer les démarches de mon côté.",
     availability: "En télétravail dès maintenant, sur place à partir de 2027.",
     email: "E-mail",
     telegram: "Telegram",
@@ -410,14 +410,14 @@ const fr: Dict = {
     tagline: "La grammaire est un graphe de dépendances, pas une liste de thèmes",
     lead: "Une application d'apprentissage des langues de A0 à C2 : un thème s'ouvre quand ses prérequis sont consolidés, les explications sont écrites pour la langue maternelle de l'apprenant, et les rédactions rejoignent le même graphe — une faute dans le texte fait retomber le thème et le remet en révision.",
     scale: "97 494 lignes · 358 fichiers · 598 tests · six langues",
-    honest: "Pas encore lancé. La logique d'apprentissage, les contrats de schéma et les jointures entre couches sont couverts par des tests ; l'application n'a jamais tourné de bout en bout. Le premier vrai lancement trouvera des choses, et cela se planifie plutôt que se cache.",
+    honest: "Pas encore livré. La logique d'apprentissage, les contrats de schéma et les jointures entre couches sont couverts par des tests ; l'application n'a jamais été lancée de bout en bout. Le premier vrai lancement trouvera des choses, et je préfère le budgéter que le cacher.",
     d1: {
       title: "Les questions ne sont pas générées à l'exécution",
       body: "Les gabarits sont déroulés à l'avance et les emplacements ne reçoivent que des mots déjà connus. Un mot inconnu dans un exercice de Present Simple transforme un test de grammaire en test de vocabulaire."
     },
     d2: {
       title: "Les emplacements ne sont pas indépendants",
-      body: "« Lire » va avec un livre et pas avec une voiture, boring appelle bored, le passé russe s'accorde en genre. D'où des étiquettes de compatibilité et des liens entre emplacements."
+      body: "« Lire » va avec un livre et pas avec une voiture, boring demande bored, le passé russe s'accorde en genre. D'où les étiquettes de compatibilité et les liens entre emplacements, pour qu'une phrase générée reste correcte."
     },
     d3: {
       title: "Les fautes viennent de la langue maternelle",
@@ -429,11 +429,11 @@ const fr: Dict = {
     },
     d5: {
       title: "La logique d'apprentissage ignore les frameworks",
-      body: "Elle n'importe ni Nest, ni Prisma, ni React. Serveur, application et tests exécutent le même code : trois implémentations d'une même règle divergeraient, et la divergence n'apparaîtrait pas comme un plantage mais comme « sur mon téléphone ça ne compte pas »."
+      body: "Elle n'importe ni Nest, ni Prisma, ni React. Le serveur, l'application et les tests exécutent le même code. Trois implémentations d'une même règle finiraient par diverger, et la divergence n'apparaîtrait pas comme un plantage mais comme « pour une raison ou une autre, ça ne compte pas sur mon téléphone »."
     },
     d6: {
       title: "Les jointures sont testées exprès",
-      body: "Presque tous les bugs trouvés vivaient entre les modules, pas dedans : un champ demandé à la base dont la colonne manque, une règle déclarée deux fois et devenue incohérente, une ligne de contrat que le serveur remplit et que le client ne lit jamais. Aucun n'a fait planter quoi que ce soit."
+      body: "Presque tous les bugs trouvés jusqu'ici vivaient entre les modules : un champ que le code demande à la base et dont la colonne manque, une règle déclarée deux fois et devenue divergente, une ligne de contrat que le serveur remplit et que le client ne lit jamais. Aucun n'a fait planter quoi que ce soit."
     },
     stackLabel: "Stack",
     stack: "TypeScript · gRPC · Prisma · Expo · React Native · monorepo"
@@ -509,13 +509,13 @@ const ru: Dict = {
     study: "Образование",
     studyValue: "Информатика, РТУ МИРЭА — два курса",
     langs: "Языки",
-    langsValue: "Русский, украинский — родные · Английский — подтягиваю до B2"
+    langsValue: "Русский, украинский: родные. Английский: читаю и пишу каждый день, подтягиваю"
   },
 
   board: {
     state: "в продакшене",
     owner: "Ответственный",
-    ownerValue: "1 разработчик — от архитектуры до деплоя",
+    ownerValue: "1 инженер, от архитектуры до деплоя",
     users: "Пользователи",
     products: "Товары",
     orders: "Заказы",
@@ -529,7 +529,7 @@ const ru: Dict = {
   about: {
     heading: "Обо мне",
     p1: "Я сделал вещь, через которую живые люди платят деньги, и я её поддерживаю. Маркетплейс собран с пустого репозитория: схема базы, бэкенд, фронтенд, инфраструктура. Каждый инцидент на нём чиню я.",
-    p2: "Два курса информатики в РТУ МИРЭА дали базу; всё остальное я выучил, выкатывая продукты. Ищу команду, куда можно принести такой же уровень ответственности — и поучиться у инженеров, которые работали с системами больше моей.",
+    p2: "Два года Computer Science в РТУ МИРЭА дали фундамент; всё остальное я выучил, выкатывая. Ищу команду, где смогу принести такую же ответственность и поучиться у инженеров, которые водили системы больше моей.",
     k1: "Сделано в одиночку", v1: "Маркетплейс в продакшене и ещё пять продуктов рядом",
     k2: "Умею", v2: "Вести фичу от схемы базы до продакшена",
     k3: "Ищу", v3: "Full-stack или backend позицию, переезд не пугает"
@@ -539,14 +539,14 @@ const ru: Dict = {
     heading: "Как я работаю",
     seams: {
       title: "Ошибки живут между модулями",
-      body: "Почти все дефекты, которые я находил, сидели на стыке, а не внутри модуля: колонка, переименованная с одной стороны; правило, объявленное в двух местах; поле контракта, которое пишут и не читают. Поэтому у стыков свои тесты: схема против запросов, контракт против обоих концов."
+      body: "Почти все дефекты, которые я находил, сидели на стыке двух модулей: колонка, переименованная с одной стороны; правило, объявленное в двух местах; поле контракта, которое пишут и не читают. Поэтому у стыков свои тесты. Схема против запросов, контракт против обоих концов."
     },
     correctness: {
       title: "Код про деньги покрыт тестами",
       body: "У Reste 67 тестов, у Veilla 103. Не потому что тесты это ритуал, а потому что неверное число про чужие деньги хуже, чем никакого: пользователю нечем понять, что оно неверное."
     },
     data: {
-      title: "Тарифы — данные, а не константы",
+      title: "У каждого тарифа свои даты",
       body: "Приём терапевта во Франции подорожал с 26,50 € до 30 € в декабре 2024-го. Зашитые в код цифры устаревают молча и продолжают отвечать. У каждого тарифа в Reste есть даты, когда он действовал, и ссылка на источник, а расчёт делается на конкретную дату."
     },
     honesty: {
@@ -565,7 +565,7 @@ const ru: Dict = {
     roleTitle: "Основатель и ведущий full-stack разработчик",
     period: "2026 — настоящее время",
     b0: "Отвечал за весь стек: архитектура, разработка, деплой и поддержка в продакшене — backend, frontend и инфраструктура.",
-    b1: "Backend на NestJS, Prisma и PostgreSQL: REST API, JWT-аутентификация с ротацией access/refresh, ролевая модель доступа, rate limiting.",
+    b1: "Бэкенд на NestJS, Prisma и PostgreSQL. REST API, JWT-аутентификация с ротацией access/refresh, ролевой доступ, ограничение частоты запросов.",
     b2: "Чат покупатель–продавец на WebSockets (Socket.IO) и админ-панель, которая видит поток сообщений в реальном времени.",
     b3: "Витрина на React и Vite: каталог, корзина, оформление, отслеживание заказов, локализация RU/EN, mobile-first PWA с офлайн-режимом.",
     b4: "Вёл как бизнес: воронка оформления заказа, SEO (sitemap, Open Graph), работа с заказами клиентов через встроенный чат.",
@@ -596,11 +596,11 @@ const ru: Dict = {
 
   side: {
     heading: "Кроме маркетплейса",
-    lead: "Bronyka Shop — это работа. А это продукты, которые я делаю, когда сам выбираю задачу: в основном то, что понадобилось мне и чего не нашлось готового.",
+    lead: "Bronyka Shop оплачивает счета. Это продукты, которые я делаю, когда задачу выбираю сам, в основном то, что было нужно мне и чего я не нашёл.",
     reste: {
       name: "Reste",
       tag: "React Native · TypeScript · 67 тестов",
-      body: "Французские медицинские сметы обещают «возмещение 70 %», имея в виду 70 % от базы возмещения, которая бывает впятеро меньше цены. Коронка за 800 € возвращает 84 €, а не 560. Reste читает смету и показывает реальную доплату, где каждая цифра ведёт к официальному источнику."
+      body: "Французские медицинские сметы обещают «возмещение 70 %», имея в виду 70 % от базы возмещения, которая бывает впятеро меньше цены. Коронка за 800 € возвращает 84 €. Reste читает смету и показывает реальную доплату, где каждая цифра ведёт к официальному источнику."
     },
     veilla: {
       name: "Veilla",
@@ -633,7 +633,7 @@ const ru: Dict = {
 
   contact: {
     heading: "Связаться",
-    lead: "Открыт к full-stack и backend позициям. Готов к релокации — переезд в ЕС планирую и оформление со своей стороны начну сам.",
+    lead: "Открыт к full-stack и backend позициям. Релокация приветствуется: переезд в ЕС планирую и оформление со своей стороны начну сам.",
     availability: "Удалённо — сейчас, на месте — с 2027 года.",
     email: "Почта",
     telegram: "Telegram",
@@ -648,14 +648,14 @@ const ru: Dict = {
     tagline: "Грамматика — это граф зависимостей, а не список тем",
     lead: "Приложение для изучения языков от A0 до C2, где тема открывается, когда закреплены предпосылки, объяснения написаны под конкретный родной язык, а эссе замкнуто на тот же граф: ошибка в тексте роняет тему и поднимает её в повторение.",
     scale: "97 494 строки · 358 файлов · 598 тестов · шесть языков",
-    honest: "Ещё не запущено. Логика обучения, контракты схемы и стыки между слоями покрыты тестами; приложение целиком ни разу не прогонялось. Первый настоящий запуск найдёт своё, и это стоит закладывать в сроки, а не прятать.",
+    honest: "Ещё не запущено. Логика обучения, контракты схемы и стыки между слоями покрыты тестами; приложение ни разу не прогонялось от начала до конца. Первый настоящий запуск что-нибудь найдёт, и я предпочитаю заложить это в план, а не прятать.",
     d1: {
       title: "Вопросы не генерируются в рантайме",
       body: "Шаблоны раскатываются заранее, слоты заполняются только словами, которые ученик уже знает. Незнакомое слово в задании на Present Simple превращает проверку грамматики в проверку словаря, и результат перестаёт значить то, что заявлено."
     },
     d2: {
       title: "Слоты не независимы",
-      body: "«Читать» сочетается с книгой и не сочетается с машиной, boring требует bored, русское прошедшее согласуется по роду. Отсюда метки сочетаемости и связи между слотами вместо случайного заполнения."
+      body: "«Читать» сочетается с книгой и не сочетается с машиной, boring требует bored, русское прошедшее согласуется по роду. Отсюда теги совместимости и связи между слотами, чтобы сгенерированная фраза оставалась допустимой."
     },
     d3: {
       title: "Ошибки подсеваются от родного языка",
@@ -667,11 +667,11 @@ const ru: Dict = {
     },
     d5: {
       title: "Логика обучения не знает фреймворков",
-      body: "Она не импортирует ни Nest, ни Prisma, ни React. Сервер, приложение и тесты берут один и тот же код: три реализации одного правила разъехались бы, и расхождение проявилось бы не падением, а как «на телефоне почему-то не засчитывает»."
+      body: "Она не импортирует ни Nest, ни Prisma, ни React. Сервер, приложение и тесты выполняют один и тот же код. Три реализации одного правила разъехались бы, и расхождение проявилось бы не падением, а фразой «почему-то на телефоне не засчитывает»."
     },
     d6: {
       title: "Стыки проверяются намеренно",
-      body: "Почти все найденные ошибки лежали между модулями, а не внутри них: поле, которое код спрашивает у базы, а колонки нет; правило, объявленное дважды и разъехавшееся; строка контракта, которую сервер заполняет, а клиент не читает. Ни одна из них не падала."
+      body: "Почти все найденные баги жили между модулями: поле, которое код просит у базы, а колонки нет; правило, объявленное дважды и разъехавшееся; строка контракта, которую сервер заполняет, а клиент не читает. Ни один ничего не уронил."
     },
     stackLabel: "Стек",
     stack: "TypeScript · gRPC · Prisma · Expo · React Native · монорепозиторий"
