@@ -1,32 +1,59 @@
-export function $<T extends Element = HTMLElement>(
-    selector: string,
-    root: ParentNode = document,
-): T | null
-{
-    return root.querySelector<T>(selector);
-}
+type Attributes = Record<string, string>;
 
-export function $$<T extends Element = HTMLElement>(
-    selector: string,
-    root: ParentNode = document,
-): T[]
-{
-    return [...root.querySelectorAll<T>(selector)];
-}
+type Child = Node | string;
 
-export function need<T extends Element = HTMLElement>(
-    selector: string,
-    root: ParentNode = document,
-): T
+export function el<K extends keyof HTMLElementTagNameMap>(
+    tag: K,
+    attributes: Attributes = {},
+    children: Child[] = [],
+): HTMLElementTagNameMap[K]
 {
-    const element = root.querySelector<T>(selector);
+    const node = document.createElement(tag);
 
-    if (element === null)
+    for (const [name, value] of Object.entries(attributes))
     {
-        throw new Error(`missing element: ${selector}`);
+        if (name === 'class')
+        {
+            node.className = value;
+            continue;
+        }
+
+        if (name === 'text')
+        {
+            node.textContent = value;
+            continue;
+        }
+
+        node.setAttribute(name, value);
     }
 
-    return element;
+    node.append(...children);
+
+    return node;
 }
 
-export const stillMotion = (): boolean => matchMedia('(prefers-reduced-motion: reduce)').matches;
+export function svg(tag: string, attributes: Attributes = {}, children: Child[] = []): SVGElement
+{
+    const node = document.createElementNS('http://www.w3.org/2000/svg', tag);
+
+    for (const [name, value] of Object.entries(attributes))
+    {
+        node.setAttribute(name, value);
+    }
+
+    node.append(...children);
+
+    return node;
+}
+
+export function mount(id: string, node: Node): void
+{
+    const host = document.getElementById(id);
+
+    if (host === null)
+    {
+        throw new Error(`No mount point "${id}" in the page`);
+    }
+
+    host.replaceChildren(node);
+}

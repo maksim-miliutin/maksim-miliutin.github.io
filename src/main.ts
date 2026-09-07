@@ -1,23 +1,38 @@
 import './style.css';
+import { mount } from './dom';
+import { wireTheme } from './theme';
+import { mapSection, wireMap } from './atlas';
+import { mastheadSection } from './masthead';
+import { heroSection } from './hero';
+import { worksSection } from './works';
+import { kitSection } from './kit';
+import { footSection, reachSection } from './foot';
 
-import { initAtlas } from './atlas';
-import { initClock, initSpy, initStart, initTheme, initWindows, mountIcons } from './chrome';
-import { initDesk } from './desk';
-import { initRepos } from './github';
-import { initLanguage } from './i18n';
-import { initLinks } from './links';
-import { initNotes } from './notes';
+mount('masthead', mastheadSection());
+mount('hero', heroSection());
+mount('works', worksSection());
+mount('reach', reachSection());
+mount('atlas', mapSection());
+mount('kit', kitSection());
+mount('foot', footSection());
 
-mountIcons();
-initTheme();
-initWindows();
-initSpy();
-initStart();
-initClock();
-initAtlas();
-initNotes();
-initLinks();
-initLanguage();
-initDesk();
+const themeButton = document.getElementById('theme');
 
-void initRepos();
+if (themeButton !== null)
+{
+    wireTheme(document.documentElement, themeButton);
+}
+
+const pin = document.getElementById('pin');
+const leg = document.getElementById('leg');
+const legend = document.getElementById('legend');
+
+if (pin !== null && leg !== null && legend !== null)
+{
+    wireMap({
+        pin: pin as unknown as SVGGElement,
+        leg: leg as unknown as SVGPathElement,
+        legend,
+        buttons: document.querySelectorAll<HTMLButtonElement>('.cities button'),
+    });
+}

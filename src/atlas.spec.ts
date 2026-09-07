@@ -1,71 +1,94 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { CITIES, HOME, project, type CityId } from './atlas';
+import { along, arcTo, CITIES, ease, HOME, pathTo, project } from './atlas';
 
-// real coordinates, so the projection is checked against the world and not against itself
-const REAL: Record<CityId, [number, number]> =
+describe('project', () =>
 {
-    moscow: [37.6173, 55.7558],
-    paris: [2.3522, 48.8566],
-    dublin: [-6.2603, 53.3498],
-};
+    it('puts the three cities where the map draws them', () =>
+    {
+        expect(project(37.6, 55.75).x).toBeCloseTo(327.3, 0);
+        expect(project(2.35, 48.85).x).toBeCloseTo(92.3, 0);
+        expect(project(-6.26, 53.35).x).toBeCloseTo(34.9, 0);
+    });
 
-const MARKER_HALF = 3.5;
+    it('runs north to south down the picture', () =>
+    {
+        expect(project(0, 60).y).toBeLessThan(project(0, 40).y);
+    });
 
-const html = readFileSync('index.html', 'utf8');
+    it('runs west to east across it', () =>
+    {
+        expect(project(-10, 50).x).toBeLessThan(project(30, 50).x);
+    });
+});
 
-const MARKER = /<rect class="(spot|home)" x="([\d.]+)" y="([\d.]+)"/g;
-
-const markers = [...html.matchAll(MARKER)].map((m) =>
-({
-    kind: m[1] ?? '',
-    x: Number(m[2]) + MARKER_HALF,
-    y: Number(m[3]) + MARKER_HALF,
-}));
-
-describe('atlas', () =>
+describe('the cities', () =>
 {
-    it('puts every city where its real coordinates project to', () =>
+    it('knows the three and says something about each', () =>
     {
-        for (const id of Object.keys(CITIES) as CityId[])
+        for (const city of [CITIES.moscow, CITIES.paris, CITIES.dublin])
         {
-            const [lon, lat] = REAL[id];
-            const where = project(lon, lat);
-
-            expect(CITIES[id].x, id).toBeCloseTo(where.x, 1);
-            expect(CITIES[id].y, id).toBeCloseTo(where.y, 1);
+            expect(city.say.length).toBeGreaterThan(10);
         }
     });
 
-    // the coordinates live twice: here and as marker rects in the markup
-    it('draws a marker under every city', () =>
+    it('starts at home', () =>
     {
-        for (const id of Object.keys(CITIES) as CityId[])
-        {
-            const city = CITIES[id];
-            const near = markers.some((m) =>
-                Math.abs(m.x - city.x) < 1.5 && Math.abs(m.y - city.y) < 1.5);
+        expect(HOME).toBe(CITIES.moscow);
+    });
+});
 
-            expect(near, `${id} has no rect in index.html`).toBe(true);
-        }
+describe('along', () =>
+{
+    const paris = CITIES.paris;
+
+    it('starts at home and finishes at the city', () =>
+    {
+        expect(along(paris, 0).x).toBeCloseTo(HOME.x, 1);
+        expect(along(paris, 1).x).toBeCloseTo(paris.x, 1);
+        expect(along(paris, 1).y).toBeCloseTo(paris.y, 1);
     });
 
-    it('marks exactly one city as home', () =>
+    it('bows away from the straight line', () =>
     {
-        const home = markers.filter((m) => m.kind === 'home');
+        const straight = (HOME.y + paris.y) / 2;
 
-        expect(home).toHaveLength(1);
-        expect(home[0]?.x).toBeCloseTo(CITIES[HOME].x, 0);
+        expect(along(paris, 0.5).y).toBeLessThan(straight);
     });
 
-    it('keeps every city inside the drawn viewBox', () =>
+    it('keeps moving the whole way', () =>
     {
-        for (const city of Object.values(CITIES))
+        const points = [0, 0.25, 0.5, 0.75, 1].map((t) => along(paris, t).x);
+
+        for (let i = 1; i < points.length; i += 1)
         {
-            expect(city.x).toBeGreaterThan(0);
-            expect(city.x).toBeLessThan(360);
-            expect(city.y).toBeGreaterThan(0);
-            expect(city.y).toBeLessThan(276);
+            expect(points[i] as number).toBeLessThan(points[i - 1] as number);
         }
+    });
+});
+
+describe('ease', () =>
+{
+    it('starts still and ends still', () =>
+    {
+        expect(ease(0)).toBe(0);
+        expect(ease(1)).toBe(1);
+    });
+
+    it('is halfway at halfway', () =>
+    {
+        expect(ease(0.5)).toBeCloseTo(0.5, 5);
+    });
+});
+
+describe('pathTo', () =>
+{
+    it('draws from home to the city through the arc', () =>
+    {
+        const d = pathTo(CITIES.dublin);
+        const { midX } = arcTo(CITIES.dublin);
+
+        expect(d.startsWith(`M${HOME.x}`)).toBe(true);
+        expect(d).toContain(midX.toString());
+        expect(d.endsWith(`${CITIES.dublin.x} ${CITIES.dublin.y}`)).toBe(true);
     });
 });

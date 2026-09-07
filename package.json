@@ -6,7 +6,6 @@
     "dev": "vite",
     "build": "tsc --noEmit && vitest run && vite build",
     "preview": "vite preview",
-    "icons": "node tools/build-sprite.mjs tools/icons-source.svg",
     "test": "vitest run"
   },
   "devDependencies": {

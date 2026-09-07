@@ -1,103 +1,176 @@
-import { $, $$, need, stillMotion } from './dom';
-import { onLanguageChange, t } from './i18n';
-import type { Key } from './i18n-data';
+import { el, svg } from './dom';
+import { BORDERS, LAND } from './coast';
 
-export type CityId = 'moscow' | 'paris' | 'dublin';
-
-interface City
+export interface City
 {
     x: number;
     y: number;
-    key: Key;
+    say: string;
 }
 
-// the map was rasterised from Natural Earth at 0.3 degrees per cell, two units
-// wide and three tall; a city has to land on the same grid as the coastline
-export const project = (lon: number, lat: number): { x: number; y: number } =>
-({
-    x: Math.round(((lon + 11.5) / 0.3) * 2 * 10) / 10,
-    y: Math.round(((61.5 - lat) / 0.3) * 3 * 10) / 10,
-});
-
-export const HOME: CityId = 'moscow';
-
-export const CITIES: Record<CityId, City> =
+export function project(lon: number, lat: number): { x: number; y: number }
 {
-    moscow: { x: 327.4, y: 57.4, key: 'map.moscow' },
-    paris: { x: 92.3, y: 126.4, key: 'map.paris' },
-    dublin: { x: 34.9, y: 81.5, key: 'map.dublin' },
-};
+    return { x: ((lon + 11.5) / 0.3) * 2, y: ((61.5 - lat) / 0.3) * 3 };
+}
 
-const FLIGHT_MS = 700;
-
-export function initAtlas(): void
+export const CITIES =
 {
-    const map = $('#map');
+    moscow: { ...project(37.6, 55.75), say: 'Here now. Remote straight away.' },
+    paris: { ...project(2.35, 48.85),
+        say: 'Paris. On site from 2027, paperwork mine to start.' },
+    dublin: { ...project(-6.26, 53.35),
+        say: 'Dublin. On site from 2027, paperwork mine to start.' },
+} satisfies Record<string, City>;
 
-    if (map === null)
-    {
-        return;
-    }
+export type CityName = keyof typeof CITIES;
 
-    const pin = need('#pin', map);
-    const route = need('#route', map);
-    const fromCell = need('#map-from', map);
-    const toCell = need('#map-to', map);
-    const buttons = $$<HTMLButtonElement>('[data-city]', map);
+export const HOME: City = CITIES.moscow;
 
-    let at: CityId = HOME;
-    let cameFrom: CityId | null = null;
-    let flying = false;
+const FLIGHT_MS = 750;
 
-    const place = (x: number, y: number): void =>
-    {
-        pin.setAttribute('transform', `translate(${x} ${y})`);
+export function arcTo(to: City): { midX: number; midY: number }
+{
+    return {
+        midX: (HOME.x + to.x) / 2,
+        midY: (HOME.y + to.y) / 2 - Math.abs(HOME.x - to.x) * 0.16,
     };
+}
 
-    const paint = (): void =>
-    {
-        fromCell.textContent = t(CITIES[cameFrom ?? HOME].key);
-        toCell.textContent = cameFrom === null ? t('map.pick') : t(CITIES[at].key);
+export function along(to: City, t: number): { x: number; y: number }
+{
+    const { midX, midY } = arcTo(to);
+    const u = 1 - t;
+
+    return {
+        x: u * u * HOME.x + 2 * u * t * midX + t * t * to.x,
+        y: u * u * HOME.y + 2 * u * t * midY + t * t * to.y,
     };
+}
 
-    const land = (next: CityId): void =>
+export function ease(t: number): number
+{
+    return t < 0.5 ? 2 * t * t : 1 - ((-2 * t + 2) ** 2) / 2;
+}
+
+export function pathTo(to: City): string
+{
+    const { midX, midY } = arcTo(to);
+
+    return `M${HOME.x} ${HOME.y} Q${midX} ${midY} ${to.x} ${to.y}`;
+}
+
+export function mapSection(): HTMLElement
+{
+    const shapes = (paths: string[], group: string): SVGElement =>
+        svg('g', { class: group }, paths.map((d) => svg('path', { d })));
+
+    const pin = svg('g', { id: 'pin', transform: `translate(${HOME.x} ${HOME.y})` },
+    [
+        svg('circle', { class: 'pin-halo', r: '9' }),
+        svg('circle', { class: 'pin-dot', r: '4' }),
+    ]);
+
+    const mark = (city: City, klass: string): SVGElement => svg('rect',
     {
-        flying = false;
-        at = next;
-        map.classList.remove('busy');
+        class: klass,
+        x: (city.x - 3).toFixed(1),
+        y: (city.y - 3).toFixed(1),
+        width: '6',
+        height: '6',
+    });
 
-        for (const button of buttons)
+    const name = (city: City, text: string, anchor: string, dx: number, dy: number) =>
+        svg('text',
         {
-            button.setAttribute('aria-pressed', String(button.dataset.city === next));
-        }
+            class: 'label',
+            x: (city.x + dx).toFixed(1),
+            y: (city.y + dy).toFixed(1),
+            'text-anchor': anchor,
+        }, [text]);
+
+    const picture = svg('svg',
+    {
+        viewBox: '10 30 340 210',
+        role: 'img',
+        'aria-label': 'Map of Europe with Moscow, Paris and Dublin marked',
+    },
+    [
+        shapes(LAND, 'land'),
+        shapes(BORDERS, 'borders'),
+        svg('path', { class: 'leg', id: 'leg', d: '' }),
+        mark(CITIES.paris, 'there'),
+        mark(CITIES.dublin, 'there'),
+        mark(HOME, 'here'),
+        pin,
+        name(HOME, 'Moscow', 'end', -7, 3),
+        name(CITIES.paris, 'Paris', 'middle', 0, 15),
+        name(CITIES.dublin, 'Dublin', 'start', 7, 3),
+    ]);
+
+    const buttons = (['moscow', 'paris', 'dublin'] as const).map((key) => el('button',
+    {
+        type: 'button',
+        'data-city': key,
+        'aria-pressed': String(key === 'moscow'),
+        text: key.charAt(0).toUpperCase() + key.slice(1),
+    }));
+
+    return el('section', { class: 'moving' },
+    [
+        el('h2', { text: 'Where I am going' }),
+        el('div', { class: 'plot' }, [picture]),
+        el('div', { class: 'cities' }, buttons),
+        el('p', { class: 'legend', id: 'legend', text: HOME.say }),
+    ]);
+}
+
+export interface MapParts
+{
+    pin: SVGGElement;
+    leg: SVGPathElement;
+    legend: HTMLElement;
+    buttons: NodeListOf<HTMLButtonElement>;
+}
+
+export function wireMap(parts: MapParts): void
+{
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const put = (x: number, y: number): void =>
+    {
+        parts.pin.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
     };
 
-    const flyTo = (next: CityId): void =>
+    const fly = (name: string): void =>
     {
-        if (flying || next === at)
+        const to = CITIES[name as CityName] as City | undefined;
+
+        if (to === undefined)
         {
             return;
         }
 
-        const from = CITIES[at];
-        const to = CITIES[next];
-
-        // the line is drawn first and the pin walks the same two points, so they cannot drift
-        route.setAttribute('x1', String(from.x));
-        route.setAttribute('y1', String(from.y));
-        route.setAttribute('x2', String(to.x));
-        route.setAttribute('y2', String(to.y));
-
-        flying = true;
-        cameFrom = at;
-        map.classList.add('busy');
-        fromCell.textContent = t(from.key);
-        toCell.textContent = t(to.key);
-
-        if (stillMotion())
+        for (const one of parts.buttons)
         {
-            place(to.x, to.y);
-            land(next);
+            one.setAttribute('aria-pressed', String(one.dataset.city === name));
+        }
+
+        parts.legend.textContent = to.say;
+
+        if (name === 'moscow')
+        {
+            parts.leg.setAttribute('d', '');
+            put(HOME.x, HOME.y);
+
+            return;
+        }
+
+        parts.leg.setAttribute('d', pathTo(to));
+
+        if (still)
+        {
+            put(to.x, to.y);
+
             return;
         }
 
@@ -105,44 +178,22 @@ export function initAtlas(): void
 
         const step = (now: number): void =>
         {
-            const progress = Math.min(1, (now - started) / FLIGHT_MS);
-            const eased = 1 - Math.pow(1 - progress, 3);
+            const t = Math.min(1, (now - started) / FLIGHT_MS);
+            const { x, y } = along(to, ease(t));
 
-            place(from.x + (to.x - from.x) * eased, from.y + (to.y - from.y) * eased);
+            put(x, y);
 
-            if (progress < 1)
+            if (t < 1)
             {
                 requestAnimationFrame(step);
-                return;
             }
-
-            land(next);
         };
 
         requestAnimationFrame(step);
     };
 
-    for (const button of buttons)
+    for (const one of parts.buttons)
     {
-        button.addEventListener('click', () =>
-        {
-            const id = button.dataset.city;
-
-            if (id === 'moscow' || id === 'paris' || id === 'dublin')
-            {
-                flyTo(id);
-            }
-        });
+        one.addEventListener('click', () => fly(one.dataset.city ?? 'moscow'));
     }
-
-    const home = CITIES[HOME];
-
-    place(home.x, home.y);
-    route.setAttribute('x1', String(home.x));
-    route.setAttribute('y1', String(home.y));
-    route.setAttribute('x2', String(home.x));
-    route.setAttribute('y2', String(home.y));
-
-    paint();
-    onLanguageChange(paint);
 }

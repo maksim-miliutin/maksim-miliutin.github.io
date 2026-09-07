@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 
-/** Writes the files that have to carry the live domain: robots, sitemap and CNAME. */
 function seo(siteUrl: string): Plugin
 {
     return {
@@ -25,8 +24,6 @@ function seo(siteUrl: string): Plugin
 
             const host = new URL(siteUrl).hostname;
 
-            // an Actions deploy replaces the published tree, so a CNAME that lives only in
-            // the Pages settings is wiped on the next push
             if (!host.endsWith('.github.io'))
             {
                 this.emitFile({ type: 'asset', fileName: 'CNAME', source: `${host}\n` });
@@ -61,7 +58,6 @@ export default defineConfig(({ mode }) =>
     }
 
     return {
-        // relative paths so the same build works at a domain root and under a subfolder
         base: './',
         plugins: [seo(siteUrl.replace(/\/$/, ''))],
         build: { target: 'es2022', cssTarget: 'chrome100' },
