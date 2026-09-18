@@ -35,7 +35,7 @@ export const CLAIM =
     drawn: 'My Little Pony',
     after: ' figurines, and I wrote every line of it.',
     under: 'From an empty repository to production, alone. What I remember is not the '
-        + 'feature list — it is the evening one order came out as two purchase '
+        + 'feature list. It is the evening one order came out as two purchase '
         + 'requests, and the week messages reached everyone except the buyer. Neither '
         + 'crashed, and that is where the tests went next.',
 };
@@ -46,7 +46,7 @@ export const SHOP =
     image: '/assets/bronyka.jpg',
     alt: 'The Bronyka Shop storefront',
     name: 'bronykashop.com',
-    caption: ' — the storefront customers actually see',
+    caption: ', the storefront customers actually see',
 };
 
 export const NOW =
