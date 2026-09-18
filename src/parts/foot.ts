@@ -1,5 +1,5 @@
-import { el } from './dom';
-import { COLOPHON, LINKS, REACH, RULES } from './content';
+import { el } from '../dom';
+import { COLOPHON, LINKS, REACH, RULES } from '../say/content';
 
 export function reachSection(): HTMLElement
 {

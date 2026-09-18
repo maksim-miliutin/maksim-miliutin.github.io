@@ -1,6 +1,6 @@
-import { el } from './dom';
-import { ALSO, LEAD } from './content';
-import type { Tool } from './content';
+import { el } from '../dom';
+import { ALSO, LEAD } from '../say/content';
+import type { Tool } from '../say/content';
 
 function tool(one: Tool, klass: string): HTMLElement
 {

@@ -1,5 +1,5 @@
-import { el } from './dom';
-import { CLAIM, LEAD, NOW, SHOP, TALLY, WHO } from './content';
+import { el } from '../dom';
+import { CLAIM, LEAD, NOW, SHOP, TALLY, WHO } from '../say/content';
 
 function face(): HTMLElement
 {

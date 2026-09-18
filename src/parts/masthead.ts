@@ -1,5 +1,5 @@
-import { el } from './dom';
-import { LINKS, WHO } from './content';
+import { el } from '../dom';
+import { LINKS, WHO } from '../say/content';
 
 export function mastheadSection(): HTMLElement
 {

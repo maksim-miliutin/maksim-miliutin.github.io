@@ -1,12 +1,12 @@
 import './style.css';
 import { mount } from './dom';
 import { wireTheme } from './theme';
-import { mapSection, wireMap } from './atlas';
-import { mastheadSection } from './masthead';
-import { heroSection } from './hero';
-import { worksSection } from './works';
-import { kitSection } from './kit';
-import { footSection, reachSection } from './foot';
+import { mapSection, wireMap } from './parts/atlas';
+import { mastheadSection } from './parts/masthead';
+import { heroSection } from './parts/hero';
+import { worksSection } from './parts/works';
+import { kitSection } from './parts/kit';
+import { footSection, reachSection } from './parts/foot';
 
 mount('masthead', mastheadSection());
 mount('hero', heroSection());

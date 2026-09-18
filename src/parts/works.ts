@@ -1,5 +1,5 @@
-import { el } from './dom';
-import { WORKS } from './content';
+import { el } from '../dom';
+import { WORKS } from '../say/content';
 
 export function worksSection(): HTMLElement
 {

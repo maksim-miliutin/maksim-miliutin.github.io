@@ -1,4 +1,4 @@
-import { el, svg } from './dom';
+import { el, svg } from '../dom';
 import { BORDERS, LAND } from './coast';
 
 export interface City
