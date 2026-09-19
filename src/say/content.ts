@@ -1,4 +1,4 @@
-import { spoken } from './tongue';
+import { Tongue, spoken } from './tongue';
 
 export interface Work
 {
@@ -970,9 +970,9 @@ const FR: Copy =
     colophon: 'Écrit à la main. Pas de framework, pas d’analyse.',
 };
 
-const SAID: Record<string, Copy> = { en: EN, ru: RU, fr: FR };
+export const SAID: Record<Tongue, Copy> = { en: EN, ru: RU, fr: FR };
 
-const said = SAID[spoken()] ?? EN;
+const said = SAID[spoken()];
 
 export const WHO = said.who;
 export const LINKS = said.links;

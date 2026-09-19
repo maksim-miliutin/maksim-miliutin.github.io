@@ -617,3 +617,18 @@ a { color: var(--pop); text-underline-offset: 3px; }
 }
 
 .story p { margin: 0; }
+
+/* The one thing a reader needs before anything else is a language they read. */
+.tongues button
+{
+    border: 0;
+    background: none;
+    padding: 0 0 0 10px;
+    font: inherit;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    cursor: pointer;
+}
+
+.tongues button:hover { color: var(--pop); }
+.tongues button:disabled { color: var(--ink); cursor: default; }

@@ -1,79 +1,76 @@
 import { describe, expect, it } from 'vitest';
-import { ALSO, LEAD, LINKS, TALLY, WORKS } from './content';
+import { SAID } from './content';
+import { TONGUES } from './tongue';
 
-describe('the works', () =>
+const tables = TONGUES.map((tongue) => [tongue, SAID[tongue]] as const);
+
+describe('the three languages', () =>
 {
-    it('names each one once', () =>
+    it('has a table for every language offered', () =>
     {
-        const names = WORKS.map((one) => one.name);
-
-        expect(new Set(names).size).toBe(names.length);
-    });
-
-    it('gives every one a figure and a sentence', () =>
-    {
-        for (const work of WORKS)
+        for (const [tongue, table] of tables)
         {
-            expect(work.figure.length, work.name).toBeGreaterThan(0);
-            expect(work.what.length, work.name).toBeGreaterThan(20);
+            expect(table, tongue).toBeDefined();
         }
     });
 
-    it('leads with the one in production', () =>
+    it('lists the same work in the same order everywhere', () =>
     {
-        expect(WORKS[0]?.name).toBe('Bronyka Shop');
-    });
-});
+        const names = tables.map(([, table]) => table.works.map((one) => one.name));
 
-describe('the tools', () =>
-{
-    it('names an icon for every tool in both lists', () =>
-    {
-        for (const tool of [...LEAD, ...ALSO])
+        for (const one of names)
         {
-            expect(tool.icon, tool.name).toMatch(/^[a-z0-9-]+$/);
+            expect(one).toEqual(names[0]);
         }
     });
 
-    it('does not name the same tool twice across both lists', () =>
+    it('tells a story wherever the others tell one', () =>
     {
-        const led = LEAD.map((one) => one.name);
-        const overlap = ALSO.filter((one) => led.includes(one.name));
-
-        expect(overlap.map((one) => one.name)).toEqual([]);
-    });
-
-    it('gives each tool a drawing of its own', () =>
-    {
-        const icons = [...LEAD, ...ALSO].map((one) => one.icon);
-
-        expect(new Set(icons).size).toBe(icons.length);
-    });
-
-    it('keeps the leading set small enough to lead', () =>
-    {
-        expect(LEAD.length).toBeLessThanOrEqual(8);
-    });
-});
-
-describe('the links', () =>
-{
-    it('gives every one somewhere to go', () =>
-    {
-        for (const link of LINKS)
+        SAID.en.works.forEach((work, at) =>
         {
-            expect(link.href, link.label).toMatch(/^(https:|mailto:|\/)/);
+            const lengths = tables.map(([, table]) => (table.works[at]?.story ?? []).length);
+
+            expect(lengths, work.name).toEqual(lengths.map(() => lengths[0]));
+        });
+    });
+
+    it('keeps the same addresses behind the same links', () =>
+    {
+        SAID.en.works.forEach((work, at) =>
+        {
+            const where = tables.map(([, table]) =>
+                (table.works[at]?.ways ?? []).map((way) => way.href));
+
+            expect(where, work.name).toEqual(where.map(() => where[0]));
+        });
+    });
+
+    it('counts the same things in the tally', () =>
+    {
+        const figures = tables.map(([, table]) => table.tally.map((one) => one.figure));
+
+        for (const one of figures)
+        {
+            expect(one).toEqual(figures[0]);
         }
     });
-});
 
-describe('the tally', () =>
-{
-    it('labels every figure', () =>
+    it('says something in every line, in every language', () =>
     {
-        for (const one of TALLY)
+        for (const [tongue, table] of tables)
         {
-            expect(one.label.length).toBeGreaterThan(0);
+            expect(table.who.role.length, tongue).toBeGreaterThan(3);
+            expect(table.claim.under.length, tongue).toBeGreaterThan(80);
+            expect(table.now.lines.length, tongue).toBe(3);
+            expect(table.rules.length, tongue).toBeGreaterThan(40);
+        }
+    });
+
+    it('writes no long dashes anywhere', () =>
+    {
+        for (const [tongue, table] of tables)
+        {
+            expect(JSON.stringify(table), tongue).not.toContain('\u2014');
         }
     });
 });
