@@ -644,7 +644,333 @@ const RU: Copy =
     colophon: 'Написано руками. Ни фреймворка, ни аналитики.',
 };
 
-const SAID: Record<string, Copy> = { en: EN, ru: RU };
+const FR: Copy =
+{
+    who:
+    {
+        name: 'Maksim Miliutin',
+        role: 'ingénieur full stack',
+        where: 'Moscou',
+        when: 'à distance pour le moment, sur site à partir de 2027',
+        bio: 'Deux ans d’informatique à RTU MIREA, puis tout le reste appris en '
+            + 'livrant et en réparant ce que j’avais livré.',
+    },
+
+    links:
+    [
+        { label: 'Courriel', href: 'mailto:maksim.milutin06@gmail.com' },
+        { label: 'Telegram', href: 'https://t.me/QQWaffles' },
+        { label: 'GitHub', href: 'https://github.com/maksim-miliutin' },
+        { label: 'CV', href: '/Maksim-Miliutin-CV.pdf' },
+    ],
+
+    claim:
+    {
+        before: 'Je tiens une boutique de figurines ',
+        drawn: 'My Little Pony',
+        after: ', et j’en ai écrit chaque ligne.',
+        under: 'D’un dépôt vide à la production, seul. Ce dont je me souviens n’est '
+            + 'pas la liste des fonctions. C’est le soir où une commande est sortie '
+            + 'en deux paiements, et la semaine où les messages arrivaient à tout le '
+            + 'monde sauf à l’acheteur. Ni l’un ni l’autre ne plantait, et c’est là '
+            + 'que les tests sont allés ensuite.',
+    },
+
+    shop:
+    {
+        href: 'https://bronykashop.com',
+        image: '/assets/bronyka.jpg',
+        alt: 'La vitrine de Bronyka Shop',
+        name: 'bronykashop.com',
+        caption: ', la boutique que les clients voient vraiment',
+    },
+
+    now:
+    {
+        heading: 'Ce que je fais en ce moment',
+        lines:
+        [
+            'Netwatch est sorti : une version Windows, une extension Firefox, et une '
+            + 'liste de ce qui a été regardé qui ne quitte jamais la machine.',
+
+            'Obxod est celui que je construis. Il se tient entre la carte réseau et '
+            + 'la machine, et répond à un blocage en montrant à l’inspecteur un nom '
+            + 'autre que celui qui reste au serveur.',
+
+            'Je cherche un poste full stack ou back end où je garde autant de '
+            + 'responsabilité et où j’apprends de gens qui ont mené des systèmes '
+            + 'plus grands que les miens.',
+        ],
+    },
+
+    tally:
+    [
+        { figure: '70+', label: 'commandes' },
+        { figure: '2026', label: 'en service depuis' },
+        { figure: '1', label: 'ingénieur' },
+        { figure: '8', label: 'produits seul' },
+    ],
+
+    works:
+    [
+        {
+            name: 'Bronyka Shop',
+            what: 'Boutique d’objets de collection en production. NestJS · Prisma '
+                + '· Postgres · Redis · React.',
+            figure: 'en ligne',
+        },
+        {
+            name: 'Netwatch',
+            what: 'Une liste de ce qui a été regardé et écouté sur cette machine, sur '
+                + 'trente sept services. Un seul binaire Go, qui n’écoute que la '
+                + 'boucle locale.',
+            figure: 'Go',
+            ways:
+            [
+                {
+                    label: 'Télécharger pour Windows',
+                    href: 'https://github.com/maksim-miliutin/Netwatch/releases/latest',
+                },
+                {
+                    label: 'Extension Firefox',
+                    href: 'https://addons.mozilla.org/addon/netwatch/',
+                },
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/Netwatch' },
+            ],
+            story:
+            [
+                {
+                    head: 'Ce qu’il reconnaît',
+                    body: 'YouTube, Twitch, Kinopoisk, Spotify, Yandex Music et trente '
+                        + 'deux autres, avec les shorts, les clips et les liens courts. '
+                        + 'Un lecteur qui garde le morceau hors de l’adresse est '
+                        + 'interrogé autrement : on demande à la page. Vos propres '
+                        + 'sites s’ajoutent depuis la page elle même.',
+                },
+                {
+                    head: 'Ce que voient vos amis',
+                    body: 'Une carte sur votre profil Discord : le nom, à qui il est, '
+                        + 'une barre qui avance et un bouton vers l’adresse. Cela '
+                        + 'marche sans réglage. Les services se retirent de la carte '
+                        + 'un par un, et la liste les garde quand même.',
+                },
+                {
+                    head: 'Ce que vous voyez',
+                    body: 'La journée, pliée, avec le temps réparti sur les services '
+                        + 'qui l’ont pris. Une semaine, un mois ou tout. Une recherche, '
+                        + 'une croix pour rayer une lecture, et le tout en tableur. En '
+                        + 'anglais, en russe ou en français.',
+                },
+                {
+                    head: 'Ce qui quitte la machine',
+                    body: 'Seulement la carte Discord, et seulement tant qu’elle est '
+                        + 'active. Pas de serveur, pas de compte, pas de télémétrie ni '
+                        + 'd’analyse. L’extension atteint 127.0.0.1 et rien d’autre, '
+                        + 'et le navigateur l’y tient.',
+                },
+                {
+                    head: 'Ce que j’ai appris',
+                    body: 'Le compilateur a attrapé quatre collisions de noms que '
+                        + 'JavaScript aurait avalées : trois scripts d’une extension '
+                        + 'partagent une seule portée globale. Et quatre services '
+                        + 'n’étaient pas notés pendant des semaines, en silence : '
+                        + 'shorts, clips, liens courts, et un lecteur sans morceau dans '
+                        + 'l’adresse. Chacun a été trouvé en sondant plutôt qu’en '
+                        + 'lisant, d’où onze paquets sous test et l’extension non.',
+                },
+            ],
+        },
+        {
+            name: 'NetCheck',
+            what: 'Nommait la couche où une connexion cesse de marcher : le routeur, '
+                + 'le fournisseur, les noms, la poignée de main. Le diagnostic a '
+                + 'touché un plafond plutôt qu’un mur, et la mesure a continué dans '
+                + 'Obxod.',
+            figure: 'fermé',
+            story:
+            [
+                {
+                    head: 'Ce qu’on lui demandait',
+                    body: 'Dire ce qui ne va pas dans une connexion. Non pas « internet '
+                        + 'marche » mais où commence le silence : le routeur, le '
+                        + 'fournisseur, les noms, ou le site lui même. Puis faire '
+                        + 'passer une connexion devant la boîte qui lit le premier '
+                        + 'paquet, y trouve le nom du site et coupe la ligne.',
+                },
+                {
+                    head: 'Un verdict est l’endroit où le chemin s’arrête',
+                    body: 'Neuf vérifications en un chemin plutôt qu’une liste de '
+                        + 'cases, et chacune ne vaut la peine que si celle d’avant est '
+                        + 'passée. Une passerelle qui refuse une connexion est '
+                        + 'vivante : elle a reçu le paquet et répondu. Seul le silence '
+                        + 'laisse la question ouverte, et c’est ce qui sépare un '
+                        + 'routeur mort d’un fournisseur mort.',
+                },
+                {
+                    head: 'Un réglage par site',
+                    body: 'Le pilote a commencé avec un seul réglage pour tous, le plus '
+                        + 'récent. Des adresses différentes d’un même service veulent '
+                        + 'des choses différentes, et ce qui convenait à l’un cassait '
+                        + 'l’autre. Les séparer a pris une journée entière.',
+                },
+                {
+                    head: 'Laisser les petits datagrammes tranquilles',
+                    body: 'Une copie part devant le vrai paquet. Mais les minuscules '
+                        + 'datagrammes sont les sondes avec lesquelles un client mesure '
+                        + 'le chemin vers les serveurs vocaux, et une copie à côté '
+                        + 'd’une sonde gâche la mesure, si bien que l’appel ne choisit '
+                        + 'jamais de serveur. Cela n’est dans aucune documentation, '
+                        + 'seulement dans un journal où un appel reste suspendu.',
+                },
+                {
+                    head: 'Remettre le réglage, quelle que soit la sortie',
+                    body: 'La pire erreur du projet. Le proxy s’inscrivait dans le '
+                        + 'réglage du système et ne s’en retirait que sur un bouton. '
+                        + 'Sortir par la croix, par un plantage ou par un redémarrage '
+                        + 'le laissait en place, et Windows interrogeait une adresse '
+                        + 'morte à chaque connexion. Plus rien ne marchait, et '
+                        + 'redémarrer n’aidait pas : le réglage lui survit.',
+                },
+                {
+                    head: 'Ce sur quoi il a buté',
+                    body: 'Un écran de Discord ne finissait jamais de charger. La '
+                        + 'connexion passe, les saluts atteignent toutes les adresses, '
+                        + 'et le premier écran ne vient pas. Toutes les façons connues '
+                        + 'du pilote d’abîmer une copie donnaient le même résultat : ce '
+                        + 'noeud ne cédait pas.',
+                },
+                {
+                    head: 'Pourquoi cela n’a pas marché',
+                    body: 'Un outil mûr coupe lui même le vrai salut, en segments qui '
+                        + 'se recouvrent à un décalage calculé pour le protocole. Ni '
+                        + 'une copie abîmée ni une coupe en deux, mais une méthode à '
+                        + 'lui, et le décalage derrière a été trouvé par un long '
+                        + 'débogage. Huit façons d’écrire un salut et un millier de '
+                        + 'tests n’ont pas aidé : régler pour un seul fournisseur est '
+                        + 'un travail qu’une équipe a fait pendant des années, et je '
+                        + 'l’ai abordé en une semaine.',
+                },
+                {
+                    head: 'Ce que j’ai appris',
+                    body: 'Presque chaque version a été construite avant de regarder '
+                        + 'les données, et presque chacune était fausse. La cause était '
+                        + 'montrée par le journal, pas par le raisonnement. Deux choses '
+                        + 'ont aidé : une mesure qui montre les octets téléchargés '
+                        + 'plutôt que « marche ou pas », et la lecture du code des '
+                        + 'autres au lieu de deviner d’après les noms des réglages.',
+                },
+            ],
+        },
+        {
+            name: 'Obxod',
+            what: 'Coupe un salut TLS aux bords du nom en quatre, met un nom inventé de '
+                + 'la même longueur là où va le vrai, puis le vrai par dessus. '
+                + 'L’inspecteur lit dans l’ordre d’arrivée et s’arrête au premier ; le '
+                + 'serveur les remet par numéro et garde le dernier.',
+            figure: 'en cours',
+            ways:
+            [
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
+            ],
+            story:
+            [
+                {
+                    head: 'Le problème',
+                    body: 'Le fournisseur lit le premier paquet d’une connexion TLS, y '
+                        + 'trouve le nom du site et coupe la ligne. Il faut que '
+                        + 'l’inspecteur voie un nom tandis que le serveur reçoit '
+                        + 'l’autre, le vrai.',
+                },
+                {
+                    head: 'Où je suis resté coincé une semaine',
+                    body: 'Le geste évident est d’envoyer devant une copie falsifiée du '
+                        + 'salut, avec le nom d’un autre, abîmée pour que le serveur la '
+                        + 'jette. Cela marchait à moitié : la poignée de main passait, '
+                        + 'le serveur répondait, et le flux s’arrêtait vers dix huit '
+                        + 'kilooctets sur soixante cinq. Une douzaine de façons '
+                        + 'd’abîmer la copie donnaient le même nombre : l’abîmage '
+                        + 'décidait seulement qui jetterait la copie, et l’inspecteur '
+                        + 'prenait le nom dans le vrai paquet de toute façon.',
+                },
+                {
+                    head: 'Ce que c’était',
+                    body: 'J’ai cessé de deviner et lu le code d’un outil mûr. Le salut '
+                        + 'n’y est pas copié mais coupé aux bords du nom en quatre. La '
+                        + 'troisième partie porte un nom inventé exactement de la même '
+                        + 'longueur, à la place du vrai ; la quatrième porte le vrai, '
+                        + 'au même numéro, par dessus. L’inspecteur lit dans l’ordre '
+                        + 'd’arrivée et s’arrête à la contrefaçon. Le serveur les remet '
+                        + 'par numéro, et le dernier paquet gagne.',
+                },
+                {
+                    head: 'Le détail qui a décidé',
+                    body: 'Le numéro de séquence de la contrefaçon doit rester juste. '
+                        + 'Elle doit être abîmée de sorte que le serveur la jette et '
+                        + 'que l’inspecteur ne la jette pas, sinon personne ne la lit. '
+                        + 'Un horodatage décalé fait cela ; un numéro décalé non, il '
+                        + 'porte le paquet hors de la fenêtre. Ensuite la page charge '
+                        + 'entièrement en un dixième de seconde, là où elle s’arrêtait '
+                        + 'à dix huit kilooctets sur soixante cinq.',
+                },
+                {
+                    head: 'Ce que j’ai appris',
+                    body: 'Le nom sur la contrefaçon n’est pas un ornement. Avec un nom '
+                        + 'la page charge entièrement, avec un autre un tiers arrive : '
+                        + 'l’inspecteur analyse le nom et juge d’après lui. Le '
+                        + 'sélecteur de règles parcourt quarante cinq combinaisons et '
+                        + 'juge selon que le client répète son salut, ce qui est un '
+                        + 'signe faible : les répétitions arrivent sans aucune aide. Et '
+                        + 'une semaine de versions bâties avant de regarder les données '
+                        + 'n’a presque rien donné de juste.',
+                },
+            ],
+        },
+        {
+            name: 'Trellis',
+            what: 'La grammaire comme graphe de dépendances plutôt que liste de sujets. '
+                + 'Pas encore livré.',
+            figure: '598 tests',
+        },
+        {
+            name: 'Vydokh',
+            what: 'Arrêter la vape sans honte. Une rechute remet un seul compteur à zéro '
+                + 'et laisse les deux autres.',
+            figure: '262 tests',
+        },
+        {
+            name: 'Veilla',
+            what: 'Un appel quotidien pour un parent qui vit seul. Ni l’audio ni la '
+                + 'transcription ne sont conservés.',
+            figure: '157 contrôles',
+        },
+        {
+            name: 'Reste',
+            what: 'Une couronne à 800 euros « remboursée à 70% » rend 84 euros. Reste dit '
+                + 'ce que vous paierez vraiment.',
+            figure: '67 tests',
+        },
+        {
+            name: 'Pasmurno',
+            what: 'Un journal d’humeur pour cinq proches. Pas de fil, pas d’algorithme, '
+                + 'discussion chiffrée sur l’appareil.',
+            figure: '8 langues',
+        },
+    ] as Work[],
+
+    reach:
+    {
+        heading: 'Pour me joindre',
+        line: 'Le courriel est lu le jour même ; Telegram est plus rapide. L’un ou '
+            + 'l’autre convient, et aucun n’a besoin d’une introduction.',
+    },
+
+    rules: '« Je ne peux pas calculer » est une réponse · chaque taux porte ses dates '
+        + '· un onglet laissé ouvert la nuit n’était pas neuf heures de YouTube',
+
+    colophon: 'Écrit à la main. Pas de framework, pas d’analyse.',
+};
+
+const SAID: Record<string, Copy> = { en: EN, ru: RU, fr: FR };
 
 const said = SAID[spoken()] ?? EN;
 
