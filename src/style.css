@@ -518,3 +518,102 @@ a { color: var(--pop); text-underline-offset: 3px; }
 
     .top .right, .foot .right { margin-left: 0; }
 }
+
+.ways
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px 0 4px;
+}
+
+.way
+{
+    border: 1px solid var(--wire);
+    border-radius: 999px;
+    padding: 7px 16px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.way:hover { border-color: var(--pop); color: var(--pop); }
+
+.way.first
+{
+    background: var(--pop);
+    border-color: var(--pop);
+    color: var(--ground);
+}
+
+.way.first:hover { color: var(--ground); opacity: 0.85; }
+
+
+.row .told
+{
+    border: 0;
+    background: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+}
+
+.row .told:hover { color: var(--pop); }
+
+.story
+{
+    /* The reset above sets margin to nothing on everything, and a dialog
+       centres itself with margin auto. Without this it sits at the edge. */
+    margin: auto;
+    border: 1px solid var(--wire);
+    border-radius: 12px;
+    background: var(--ground);
+    color: var(--ink);
+    max-width: 44rem;
+    width: calc(100% - 32px);
+    max-height: calc(100vh - 64px);
+    padding: 0;
+}
+
+.story::backdrop { background: rgba(0, 0, 0, 0.55); }
+
+.story .told
+{
+    padding: 26px 28px 30px;
+    position: relative;
+}
+
+.story .shut
+{
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    border: 0;
+    background: none;
+    color: var(--ink-soft);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.story .shut:hover { color: var(--pop); }
+
+.story .name { font-size: 1.2rem; }
+
+.story .what
+{
+    color: var(--ink-soft);
+    margin: 6px 0 0;
+}
+
+.story h3
+{
+    font-size: 0.95rem;
+    margin: 22px 0 6px;
+}
+
+.story p { margin: 0; }
