@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { TONGUES, firstTongue, tongueName } from './tongue';
+import { TONGUES, firstTongue, tongueName, tongueShort } from './tongue';
 
 describe('choosing a language', () =>
 {
@@ -27,5 +27,13 @@ describe('choosing a language', () =>
     it('names every language in that language', () =>
     {
         expect(TONGUES.map(tongueName)).toEqual(['English', 'Русский', 'Français']);
+    });
+});
+
+describe('naming a language', () =>
+{
+    it('shortens each one to two letters for a crowded header', () =>
+    {
+        expect(TONGUES.map(tongueShort)).toEqual(['EN', 'RU', 'FR']);
     });
 });

@@ -14,6 +14,13 @@ export function tongueName(tongue: Tongue): string
     return tongue === 'fr' ? 'Français' : 'English';
 }
 
+// Two letters rather than a word: the header already carries a role, a city,
+// four links and a theme button, and three names take a quarter of the line.
+export function tongueShort(tongue: Tongue): string
+{
+    return tongue.toUpperCase();
+}
+
 export function firstTongue(stored: string | null, asked: readonly string[]): Tongue
 {
     if (known(stored))

@@ -1,6 +1,6 @@
 import { el } from '../dom';
 import { LINKS, WHO } from '../say/content';
-import { TONGUES, spoken, tongueName, wireTongue } from '../say/tongue';
+import { TONGUES, spoken, tongueName, tongueShort, wireTongue } from '../say/tongue';
 
 export function mastheadSection(): HTMLElement
 {
@@ -11,7 +11,8 @@ export function mastheadSection(): HTMLElement
         {
             type: 'button',
             'data-tongue': tongue,
-            text: tongueName(tongue),
+            text: tongueShort(tongue),
+            title: tongueName(tongue),
             ...(tongue === spoken() ? { disabled: 'disabled' } : {}),
         })));
 
