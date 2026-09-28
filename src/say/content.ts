@@ -233,10 +233,14 @@ const EN =
                 + 'length where the real one goes, then the real one over the top. The '
                 + 'inspector reads in the order things arrive and stops at the first; the '
                 + 'server puts them back by number and keeps the last.',
-            figure: 'building',
+            figure: 'shipped',
             ways:
             [
                 { label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
+                {
+                    label: 'Android, in progress',
+                    href: 'https://github.com/maksim-miliutin/obxod-mobile',
+                },
             ],
             story:
             [
@@ -277,14 +281,23 @@ const EN =
                         + 'sixty five.',
                 },
                 {
+                    head: 'Where it is now',
+                    body: 'Shipped as one executable with the driver inside it: a '
+                        + 'window with an on switch, a picker of tested methods because '
+                        + 'providers differ, your own sites, a speed line, a log, a '
+                        + 'tray icon and an optional start with Windows. Twenty five '
+                        + 'packages behind it and thirty five files of tests. Android '
+                        + 'is next: the same method as a local VPN service, with no '
+                        + 'root and no server in the middle, so traffic goes straight '
+                        + 'to the sites.',
+                },
+                {
                     head: 'What I learnt',
                     body: 'The name on the forgery is not decoration. With one name the '
                         + 'page loads whole, with another a third of it arrives: the '
-                        + 'inspector parses the name and judges by it. The rule picker '
-                        + 'walks forty five combinations and judges by whether the client '
-                        + 'repeats its hello, which is a weak sign: repeats happen without '
-                        + 'any help. And a week of building versions before looking at the '
-                        + 'data produced almost nothing that was right.',
+                        + 'inspector parses the name and judges by it. And a week of '
+                        + 'building versions before looking at the data produced almost '
+                        + 'nothing that was right.',
                 },
             ],
         },
@@ -545,10 +558,14 @@ const RU: Copy =
                 + 'кладёт поверх. Проверяющий читает в порядке прихода и '
                 + 'останавливается на первом; сервер собирает по номерам и оставляет '
                 + 'последнее.',
-            figure: 'строится',
+            figure: 'выпущен',
             ways:
             [
                 { label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
+                {
+                    label: 'Android, в работе',
+                    href: 'https://github.com/maksim-miliutin/obxod-mobile',
+                },
             ],
             story:
             [
@@ -587,6 +604,16 @@ const RU: Copy =
                         + 'пределы окна. После этого страница грузится целиком за '
                         + 'десятую долю секунды, а раньше вставала на восемнадцати '
                         + 'килобайтах из шестидесяти пяти.',
+                },
+                {
+                    head: 'Где он сейчас',
+                    body: 'Выпущен одним исполняемым файлом с драйвером внутри: окно с '
+                        + 'выключателем, выбор из проверенных способов, потому что у '
+                        + 'провайдеров они разные, свои сайты, строка скорости, журнал, '
+                        + 'значок у часов и запуск с Windows. За этим двадцать пять '
+                        + 'пакетов и тридцать пять файлов тестов. Дальше Android: тот '
+                        + 'же приём службой VPN на самом телефоне, без рута и без '
+                        + 'сервера посередине, трафик идёт прямо на сайты.',
                 },
                 {
                     head: 'Чему научился',
@@ -867,10 +894,14 @@ const FR: Copy =
                 + 'la même longueur là où va le vrai, puis le vrai par dessus. '
                 + 'L’inspecteur lit dans l’ordre d’arrivée et s’arrête au premier ; le '
                 + 'serveur les remet par numéro et garde le dernier.',
-            figure: 'en cours',
+            figure: 'publié',
             ways:
             [
                 { label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
+                {
+                    label: 'Android, en cours',
+                    href: 'https://github.com/maksim-miliutin/obxod-mobile',
+                },
             ],
             story:
             [
@@ -911,6 +942,17 @@ const FR: Copy =
                         + 'porte le paquet hors de la fenêtre. Ensuite la page charge '
                         + 'entièrement en un dixième de seconde, là où elle s’arrêtait '
                         + 'à dix huit kilooctets sur soixante cinq.',
+                },
+                {
+                    head: 'Où il en est',
+                    body: 'Publié en un seul exécutable, le pilote à l’intérieur : une '
+                        + 'fenêtre avec un interrupteur, un choix de méthodes testées '
+                        + 'car les fournisseurs diffèrent, vos propres sites, une ligne '
+                        + 'de débit, un journal, une icône près de l’horloge et un '
+                        + 'démarrage avec Windows. Vingt cinq paquets derrière, et '
+                        + 'trente cinq fichiers de tests. Ensuite Android : la même '
+                        + 'méthode en service VPN local, sans root et sans serveur au '
+                        + 'milieu, le trafic va droit aux sites.',
                 },
                 {
                     head: 'Ce que j’ai appris',
