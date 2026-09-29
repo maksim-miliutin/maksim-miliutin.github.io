@@ -74,3 +74,24 @@ describe('the three languages', () =>
         }
     });
 });
+
+describe('the headings', () =>
+{
+    it('are translated rather than pinned to one language', () =>
+    {
+        const works = tables.map(([, table]) => table.heads.works);
+
+        expect(new Set(works).size, works.join(' / ')).toBe(TONGUES.length);
+    });
+
+    it('name every section the page draws', () =>
+    {
+        for (const [tongue, table] of tables)
+        {
+            for (const [what, said] of Object.entries(table.heads))
+            {
+                expect(said.length, `${tongue}: ${what}`).toBeGreaterThan(2);
+            }
+        }
+    });
+});

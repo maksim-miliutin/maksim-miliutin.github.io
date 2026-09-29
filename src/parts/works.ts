@@ -1,5 +1,5 @@
 import { el } from '../dom';
-import { WORKS, Work } from '../say/content';
+import { HEADS, WORKS, Work } from '../say/content';
 import { storyBox, tell } from './story';
 
 function named(work: Work, box: HTMLDialogElement): HTMLElement
@@ -29,7 +29,7 @@ export function worksSection(): HTMLElement
 
     return el('section', { class: 'made' },
     [
-        el('h2', { text: 'Everything I have built' }),
+        el('h2', { text: HEADS.works }),
         el('div', { class: 'scroll' }, rows),
         box,
     ]);

@@ -1,3 +1,4 @@
+import { HEADS } from '../say/content';
 import { el, svg } from '../dom';
 import { BORDERS, LAND } from './coast';
 
@@ -117,7 +118,7 @@ export function mapSection(): HTMLElement
 
     return el('section', { class: 'moving' },
     [
-        el('h2', { text: 'Where I am going' }),
+        el('h2', { text: HEADS.atlas }),
         el('div', { class: 'plot' }, [picture]),
         el('div', { class: 'cities' }, buttons),
         el('p', { class: 'legend', id: 'legend', text: HOME.say }),

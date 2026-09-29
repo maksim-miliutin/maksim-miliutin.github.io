@@ -1,5 +1,5 @@
 import { el } from '../dom';
-import { ALSO, LEAD } from '../say/content';
+import { HEADS, ALSO, LEAD } from '../say/content';
 import type { Tool } from '../say/content';
 
 function tool(one: Tool, klass: string): HTMLElement
@@ -15,7 +15,7 @@ export function kitSection(): HTMLElement
 {
     return el('section', { class: 'kit' },
     [
-        el('h2', { text: 'What I build with' }),
+        el('h2', { text: HEADS.kit }),
         el('p', { class: 'kit-say', text: 'Seven of these are most of my day.' }),
         el('div', { class: 'lead-tools' }, LEAD.map((one) => tool(one, 'lead-tool'))),
         el('div', { class: 'also-tools' }, ALSO.map((one) => tool(one, 'also-tool'))),

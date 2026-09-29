@@ -1,5 +1,5 @@
 import { el } from '../dom';
-import { LINKS, WHO } from '../say/content';
+import { HEADS, LINKS, WHO } from '../say/content';
 import { TONGUES, spoken, tongueName, tongueShort, wireTongue } from '../say/tongue';
 
 export function mastheadSection(): HTMLElement
@@ -26,7 +26,7 @@ export function mastheadSection(): HTMLElement
         [
             ...links,
             tongues,
-            el('button', { class: 'theme', id: 'theme', type: 'button', text: 'Dark' }),
+            el('button', { class: 'theme', id: 'theme', type: 'button', text: HEADS.dark }),
         ]),
     ]);
 }

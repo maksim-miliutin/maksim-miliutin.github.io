@@ -71,9 +71,10 @@ const EN =
             'Netwatch is out: a Windows build, a Firefox add-on, and a list of what was '
             + 'watched that never leaves the machine it was watched on.',
 
-            'Obxod is the one being built. It stands between the network card and the '
-            + 'machine, and answers a block by giving the inspector a different name '
-            + 'from the one the server is left holding.',
+            'Obxod is out too: one executable that stands between the network card '
+            + 'and the machine and answers a block by giving the inspector a '
+            + 'different name from the one the server is left holding. The Android '
+            + 'version is started and paused.',
 
             'Looking for a full-stack or backend role where I keep this much ownership and '
             + 'learn from people who have run systems larger than mine.',
@@ -84,7 +85,7 @@ const EN =
         { figure: '70+', label: 'orders' },
         { figure: '2026', label: 'running since' },
         { figure: '1', label: 'engineer' },
-        { figure: '8', label: 'products solo' },
+        { figure: '3', label: 'shipped solo' },
     ],
 
     works:[
@@ -338,6 +339,14 @@ const EN =
             + 'needs an introduction from anybody.',
     },
 
+    heads:
+    {
+        works: 'Everything I have built',
+        kit: 'What I build with',
+        atlas: 'Where I am going',
+        dark: 'Dark',
+    },
+
     rules: '“Cannot compute” is an answer · every rate carries its dates '
     + '· a tab left open overnight was not nine hours of YouTube',
 
@@ -394,9 +403,10 @@ const RU: Copy =
             'Netwatch выложен: сборка под Windows, дополнение для Firefox и список '
             + 'просмотров, который не покидает машину, где их смотрели.',
 
-            'Obxod сейчас строится. Он стоит между сетевой картой и системой и '
-            + 'отвечает на блокировку тем, что показывает проверяющему одно имя, '
-            + 'а серверу оставляет другое.',
+            'Obxod тоже выпущен: один файл, который стоит между сетевой картой и '
+            + 'системой и отвечает на блокировку тем, что показывает проверяющему '
+            + 'одно имя, а серверу оставляет другое. Версия для Android начата и '
+            + 'приостановлена.',
 
             'Ищу работу на фулстеке или бэкенде, где останется столько же '
             + 'ответственности и появятся люди, водившие системы больше моих.',
@@ -408,7 +418,7 @@ const RU: Copy =
         { figure: '70+', label: 'заказов' },
         { figure: '2026', label: 'работает с' },
         { figure: '1', label: 'разработчик' },
-        { figure: '8', label: 'продуктов в одиночку' },
+        { figure: '3', label: 'выпущено в одиночку' },
     ],
 
     works:
@@ -665,6 +675,14 @@ const RU: Copy =
             + 'представлять вас никому не нужно.',
     },
 
+    heads:
+    {
+        works: 'Всё, что я сделал',
+        kit: 'Чем я строю',
+        atlas: 'Куда я еду',
+        dark: 'Тёмная',
+    },
+
     rules: '«Не могу посчитать» это ответ · у каждой ставки есть дата · вкладка, '
         + 'забытая на ночь, не была девятью часами YouTube',
 
@@ -720,9 +738,10 @@ const FR: Copy =
             'Netwatch est sorti : une version Windows, une extension Firefox, et une '
             + 'liste de ce qui a été regardé qui ne quitte jamais la machine.',
 
-            'Obxod est celui que je construis. Il se tient entre la carte réseau et '
-            + 'la machine, et répond à un blocage en montrant à l’inspecteur un nom '
-            + 'autre que celui qui reste au serveur.',
+            'Obxod est sorti aussi : un exécutable qui se tient entre la carte '
+            + 'réseau et la machine et répond à un blocage en montrant à '
+            + 'l’inspecteur un nom autre que celui qui reste au serveur. La version '
+            + 'Android est commencée et en pause.',
 
             'Je cherche un poste full stack ou back end où je garde autant de '
             + 'responsabilité et où j’apprends de gens qui ont mené des systèmes '
@@ -735,7 +754,7 @@ const FR: Copy =
         { figure: '70+', label: 'commandes' },
         { figure: '2026', label: 'en service depuis' },
         { figure: '1', label: 'ingénieur' },
-        { figure: '8', label: 'produits seul' },
+        { figure: '3', label: 'livrés seul' },
     ],
 
     works:
@@ -1006,6 +1025,14 @@ const FR: Copy =
             + 'l’autre convient, et aucun n’a besoin d’une introduction.',
     },
 
+    heads:
+    {
+        works: 'Tout ce que j’ai construit',
+        kit: 'Avec quoi je construis',
+        atlas: 'Où je vais',
+        dark: 'Sombre',
+    },
+
     rules: '« Je ne peux pas calculer » est une réponse · chaque taux porte ses dates '
         + '· un onglet laissé ouvert la nuit n’était pas neuf heures de YouTube',
 
@@ -1024,6 +1051,7 @@ export const NOW = said.now;
 export const TALLY = said.tally;
 export const WORKS = said.works;
 export const REACH = said.reach;
+export const HEADS = said.heads;
 export const RULES = said.rules;
 export const COLOPHON = said.colophon;
 
