@@ -7,7 +7,8 @@ describe('the stories behind the work', () =>
 {
     it('tells one for the projects that have something to tell', () =>
     {
-        expect(told.map((one) => one.name)).toEqual(['Netwatch', 'NetCheck', 'Obxod']);
+        expect(told.map((one) => one.name).sort())
+            .toEqual(['NetCheck', 'Netwatch', 'Obxod']);
     });
 
     it('starts each one with the problem and ends with what was learnt', () =>
@@ -83,5 +84,41 @@ describe('what makes a story worth reading', () =>
         const open = told.filter((one) => one.ways !== undefined);
 
         expect(open.map((one) => one.name)).toEqual(['Netwatch', 'Obxod']);
+    });
+});
+
+describe('shipped and unfinished', () =>
+{
+    it('says of every project which of the two it is', () =>
+    {
+        for (const one of WORKS)
+        {
+            expect(['shipped', 'unfinished'], one.name).toContain(one.state);
+        }
+    });
+
+    it('puts what is out at the top, so nobody has to hunt for it', () =>
+    {
+        const states = WORKS.map((one) => one.state);
+        const lastShipped = states.lastIndexOf('shipped');
+        const firstUnfinished = states.indexOf('unfinished');
+
+        expect(lastShipped).toBeLessThan(firstUnfinished);
+    });
+
+    it('counts three shipped, which is what the tally claims', () =>
+    {
+        const shipped = WORKS.filter((one) => one.state === 'shipped');
+
+        expect(shipped.map((one) => one.name))
+            .toEqual(['Bronyka Shop', 'Netwatch', 'Obxod']);
+    });
+
+    it('carries the android bypass, paused rather than hidden', () =>
+    {
+        const mobile = WORKS.find((one) => one.name === 'obxod-mobile');
+
+        expect(mobile?.state).toBe('unfinished');
+        expect(mobile?.ways?.[0]?.href).toContain('obxod-mobile');
     });
 });

@@ -95,3 +95,18 @@ describe('the headings', () =>
         }
     });
 });
+
+describe('the column on the right', () =>
+{
+    it('says the same thing for everything that is out', () =>
+    {
+        for (const [tongue, table] of tables)
+        {
+            const out = table.works
+                .filter((one) => one.state === 'shipped')
+                .map((one) => one.figure);
+
+            expect(new Set(out).size, `${tongue}: ${out.join(', ')}`).toBe(1);
+        }
+    });
+});

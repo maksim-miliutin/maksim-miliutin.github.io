@@ -5,6 +5,7 @@ export interface Work
     name: string;
     what: string;
     figure: string;
+    state: 'shipped' | 'unfinished';
     ways?: Way[];
     story?: Part[];
 }
@@ -93,13 +94,15 @@ const EN =
             name: 'Bronyka Shop',
             what: 'Collectibles marketplace in production. NestJS · Prisma '
                 + '· Postgres · Redis · React.',
-            figure: 'live',
+            state: 'shipped',
+            figure: 'shipped',
         },
         {
             name: 'Netwatch',
             what: 'A list of what was watched and listened to on this machine, across '
                 + 'thirty-seven services. One Go binary, and it listens on loopback only.',
-            figure: 'Go',
+            state: 'shipped',
+            figure: 'shipped',
             ways:
             [
                 {
@@ -153,10 +156,86 @@ const EN =
             ],
         },
         {
+            name: 'Obxod',
+            what: 'Cuts a TLS hello at the name into four, puts a made up name of the same '
+                + 'length where the real one goes, then the real one over the top. The '
+                + 'inspector reads in the order things arrive and stops at the first; the '
+                + 'server puts them back by number and keeps the last.',
+            state: 'shipped',
+            figure: 'shipped',
+            ways:
+            [
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
+                {
+                    label: 'Android, in progress',
+                    href: 'https://github.com/maksim-miliutin/obxod-mobile',
+                },
+            ],
+            story:
+            [
+                {
+                    head: 'The problem',
+                    body: 'The provider reads the first packet of a TLS connection, finds '
+                        + 'the name of the site in it and cuts the line. The inspector has '
+                        + 'to see one name while the server gets another, the real one.',
+                },
+                {
+                    head: 'Where I was stuck for a week',
+                    body: 'The obvious move is to send a forged copy of the hello ahead, '
+                        + 'with somebody else\'s name, spoiled so the server throws it '
+                        + 'away. It half worked: the handshake went through, the server '
+                        + 'answered, and the stream broke at about eighteen kilobytes out '
+                        + 'of sixty five. A dozen ways of spoiling the copy all gave the '
+                        + 'same number: the spoiling decided who would drop the copy, and '
+                        + 'the inspector took the name out of the real packet anyway.',
+                },
+                {
+                    head: 'What it turned out to be',
+                    body: 'I stopped guessing and read the source of a mature tool. The '
+                        + 'hello is not copied there but cut at the boundaries of the name '
+                        + 'into four. The third part carries a made up name of exactly the '
+                        + 'same length, in place of the real one; the fourth carries the '
+                        + 'real one, at the same number, over the top. The inspector reads '
+                        + 'in the order things arrive and stops at the forgery. The server '
+                        + 'puts them back by number, and the last packet wins.',
+                },
+                {
+                    head: 'The detail that decided it',
+                    body: 'The sequence number of the forgery has to stay right. It must '
+                        + 'be spoiled so the server drops it and the inspector does not, '
+                        + 'or nobody reads it at all. A shifted timestamp does that; a '
+                        + 'shifted number does not, it carries the packet out of the '
+                        + 'window. After that the page loads whole in a tenth of a '
+                        + 'second, where before it stopped at eighteen kilobytes of '
+                        + 'sixty five.',
+                },
+                {
+                    head: 'Where it is now',
+                    body: 'Shipped as one executable with the driver inside it: a '
+                        + 'window with an on switch, a picker of tested methods because '
+                        + 'providers differ, your own sites, a speed line, a log, a '
+                        + 'tray icon and an optional start with Windows. Twenty five '
+                        + 'packages behind it and thirty five files of tests. Android '
+                        + 'is next: the same method as a local VPN service, with no '
+                        + 'root and no server in the middle, so traffic goes straight '
+                        + 'to the sites.',
+                },
+                {
+                    head: 'What I learnt',
+                    body: 'The name on the forgery is not decoration. With one name the '
+                        + 'page loads whole, with another a third of it arrives: the '
+                        + 'inspector parses the name and judges by it. And a week of '
+                        + 'building versions before looking at the data produced almost '
+                        + 'nothing that was right.',
+                },
+            ],
+        },
+        {
             name: 'NetCheck',
             what: 'Named the layer where a connection stops working: the router, the '
                 + 'provider, the names, the handshake. Diagnosis ran into a ceiling '
                 + 'rather than a wall, and the measuring went on into Obxod.',
+            state: 'unfinished',
             figure: 'closed',
             story:
             [
@@ -229,106 +308,52 @@ const EN =
             ],
         },
         {
-            name: 'Obxod',
-            what: 'Cuts a TLS hello at the name into four, puts a made up name of the same '
-                + 'length where the real one goes, then the real one over the top. The '
-                + 'inspector reads in the order things arrive and stops at the first; the '
-                + 'server puts them back by number and keeps the last.',
-            figure: 'shipped',
+            name: 'obxod-mobile',
+            what: 'The same bypass on Android: a local VPN service with no root and no '
+                + 'server in the middle, so traffic goes straight to the sites. The Go '
+                + 'core is shared through gomobile.',
+            state: 'unfinished',
+            figure: 'paused',
             ways:
             [
-                { label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
                 {
-                    label: 'Android, in progress',
+                    label: 'Open code',
                     href: 'https://github.com/maksim-miliutin/obxod-mobile',
-                },
-            ],
-            story:
-            [
-                {
-                    head: 'The problem',
-                    body: 'The provider reads the first packet of a TLS connection, finds '
-                        + 'the name of the site in it and cuts the line. The inspector has '
-                        + 'to see one name while the server gets another, the real one.',
-                },
-                {
-                    head: 'Where I was stuck for a week',
-                    body: 'The obvious move is to send a forged copy of the hello ahead, '
-                        + 'with somebody else\'s name, spoiled so the server throws it '
-                        + 'away. It half worked: the handshake went through, the server '
-                        + 'answered, and the stream broke at about eighteen kilobytes out '
-                        + 'of sixty five. A dozen ways of spoiling the copy all gave the '
-                        + 'same number: the spoiling decided who would drop the copy, and '
-                        + 'the inspector took the name out of the real packet anyway.',
-                },
-                {
-                    head: 'What it turned out to be',
-                    body: 'I stopped guessing and read the source of a mature tool. The '
-                        + 'hello is not copied there but cut at the boundaries of the name '
-                        + 'into four. The third part carries a made up name of exactly the '
-                        + 'same length, in place of the real one; the fourth carries the '
-                        + 'real one, at the same number, over the top. The inspector reads '
-                        + 'in the order things arrive and stops at the forgery. The server '
-                        + 'puts them back by number, and the last packet wins.',
-                },
-                {
-                    head: 'The detail that decided it',
-                    body: 'The sequence number of the forgery has to stay right. It must '
-                        + 'be spoiled so the server drops it and the inspector does not, '
-                        + 'or nobody reads it at all. A shifted timestamp does that; a '
-                        + 'shifted number does not, it carries the packet out of the '
-                        + 'window. After that the page loads whole in a tenth of a '
-                        + 'second, where before it stopped at eighteen kilobytes of '
-                        + 'sixty five.',
-                },
-                {
-                    head: 'Where it is now',
-                    body: 'Shipped as one executable with the driver inside it: a '
-                        + 'window with an on switch, a picker of tested methods because '
-                        + 'providers differ, your own sites, a speed line, a log, a '
-                        + 'tray icon and an optional start with Windows. Twenty five '
-                        + 'packages behind it and thirty five files of tests. Android '
-                        + 'is next: the same method as a local VPN service, with no '
-                        + 'root and no server in the middle, so traffic goes straight '
-                        + 'to the sites.',
-                },
-                {
-                    head: 'What I learnt',
-                    body: 'The name on the forgery is not decoration. With one name the '
-                        + 'page loads whole, with another a third of it arrives: the '
-                        + 'inspector parses the name and judges by it. And a week of '
-                        + 'building versions before looking at the data produced almost '
-                        + 'nothing that was right.',
                 },
             ],
         },
         {
             name: 'Trellis',
             what: 'Grammar as a dependency graph rather than a list of topics. Not shipped yet.',
+            state: 'unfinished',
             figure: '598 tests',
         },
         {
             name: 'Vydokh',
             what: 'Quitting vape without shame. A slip resets one number and leaves the other two '
                 + 'alone.',
+            state: 'unfinished',
             figure: '262 tests',
         },
         {
             name: 'Veilla',
             what: 'A daily check-in call for a parent living alone. Audio and transcript are never '
                 + 'stored.',
+            state: 'unfinished',
             figure: '157 checks',
         },
         {
             name: 'Reste',
             what: 'An €800 French crown at “70% reimbursed” returns €84. Reste says what you will '
                 + 'actually pay.',
+            state: 'unfinished',
             figure: '67 tests',
         },
         {
             name: 'Pasmurno',
             what: 'A mood journal for five close people. No feed, no algorithm, chat encrypted on '
                 + 'the device.',
+            state: 'unfinished',
             figure: '8 languages',
         },
     ] as Work[],
@@ -342,6 +367,8 @@ const EN =
     heads:
     {
         works: 'Everything I have built',
+        out: 'Out',
+        started: 'Started, not finished',
         kit: 'What I build with',
         atlas: 'Where I am going',
         dark: 'Dark',
@@ -427,13 +454,15 @@ const RU: Copy =
             name: 'Bronyka Shop',
             what: 'Магазин коллекционных фигурок в бою. NestJS · Prisma · Postgres '
                 + '· Redis · React.',
-            figure: 'в работе',
+            state: 'shipped',
+            figure: 'выпущен',
         },
         {
             name: 'Netwatch',
             what: 'Список того, что смотрели и слушали на этой машине, по тридцати '
                 + 'семи службам. Один бинарник на Go, слушает только петлю.',
-            figure: 'Go',
+            state: 'shipped',
+            figure: 'выпущен',
             ways:
             [
                 {
@@ -488,86 +517,13 @@ const RU: Copy =
             ],
         },
         {
-            name: 'NetCheck',
-            what: 'Называл слой, на котором связь перестаёт работать: роутер, '
-                + 'провайдер, имена, рукопожатие. Диагностика упёрлась в потолок, а '
-                + 'не в стену, и измерение ушло в Obxod.',
-            figure: 'закрыт',
-            story:
-            [
-                {
-                    head: 'Что он должен был делать',
-                    body: 'Говорить, что именно со связью не так. Не «интернет '
-                        + 'работает», а где начинается тишина: роутер, провайдер, '
-                        + 'имена или сам сайт. И проводить соединение мимо коробки, '
-                        + 'которая читает первый пакет, находит в нём имя сайта и '
-                        + 'рвёт связь.',
-                },
-                {
-                    head: 'Вердикт это место обрыва',
-                    body: 'Девять проверок идут одной дорогой, а не списком галочек, '
-                        + 'и каждая следующая имеет смысл, только если прошла '
-                        + 'предыдущая. Шлюз, отказавший в соединении, жив: он получил '
-                        + 'пакет и ответил. Вопрос открытым оставляет только тишина, '
-                        + 'и она же отличает мёртвый роутер от мёртвого провайдера.',
-                },
-                {
-                    head: 'Своя настройка каждому сайту',
-                    body: 'Драйвер начинал с одной настройки на всех, самой свежей. '
-                        + 'Разным адресам одной службы нужно разное, и что подходило '
-                        + 'одному, ломало другое. Разведение заняло отдельный день.',
-                },
-                {
-                    head: 'Мелкие датаграммы не трогать',
-                    body: 'Копия летит впереди настоящего пакета. Но крошечные '
-                        + 'датаграммы это пробы, которыми клиент меряет путь до '
-                        + 'голосовых серверов, и копия рядом с пробой портит замер, '
-                        + 'так что звонок не выбирает сервер. Этого нет ни в одной '
-                        + 'документации, только в журнале, где звонок висит.',
-                },
-                {
-                    head: 'Настройку вернуть, как бы ни ушёл',
-                    body: 'Худшая ошибка проекта. Прокси прописывал себя в системную '
-                        + 'настройку, а убирал только по кнопке. Уход через крестик, '
-                        + 'падение или перезагрузку оставлял её на месте, и Windows '
-                        + 'спрашивала мёртвый адрес про каждое соединение. Не работало '
-                        + 'ничего, и перезагрузка не спасала: настройка её переживает.',
-                },
-                {
-                    head: 'Во что упёрся',
-                    body: 'Один экран Discord так и не догружался. Соединение проходит, '
-                        + 'приветствия доходят до всех адресов, а первый экран не '
-                        + 'приходит. Все известные драйверу способы испортить копию '
-                        + 'давали один и тот же итог: этот узел не поддавался.',
-                },
-                {
-                    head: 'Почему не получилось',
-                    body: 'Зрелый инструмент режет настоящее приветствие сам, '
-                        + 'сегментами с перекрытием на смещении, рассчитанном под '
-                        + 'протокол. Не испорченная копия и не разрез надвое, а свой '
-                        + 'приём, и смещение за ним найдено долгой отладкой. Восемь '
-                        + 'способов записи приветствия и тысяча с лишним тестов не '
-                        + 'помогли: подгонка под одного провайдера это работа, которую '
-                        + 'команда делала годами, а я подошёл к ней за неделю.',
-                },
-                {
-                    head: 'Чему научился',
-                    body: 'Почти каждая версия строилась до того, как я смотрел на '
-                        + 'данные, и почти каждая оказывалась неверной. Причину '
-                        + 'показывал журнал, а не рассуждение. Помогли две вещи: '
-                        + 'замер, который показывает скачанные байты, а не «работает '
-                        + 'или нет», и чтение чужого кода вместо угадывания по '
-                        + 'названиям настроек.',
-                },
-            ],
-        },
-        {
             name: 'Obxod',
             what: 'Режет приветствие TLS по границам имени на четыре части, ставит '
                 + 'выдуманное имя той же длины на место настоящего, а настоящее '
                 + 'кладёт поверх. Проверяющий читает в порядке прихода и '
                 + 'останавливается на первом; сервер собирает по номерам и оставляет '
                 + 'последнее.',
+            state: 'shipped',
             figure: 'выпущен',
             ways:
             [
@@ -638,32 +594,127 @@ const RU: Copy =
             ],
         },
         {
+            name: 'NetCheck',
+            what: 'Называл слой, на котором связь перестаёт работать: роутер, '
+                + 'провайдер, имена, рукопожатие. Диагностика упёрлась в потолок, а '
+                + 'не в стену, и измерение ушло в Obxod.',
+            state: 'unfinished',
+            figure: 'закрыт',
+            story:
+            [
+                {
+                    head: 'Что он должен был делать',
+                    body: 'Говорить, что именно со связью не так. Не «интернет '
+                        + 'работает», а где начинается тишина: роутер, провайдер, '
+                        + 'имена или сам сайт. И проводить соединение мимо коробки, '
+                        + 'которая читает первый пакет, находит в нём имя сайта и '
+                        + 'рвёт связь.',
+                },
+                {
+                    head: 'Вердикт это место обрыва',
+                    body: 'Девять проверок идут одной дорогой, а не списком галочек, '
+                        + 'и каждая следующая имеет смысл, только если прошла '
+                        + 'предыдущая. Шлюз, отказавший в соединении, жив: он получил '
+                        + 'пакет и ответил. Вопрос открытым оставляет только тишина, '
+                        + 'и она же отличает мёртвый роутер от мёртвого провайдера.',
+                },
+                {
+                    head: 'Своя настройка каждому сайту',
+                    body: 'Драйвер начинал с одной настройки на всех, самой свежей. '
+                        + 'Разным адресам одной службы нужно разное, и что подходило '
+                        + 'одному, ломало другое. Разведение заняло отдельный день.',
+                },
+                {
+                    head: 'Мелкие датаграммы не трогать',
+                    body: 'Копия летит впереди настоящего пакета. Но крошечные '
+                        + 'датаграммы это пробы, которыми клиент меряет путь до '
+                        + 'голосовых серверов, и копия рядом с пробой портит замер, '
+                        + 'так что звонок не выбирает сервер. Этого нет ни в одной '
+                        + 'документации, только в журнале, где звонок висит.',
+                },
+                {
+                    head: 'Настройку вернуть, как бы ни ушёл',
+                    body: 'Худшая ошибка проекта. Прокси прописывал себя в системную '
+                        + 'настройку, а убирал только по кнопке. Уход через крестик, '
+                        + 'падение или перезагрузку оставлял её на месте, и Windows '
+                        + 'спрашивала мёртвый адрес про каждое соединение. Не работало '
+                        + 'ничего, и перезагрузка не спасала: настройка её переживает.',
+                },
+                {
+                    head: 'Во что упёрся',
+                    body: 'Один экран Discord так и не догружался. Соединение проходит, '
+                        + 'приветствия доходят до всех адресов, а первый экран не '
+                        + 'приходит. Все известные драйверу способы испортить копию '
+                        + 'давали один и тот же итог: этот узел не поддавался.',
+                },
+                {
+                    head: 'Почему не получилось',
+                    body: 'Зрелый инструмент режет настоящее приветствие сам, '
+                        + 'сегментами с перекрытием на смещении, рассчитанном под '
+                        + 'протокол. Не испорченная копия и не разрез надвое, а свой '
+                        + 'приём, и смещение за ним найдено долгой отладкой. Восемь '
+                        + 'способов записи приветствия и тысяча с лишним тестов не '
+                        + 'помогли: подгонка под одного провайдера это работа, которую '
+                        + 'команда делала годами, а я подошёл к ней за неделю.',
+                },
+                {
+                    head: 'Чему научился',
+                    body: 'Почти каждая версия строилась до того, как я смотрел на '
+                        + 'данные, и почти каждая оказывалась неверной. Причину '
+                        + 'показывал журнал, а не рассуждение. Помогли две вещи: '
+                        + 'замер, который показывает скачанные байты, а не «работает '
+                        + 'или нет», и чтение чужого кода вместо угадывания по '
+                        + 'названиям настроек.',
+                },
+            ],
+        },
+        {
+            name: 'obxod-mobile',
+            what: 'Тот же обход на Android: служба VPN на самом телефоне, без рута и '
+                + 'без сервера посередине, трафик идёт прямо на сайты. Ядро на Go '
+                + 'общее, через gomobile.',
+            state: 'unfinished',
+            figure: 'на паузе',
+            ways:
+            [
+                {
+                    label: 'Open code',
+                    href: 'https://github.com/maksim-miliutin/obxod-mobile',
+                },
+            ],
+        },
+        {
             name: 'Trellis',
             what: 'Грамматика как граф зависимостей, а не список тем. Ещё не выпущен.',
+            state: 'unfinished',
             figure: '598 тестов',
         },
         {
             name: 'Vydokh',
             what: 'Бросить вейп без стыда. Срыв сбрасывает одно число и не трогает два '
                 + 'других.',
+            state: 'unfinished',
             figure: '262 теста',
         },
         {
             name: 'Veilla',
             what: 'Ежедневный звонок-проверка родителю, живущему одному. Ни запись, ни '
                 + 'расшифровка не хранятся.',
+            state: 'unfinished',
             figure: '157 проверок',
         },
         {
             name: 'Reste',
             what: 'Коронка во Франции за 800 евро при «возмещаем 70%» возвращает 84. '
                 + 'Reste говорит, сколько вы заплатите на самом деле.',
+            state: 'unfinished',
             figure: '67 тестов',
         },
         {
             name: 'Pasmurno',
             what: 'Дневник настроения для пятерых близких. Ни ленты, ни алгоритма, чат '
                 + 'шифруется на устройстве.',
+            state: 'unfinished',
             figure: '8 языков',
         },
     ] as Work[],
@@ -678,6 +729,8 @@ const RU: Copy =
     heads:
     {
         works: 'Всё, что я сделал',
+        out: 'Выпущено',
+        started: 'Начато, не доведено',
         kit: 'Чем я строю',
         atlas: 'Куда я еду',
         dark: 'Тёмная',
@@ -763,14 +816,16 @@ const FR: Copy =
             name: 'Bronyka Shop',
             what: 'Boutique d’objets de collection en production. NestJS · Prisma '
                 + '· Postgres · Redis · React.',
-            figure: 'en ligne',
+            state: 'shipped',
+            figure: 'publié',
         },
         {
             name: 'Netwatch',
             what: 'Une liste de ce qui a été regardé et écouté sur cette machine, sur '
                 + 'trente sept services. Un seul binaire Go, qui n’écoute que la '
                 + 'boucle locale.',
-            figure: 'Go',
+            state: 'shipped',
+            figure: 'publié',
             ways:
             [
                 {
@@ -827,11 +882,92 @@ const FR: Copy =
             ],
         },
         {
+            name: 'Obxod',
+            what: 'Coupe un salut TLS aux bords du nom en quatre, met un nom inventé de '
+                + 'la même longueur là où va le vrai, puis le vrai par dessus. '
+                + 'L’inspecteur lit dans l’ordre d’arrivée et s’arrête au premier ; le '
+                + 'serveur les remet par numéro et garde le dernier.',
+            state: 'shipped',
+            figure: 'publié',
+            ways:
+            [
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
+                {
+                    label: 'Android, en cours',
+                    href: 'https://github.com/maksim-miliutin/obxod-mobile',
+                },
+            ],
+            story:
+            [
+                {
+                    head: 'Le problème',
+                    body: 'Le fournisseur lit le premier paquet d’une connexion TLS, y '
+                        + 'trouve le nom du site et coupe la ligne. Il faut que '
+                        + 'l’inspecteur voie un nom tandis que le serveur reçoit '
+                        + 'l’autre, le vrai.',
+                },
+                {
+                    head: 'Où je suis resté coincé une semaine',
+                    body: 'Le geste évident est d’envoyer devant une copie falsifiée du '
+                        + 'salut, avec le nom d’un autre, abîmée pour que le serveur la '
+                        + 'jette. Cela marchait à moitié : la poignée de main passait, '
+                        + 'le serveur répondait, et le flux s’arrêtait vers dix huit '
+                        + 'kilooctets sur soixante cinq. Une douzaine de façons '
+                        + 'd’abîmer la copie donnaient le même nombre : l’abîmage '
+                        + 'décidait seulement qui jetterait la copie, et l’inspecteur '
+                        + 'prenait le nom dans le vrai paquet de toute façon.',
+                },
+                {
+                    head: 'Ce que c’était',
+                    body: 'J’ai cessé de deviner et lu le code d’un outil mûr. Le salut '
+                        + 'n’y est pas copié mais coupé aux bords du nom en quatre. La '
+                        + 'troisième partie porte un nom inventé exactement de la même '
+                        + 'longueur, à la place du vrai ; la quatrième porte le vrai, '
+                        + 'au même numéro, par dessus. L’inspecteur lit dans l’ordre '
+                        + 'd’arrivée et s’arrête à la contrefaçon. Le serveur les remet '
+                        + 'par numéro, et le dernier paquet gagne.',
+                },
+                {
+                    head: 'Le détail qui a décidé',
+                    body: 'Le numéro de séquence de la contrefaçon doit rester juste. '
+                        + 'Elle doit être abîmée de sorte que le serveur la jette et '
+                        + 'que l’inspecteur ne la jette pas, sinon personne ne la lit. '
+                        + 'Un horodatage décalé fait cela ; un numéro décalé non, il '
+                        + 'porte le paquet hors de la fenêtre. Ensuite la page charge '
+                        + 'entièrement en un dixième de seconde, là où elle s’arrêtait '
+                        + 'à dix huit kilooctets sur soixante cinq.',
+                },
+                {
+                    head: 'Où il en est',
+                    body: 'Publié en un seul exécutable, le pilote à l’intérieur : une '
+                        + 'fenêtre avec un interrupteur, un choix de méthodes testées '
+                        + 'car les fournisseurs diffèrent, vos propres sites, une ligne '
+                        + 'de débit, un journal, une icône près de l’horloge et un '
+                        + 'démarrage avec Windows. Vingt cinq paquets derrière, et '
+                        + 'trente cinq fichiers de tests. Ensuite Android : la même '
+                        + 'méthode en service VPN local, sans root et sans serveur au '
+                        + 'milieu, le trafic va droit aux sites.',
+                },
+                {
+                    head: 'Ce que j’ai appris',
+                    body: 'Le nom sur la contrefaçon n’est pas un ornement. Avec un nom '
+                        + 'la page charge entièrement, avec un autre un tiers arrive : '
+                        + 'l’inspecteur analyse le nom et juge d’après lui. Le '
+                        + 'sélecteur de règles parcourt quarante cinq combinaisons et '
+                        + 'juge selon que le client répète son salut, ce qui est un '
+                        + 'signe faible : les répétitions arrivent sans aucune aide. Et '
+                        + 'une semaine de versions bâties avant de regarder les données '
+                        + 'n’a presque rien donné de juste.',
+                },
+            ],
+        },
+        {
             name: 'NetCheck',
             what: 'Nommait la couche où une connexion cesse de marcher : le routeur, '
                 + 'le fournisseur, les noms, la poignée de main. Le diagnostic a '
                 + 'touché un plafond plutôt qu’un mur, et la mesure a continué dans '
                 + 'Obxod.',
+            state: 'unfinished',
             figure: 'fermé',
             story:
             [
@@ -908,81 +1044,17 @@ const FR: Copy =
             ],
         },
         {
-            name: 'Obxod',
-            what: 'Coupe un salut TLS aux bords du nom en quatre, met un nom inventé de '
-                + 'la même longueur là où va le vrai, puis le vrai par dessus. '
-                + 'L’inspecteur lit dans l’ordre d’arrivée et s’arrête au premier ; le '
-                + 'serveur les remet par numéro et garde le dernier.',
-            figure: 'publié',
+            name: 'obxod-mobile',
+            what: 'Le même contournement sur Android : un service VPN local, sans root '
+                + 'et sans serveur au milieu, le trafic va droit aux sites. Le coeur '
+                + 'en Go est partagé via gomobile.',
+            state: 'unfinished',
+            figure: 'en pause',
             ways:
             [
-                { label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
                 {
-                    label: 'Android, en cours',
+                    label: 'Open code',
                     href: 'https://github.com/maksim-miliutin/obxod-mobile',
-                },
-            ],
-            story:
-            [
-                {
-                    head: 'Le problème',
-                    body: 'Le fournisseur lit le premier paquet d’une connexion TLS, y '
-                        + 'trouve le nom du site et coupe la ligne. Il faut que '
-                        + 'l’inspecteur voie un nom tandis que le serveur reçoit '
-                        + 'l’autre, le vrai.',
-                },
-                {
-                    head: 'Où je suis resté coincé une semaine',
-                    body: 'Le geste évident est d’envoyer devant une copie falsifiée du '
-                        + 'salut, avec le nom d’un autre, abîmée pour que le serveur la '
-                        + 'jette. Cela marchait à moitié : la poignée de main passait, '
-                        + 'le serveur répondait, et le flux s’arrêtait vers dix huit '
-                        + 'kilooctets sur soixante cinq. Une douzaine de façons '
-                        + 'd’abîmer la copie donnaient le même nombre : l’abîmage '
-                        + 'décidait seulement qui jetterait la copie, et l’inspecteur '
-                        + 'prenait le nom dans le vrai paquet de toute façon.',
-                },
-                {
-                    head: 'Ce que c’était',
-                    body: 'J’ai cessé de deviner et lu le code d’un outil mûr. Le salut '
-                        + 'n’y est pas copié mais coupé aux bords du nom en quatre. La '
-                        + 'troisième partie porte un nom inventé exactement de la même '
-                        + 'longueur, à la place du vrai ; la quatrième porte le vrai, '
-                        + 'au même numéro, par dessus. L’inspecteur lit dans l’ordre '
-                        + 'd’arrivée et s’arrête à la contrefaçon. Le serveur les remet '
-                        + 'par numéro, et le dernier paquet gagne.',
-                },
-                {
-                    head: 'Le détail qui a décidé',
-                    body: 'Le numéro de séquence de la contrefaçon doit rester juste. '
-                        + 'Elle doit être abîmée de sorte que le serveur la jette et '
-                        + 'que l’inspecteur ne la jette pas, sinon personne ne la lit. '
-                        + 'Un horodatage décalé fait cela ; un numéro décalé non, il '
-                        + 'porte le paquet hors de la fenêtre. Ensuite la page charge '
-                        + 'entièrement en un dixième de seconde, là où elle s’arrêtait '
-                        + 'à dix huit kilooctets sur soixante cinq.',
-                },
-                {
-                    head: 'Où il en est',
-                    body: 'Publié en un seul exécutable, le pilote à l’intérieur : une '
-                        + 'fenêtre avec un interrupteur, un choix de méthodes testées '
-                        + 'car les fournisseurs diffèrent, vos propres sites, une ligne '
-                        + 'de débit, un journal, une icône près de l’horloge et un '
-                        + 'démarrage avec Windows. Vingt cinq paquets derrière, et '
-                        + 'trente cinq fichiers de tests. Ensuite Android : la même '
-                        + 'méthode en service VPN local, sans root et sans serveur au '
-                        + 'milieu, le trafic va droit aux sites.',
-                },
-                {
-                    head: 'Ce que j’ai appris',
-                    body: 'Le nom sur la contrefaçon n’est pas un ornement. Avec un nom '
-                        + 'la page charge entièrement, avec un autre un tiers arrive : '
-                        + 'l’inspecteur analyse le nom et juge d’après lui. Le '
-                        + 'sélecteur de règles parcourt quarante cinq combinaisons et '
-                        + 'juge selon que le client répète son salut, ce qui est un '
-                        + 'signe faible : les répétitions arrivent sans aucune aide. Et '
-                        + 'une semaine de versions bâties avant de regarder les données '
-                        + 'n’a presque rien donné de juste.',
                 },
             ],
         },
@@ -990,30 +1062,35 @@ const FR: Copy =
             name: 'Trellis',
             what: 'La grammaire comme graphe de dépendances plutôt que liste de sujets. '
                 + 'Pas encore livré.',
+            state: 'unfinished',
             figure: '598 tests',
         },
         {
             name: 'Vydokh',
             what: 'Arrêter la vape sans honte. Une rechute remet un seul compteur à zéro '
                 + 'et laisse les deux autres.',
+            state: 'unfinished',
             figure: '262 tests',
         },
         {
             name: 'Veilla',
             what: 'Un appel quotidien pour un parent qui vit seul. Ni l’audio ni la '
                 + 'transcription ne sont conservés.',
+            state: 'unfinished',
             figure: '157 contrôles',
         },
         {
             name: 'Reste',
             what: 'Une couronne à 800 euros « remboursée à 70% » rend 84 euros. Reste dit '
                 + 'ce que vous paierez vraiment.',
+            state: 'unfinished',
             figure: '67 tests',
         },
         {
             name: 'Pasmurno',
             what: 'Un journal d’humeur pour cinq proches. Pas de fil, pas d’algorithme, '
                 + 'discussion chiffrée sur l’appareil.',
+            state: 'unfinished',
             figure: '8 langues',
         },
     ] as Work[],
@@ -1028,6 +1105,8 @@ const FR: Copy =
     heads:
     {
         works: 'Tout ce que j’ai construit',
+        out: 'Livrés',
+        started: 'Commencés, non finis',
         kit: 'Avec quoi je construis',
         atlas: 'Où je vais',
         dark: 'Sombre',

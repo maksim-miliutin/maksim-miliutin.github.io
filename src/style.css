@@ -355,7 +355,7 @@ a { color: var(--pop); text-underline-offset: 3px; }
     border-top: 1px solid var(--wire);
 }
 
-.made .row:first-child { border-top: 0; }
+.made .row:first-child, .state + .row { border-top: 0; }
 
 .made .row b { font-weight: 600; font-size: 16.5px; }
 
@@ -650,3 +650,14 @@ a { color: var(--pop); text-underline-offset: 3px; }
     color: var(--ground);
     cursor: default;
 }
+
+.state
+{
+    margin: 22px 0 2px;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+}
+
+.scroll > .state:first-child { margin-top: 4px; }
