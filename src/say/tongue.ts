@@ -1,19 +1,16 @@
 import { readStored, writeStored } from '../stored';
 
-export type Tongue = 'en' | 'ru' | 'fr';
+export const TONGUES = ['en', 'ru', 'fr'] as const;
+
+export type Tongue = (typeof TONGUES)[number];
+
+const NAMES: Record<Tongue, string> = { en: 'English', ru: 'Русский', fr: 'Français' };
 
 const KEY = 'tongue';
 
-export const TONGUES: Tongue[] = ['en', 'ru', 'fr'];
-
 export function tongueName(tongue: Tongue): string
 {
-    if (tongue === 'ru')
-    {
-        return 'Русский';
-    }
-
-    return tongue === 'fr' ? 'Français' : 'English';
+    return NAMES[tongue];
 }
 
 // Two letters rather than a word: the header already carries a role, a city,
@@ -54,17 +51,17 @@ export function wireTongue(buttons: HTMLElement): void
     {
         const asked = (event.target as HTMLElement).dataset.tongue;
 
-        if (!known(asked ?? null) || asked === spoken())
+        if (!known(asked) || asked === spoken())
         {
             return;
         }
 
-        writeStored(KEY, asked as Tongue);
+        writeStored(KEY, asked);
         location.reload();
     });
 }
 
 function known(what: string | null | undefined): what is Tongue
 {
-    return what === 'en' || what === 'ru' || what === 'fr';
+    return TONGUES.some((tongue) => tongue === what);
 }
