@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { firstTheme, otherTheme, themeLabel } from './theme';
+import page from '../index.html?raw';
+import { THEME_KEY, firstTheme, otherTheme, themeLabel } from './theme';
 
 describe('firstTheme', () =>
 {
@@ -37,5 +38,15 @@ describe('themeLabel', () =>
     {
         expect(themeLabel('dark')).toBe('Light');
         expect(themeLabel('light')).toBe('Dark');
+    });
+});
+
+describe('the first paint', () =>
+{
+    // The bug this guards: the page painted from one key while the button kept the
+    // choice under another, so a dark choice flashed white on every visit.
+    it('reads the theme from where the button keeps it', () =>
+    {
+        expect(page).toContain(`localStorage.getItem('${THEME_KEY}')`);
     });
 });

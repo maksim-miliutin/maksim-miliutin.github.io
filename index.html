@@ -31,15 +31,27 @@
 
 
 <script>
-// set the theme before anything paints, otherwise you get a white flash
-(function () {
-  var t = 'light';
-  try {
-    var saved = localStorage.getItem('mm-theme');
-    if (saved === 'dark' || saved === 'light') t = saved;
-    else if (matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
-  } catch (e) {}
-  document.documentElement.dataset.theme = t;
+// Runs before the modules so the first paint is already the kept theme, not white.
+(function ()
+{
+    var root = document.documentElement;
+    var kept = null;
+
+    try
+    {
+        kept = localStorage.getItem('theme');
+    }
+    catch (refused)
+    {
+    }
+
+    if (kept === 'dark' || kept === 'light')
+    {
+        root.dataset.theme = kept;
+        return;
+    }
+
+    root.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 })();
 </script>
 
