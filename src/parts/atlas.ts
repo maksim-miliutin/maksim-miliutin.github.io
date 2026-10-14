@@ -11,6 +11,14 @@ export interface City
     label: { anchor: 'start' | 'middle' | 'end'; dx: number; dy: number };
 }
 
+interface MapParts
+{
+    pin: SVGElement;
+    leg: SVGElement;
+    legend: HTMLElement;
+    buttons: Map<CityName, HTMLButtonElement>;
+}
+
 export function project(lon: number, lat: number): { x: number; y: number }
 {
     return { x: ((lon + 11.5) / 0.3) * 2, y: ((61.5 - lat) / 0.3) * 3 };
@@ -103,11 +111,13 @@ export function mapSection(): HTMLElement
         'text-anchor': city.label.anchor,
     }, [city.name]);
 
-    const pin = svg('g', { id: 'pin', transform: `translate(${HOME.x} ${HOME.y})` },
+    const pin = svg('g', { transform: `translate(${HOME.x} ${HOME.y})` },
     [
         svg('circle', { class: 'pin-halo', r: '9' }),
         svg('circle', { class: 'pin-dot', r: '4' }),
     ]);
+
+    const leg = svg('path', { class: 'leg', d: '' });
 
     const picture = svg('svg',
     {
@@ -118,38 +128,33 @@ export function mapSection(): HTMLElement
     [
         shapes(LAND, 'land'),
         shapes(BORDERS, 'borders'),
-        svg('path', { class: 'leg', id: 'leg', d: '' }),
+        leg,
         ...cities.map(mark),
         pin,
         ...cities.map(label),
     ]);
 
-    const buttons = keys.map((key) => el('button',
+    const buttons = new Map(keys.map((key) => [key, el('button',
     {
         type: 'button',
-        'data-city': key,
         'aria-pressed': String(CITIES[key] === HOME),
         text: CITIES[key].name,
-    }));
+    })]));
+
+    const legend = el('p', { class: 'legend', text: HOME.say });
+
+    wireMap({ pin, leg, legend, buttons });
 
     return el('section', { class: 'moving' },
     [
         el('h2', { text: HEADS.atlas }),
         el('div', { class: 'plot' }, [picture]),
-        el('div', { class: 'cities' }, buttons),
-        el('p', { class: 'legend', id: 'legend', text: HOME.say }),
+        el('div', { class: 'cities' }, [...buttons.values()]),
+        legend,
     ]);
 }
 
-export interface MapParts
-{
-    pin: SVGGElement;
-    leg: SVGPathElement;
-    legend: HTMLElement;
-    buttons: NodeListOf<HTMLButtonElement>;
-}
-
-export function wireMap(parts: MapParts): void
+function wireMap(parts: MapParts): void
 {
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -158,18 +163,13 @@ export function wireMap(parts: MapParts): void
         parts.pin.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
     };
 
-    const fly = (name: string): void =>
+    const fly = (name: CityName): void =>
     {
-        const to = CITIES[name as CityName] as City | undefined;
+        const to = CITIES[name];
 
-        if (to === undefined)
+        for (const [key, button] of parts.buttons)
         {
-            return;
-        }
-
-        for (const one of parts.buttons)
-        {
-            one.setAttribute('aria-pressed', String(one.dataset.city === name));
+            button.setAttribute('aria-pressed', String(key === name));
         }
 
         parts.legend.textContent = to.say;
@@ -209,8 +209,8 @@ export function wireMap(parts: MapParts): void
         requestAnimationFrame(step);
     };
 
-    for (const one of parts.buttons)
+    for (const [key, button] of parts.buttons)
     {
-        one.addEventListener('click', () => fly(one.dataset.city ?? 'moscow'));
+        button.addEventListener('click', () => fly(key));
     }
 }
