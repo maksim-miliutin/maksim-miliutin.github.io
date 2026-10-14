@@ -1,6 +1,7 @@
 import { el } from '../dom';
 import { HEADS, LINKS, WHO } from '../say/content';
 import { TONGUES, spoken, tongueName, tongueShort, wireTongue } from '../say/tongue';
+import { wireTheme } from '../theme';
 
 export function mastheadSection(): HTMLElement
 {
@@ -16,17 +17,15 @@ export function mastheadSection(): HTMLElement
             ...(tongue === spoken() ? { disabled: 'disabled' } : {}),
         })));
 
+    const theme = el('button', { class: 'theme', type: 'button', text: HEADS.dark });
+
     wireTongue(tongues);
+    wireTheme(document.documentElement, theme);
 
     return el('header', { class: 'top' },
     [
         el('b', { text: WHO.name }),
         el('span', { text: `${WHO.role} · ${WHO.where} · ${WHO.when}` }),
-        el('span', { class: 'right' },
-        [
-            ...links,
-            tongues,
-            el('button', { class: 'theme', id: 'theme', type: 'button', text: HEADS.dark }),
-        ]),
+        el('span', { class: 'right' }, [...links, tongues, theme]),
     ]);
 }

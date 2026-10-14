@@ -1,6 +1,5 @@
 import './style.css';
 import { mount } from './dom';
-import { wireTheme } from './theme';
 import { mapSection, wireMap } from './parts/atlas';
 import { mastheadSection } from './parts/masthead';
 import { heroSection } from './parts/hero';
@@ -15,13 +14,6 @@ mount('reach', reachSection());
 mount('atlas', mapSection());
 mount('kit', kitSection());
 mount('foot', footSection());
-
-const themeButton = document.getElementById('theme');
-
-if (themeButton !== null)
-{
-    wireTheme(document.documentElement, themeButton);
-}
 
 const pin = document.getElementById('pin');
 const leg = document.getElementById('leg');
