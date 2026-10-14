@@ -1,6 +1,6 @@
 import './style.css';
 import { mount } from './dom';
-import { mapSection, wireMap } from './parts/atlas';
+import { mapSection } from './parts/atlas';
 import { mastheadSection } from './parts/masthead';
 import { heroSection } from './parts/hero';
 import { worksSection } from './parts/works';
@@ -14,17 +14,3 @@ mount('reach', reachSection());
 mount('atlas', mapSection());
 mount('kit', kitSection());
 mount('foot', footSection());
-
-const pin = document.getElementById('pin');
-const leg = document.getElementById('leg');
-const legend = document.getElementById('legend');
-
-if (pin !== null && leg !== null && legend !== null)
-{
-    wireMap({
-        pin: pin as unknown as SVGGElement,
-        leg: leg as unknown as SVGPathElement,
-        legend,
-        buttons: document.querySelectorAll<HTMLButtonElement>('.cities button'),
-    });
-}
