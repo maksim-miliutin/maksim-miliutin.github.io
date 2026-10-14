@@ -1,5 +1,5 @@
 import { el } from '../dom';
-import { CLAIM, LEAD, NOW, SHOP, TALLY, WHO } from '../say/content';
+import { CLAIM, NOW, SHOP, TALLY, WHO } from '../say/content';
 
 function face(): HTMLElement
 {
@@ -65,4 +65,3 @@ export function heroSection(): HTMLElement
     ]);
 }
 
-export { LEAD };
