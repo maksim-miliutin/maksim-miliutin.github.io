@@ -21,13 +21,6 @@ function seo(siteUrl: string): Plugin
                 fileName: 'sitemap.xml',
                 source: sitemap(siteUrl),
             });
-
-            const host = new URL(siteUrl).hostname;
-
-            if (!host.endsWith('.github.io'))
-            {
-                this.emitFile({ type: 'asset', fileName: 'CNAME', source: `${host}\n` });
-            }
         },
     };
 }
@@ -54,7 +47,7 @@ export default defineConfig(({ mode }) =>
 
     if (siteUrl === undefined || siteUrl === '')
     {
-        throw new Error('VITE_SITE_URL is missing; canonical, og:url and CNAME all read from it');
+        throw new Error('VITE_SITE_URL is missing; canonical, og:url and the sitemap read from it');
     }
 
     return {
