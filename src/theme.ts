@@ -28,17 +28,20 @@ export function wireTheme(root: HTMLElement, button: HTMLElement): void
 {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
+    let shown = firstTheme(readStored(THEME_KEY), prefersDark);
+
     const show = (theme: Theme): void =>
     {
+        shown = theme;
         root.dataset.theme = theme;
         button.textContent = themeLabel(theme);
     };
 
-    show(firstTheme(readStored(THEME_KEY), prefersDark));
+    show(shown);
 
     button.addEventListener('click', () =>
     {
-        const next = otherTheme((root.dataset.theme as Theme) ?? 'light');
+        const next = otherTheme(shown);
 
         show(next);
         writeStored(THEME_KEY, next);
