@@ -1,6 +1,6 @@
 export type Theme = 'light' | 'dark';
 
-const KEY = 'theme';
+export const THEME_KEY = 'theme';
 
 export function firstTheme(stored: string | null, prefersDark: boolean): Theme
 {
@@ -47,7 +47,7 @@ function readStored(): string | null
 {
     try
     {
-        return localStorage.getItem(KEY);
+        return localStorage.getItem(THEME_KEY);
     }
     catch
     {
@@ -59,7 +59,7 @@ function writeStored(theme: Theme): void
 {
     try
     {
-        localStorage.setItem(KEY, theme);
+        localStorage.setItem(THEME_KEY, theme);
     }
     catch
     {
