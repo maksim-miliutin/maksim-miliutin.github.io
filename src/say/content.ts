@@ -356,6 +356,41 @@ const EN =
             state: 'unfinished',
             figure: '8 languages',
         },
+        {
+            name: 'NormPrichel',
+            what: 'A crosshair overlay for Windows games, written in Go. No game memory read, '
+                + 'no input sent, no screen capture. Twelve shapes, a profile per game.',
+            state: 'unfinished',
+            figure: '12 shapes',
+            ways:
+            [
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/NormPrichel' },
+            ],
+        },
+        {
+            name: 'MiniVPN',
+            what: 'A small VPN built to show how one works rather than to replace one: one '
+                + 'server, one client, one shared key, no key rotation yet.',
+            state: 'unfinished',
+            figure: '2 setups tested',
+            ways:
+            [
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/MiniVPN' },
+            ],
+        },
+        {
+            name: 'Plafond',
+            what: 'Checks a French rent against its legal cap, a deposit against its deadline, '
+                + 'a charges statement against what may be passed on, and writes the formal '
+                + 'notice. Runs on your device, nothing sent to a server.',
+            state: 'unfinished',
+            figure: '4 checks',
+            ways:
+            [
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/Plafond' },
+                { label: 'Try it', href: 'https://maksim-miliutin.github.io/Plafond' },
+            ],
+        },
     ] as Work[],
 
     reach:{
@@ -716,6 +751,43 @@ const RU: Copy =
                 + 'шифруется на устройстве.',
             state: 'unfinished',
             figure: '8 языков',
+        },
+        {
+            name: 'NormPrichel',
+            what: 'Оверлей-прицел для игр на Windows, на Go. Не читает память игры, не '
+                + 'эмулирует ввод, не захватывает экран. Двенадцать форм, свой профиль '
+                + 'на игру.',
+            state: 'unfinished',
+            figure: '12 форм',
+            ways:
+            [
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/NormPrichel' },
+            ],
+        },
+        {
+            name: 'MiniVPN',
+            what: 'Маленький VPN, чтобы показать, как он устроен, а не чтобы заменить '
+                + 'настоящий: один сервер, один клиент, один общий ключ, без смены ключей.',
+            state: 'unfinished',
+            figure: '2 стенда',
+            ways:
+            [
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/MiniVPN' },
+            ],
+        },
+        {
+            name: 'Plafond',
+            what: 'Проверяет аренду во Франции против законного потолка, депозит против '
+                + 'срока возврата, счёт за обслуживание против того, что можно переложить '
+                + 'на жильца, и пишет официальную претензию. Считает на вашем устройстве, '
+                + 'ничего не уходит на сервер.',
+            state: 'unfinished',
+            figure: '4 проверки',
+            ways:
+            [
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/Plafond' },
+                { label: 'Попробовать', href: 'https://maksim-miliutin.github.io/Plafond' },
+            ],
         },
     ] as Work[],
 
@@ -1092,6 +1164,44 @@ const FR: Copy =
                 + 'discussion chiffrée sur l’appareil.',
             state: 'unfinished',
             figure: '8 langues',
+        },
+        {
+            name: 'NormPrichel',
+            what: 'Un viseur en surimpression pour les jeux Windows, écrit en Go. Ne lit pas '
+                + 'la mémoire du jeu, n’envoie aucune entrée, ne capture pas l’écran. Douze '
+                + 'formes, un profil par jeu.',
+            state: 'unfinished',
+            figure: '12 formes',
+            ways:
+            [
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/NormPrichel' },
+            ],
+        },
+        {
+            name: 'MiniVPN',
+            what: 'Un petit VPN fait pour montrer comment ça marche plutôt que pour en '
+                + 'remplacer un vrai : un serveur, un client, une seule clé partagée, pas '
+                + 'encore de rotation de clé.',
+            state: 'unfinished',
+            figure: '2 essais',
+            ways:
+            [
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/MiniVPN' },
+            ],
+        },
+        {
+            name: 'Plafond',
+            what: 'Vérifie un loyer français contre son plafond légal, un dépôt contre son '
+                + 'délai, un décompte de charges contre ce qui peut être refacturé, et rédige '
+                + 'la mise en demeure. Calcule sur votre appareil, rien n’est envoyé à un '
+                + 'serveur.',
+            state: 'unfinished',
+            figure: '4 vérifications',
+            ways:
+            [
+                { label: 'Open code', href: 'https://github.com/maksim-miliutin/Plafond' },
+                { label: 'Essayer', href: 'https://maksim-miliutin.github.io/Plafond' },
+            ],
         },
     ] as Work[],
 
