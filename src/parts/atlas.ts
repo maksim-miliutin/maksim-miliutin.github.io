@@ -6,7 +6,9 @@ export interface City
 {
     x: number;
     y: number;
+    name: string;
     say: string;
+    label: { anchor: 'start' | 'middle' | 'end'; dx: number; dy: number };
 }
 
 export function project(lon: number, lat: number): { x: number; y: number }
@@ -16,11 +18,27 @@ export function project(lon: number, lat: number): { x: number; y: number }
 
 export const CITIES =
 {
-    moscow: { ...project(37.6, 55.75), say: 'Here now. Remote straight away.' },
-    paris: { ...project(2.35, 48.85),
-        say: 'Paris. On site from 2027, paperwork mine to start.' },
-    dublin: { ...project(-6.26, 53.35),
-        say: 'Dublin. On site from 2027, paperwork mine to start.' },
+    moscow:
+    {
+        ...project(37.6, 55.75),
+        name: 'Moscow',
+        say: 'Here now. Remote straight away.',
+        label: { anchor: 'end', dx: -7, dy: 3 },
+    },
+    paris:
+    {
+        ...project(2.35, 48.85),
+        name: 'Paris',
+        say: 'Paris. On site from 2027, paperwork mine to start.',
+        label: { anchor: 'middle', dx: 0, dy: 15 },
+    },
+    dublin:
+    {
+        ...project(-6.26, 53.35),
+        name: 'Dublin',
+        say: 'Dublin. On site from 2027, paperwork mine to start.',
+        label: { anchor: 'start', dx: 7, dy: 3 },
+    },
 } satisfies Record<string, City>;
 
 export type CityName = keyof typeof CITIES;
@@ -62,32 +80,34 @@ export function pathTo(to: City): string
 
 export function mapSection(): HTMLElement
 {
+    const keys = Object.keys(CITIES) as CityName[];
+    const cities = keys.map((key) => CITIES[key]);
+
     const shapes = (paths: string[], group: string): SVGElement =>
         svg('g', { class: group }, paths.map((d) => svg('path', { d })));
 
-    const pin = svg('g', { id: 'pin', transform: `translate(${HOME.x} ${HOME.y})` },
-    [
-        svg('circle', { class: 'pin-halo', r: '9' }),
-        svg('circle', { class: 'pin-dot', r: '4' }),
-    ]);
-
-    const mark = (city: City, klass: string): SVGElement => svg('rect',
+    const mark = (city: City): SVGElement => svg('rect',
     {
-        class: klass,
+        class: city === HOME ? 'here' : 'there',
         x: (city.x - 3).toFixed(1),
         y: (city.y - 3).toFixed(1),
         width: '6',
         height: '6',
     });
 
-    const name = (city: City, text: string, anchor: string, dx: number, dy: number) =>
-        svg('text',
-        {
-            class: 'label',
-            x: (city.x + dx).toFixed(1),
-            y: (city.y + dy).toFixed(1),
-            'text-anchor': anchor,
-        }, [text]);
+    const label = (city: City): SVGElement => svg('text',
+    {
+        class: 'label',
+        x: (city.x + city.label.dx).toFixed(1),
+        y: (city.y + city.label.dy).toFixed(1),
+        'text-anchor': city.label.anchor,
+    }, [city.name]);
+
+    const pin = svg('g', { id: 'pin', transform: `translate(${HOME.x} ${HOME.y})` },
+    [
+        svg('circle', { class: 'pin-halo', r: '9' }),
+        svg('circle', { class: 'pin-dot', r: '4' }),
+    ]);
 
     const picture = svg('svg',
     {
@@ -99,21 +119,17 @@ export function mapSection(): HTMLElement
         shapes(LAND, 'land'),
         shapes(BORDERS, 'borders'),
         svg('path', { class: 'leg', id: 'leg', d: '' }),
-        mark(CITIES.paris, 'there'),
-        mark(CITIES.dublin, 'there'),
-        mark(HOME, 'here'),
+        ...cities.map(mark),
         pin,
-        name(HOME, 'Moscow', 'end', -7, 3),
-        name(CITIES.paris, 'Paris', 'middle', 0, 15),
-        name(CITIES.dublin, 'Dublin', 'start', 7, 3),
+        ...cities.map(label),
     ]);
 
-    const buttons = (['moscow', 'paris', 'dublin'] as const).map((key) => el('button',
+    const buttons = keys.map((key) => el('button',
     {
         type: 'button',
         'data-city': key,
-        'aria-pressed': String(key === 'moscow'),
-        text: key.charAt(0).toUpperCase() + key.slice(1),
+        'aria-pressed': String(CITIES[key] === HOME),
+        text: CITIES[key].name,
     }));
 
     return el('section', { class: 'moving' },
@@ -158,7 +174,7 @@ export function wireMap(parts: MapParts): void
 
         parts.legend.textContent = to.say;
 
-        if (name === 'moscow')
+        if (to === HOME)
         {
             parts.leg.setAttribute('d', '');
             put(HOME.x, HOME.y);
