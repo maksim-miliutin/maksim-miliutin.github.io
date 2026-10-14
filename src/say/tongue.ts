@@ -1,3 +1,5 @@
+import { readStored, writeStored } from '../stored';
+
 export type Tongue = 'en' | 'ru' | 'fr';
 
 const KEY = 'tongue';
@@ -43,7 +45,7 @@ export function firstTongue(stored: string | null, asked: readonly string[]): To
 
 export function spoken(): Tongue
 {
-    return firstTongue(readStored(), navigator.languages ?? []);
+    return firstTongue(readStored(KEY), navigator.languages ?? []);
 }
 
 export function wireTongue(buttons: HTMLElement): void
@@ -57,7 +59,7 @@ export function wireTongue(buttons: HTMLElement): void
             return;
         }
 
-        writeStored(asked as Tongue);
+        writeStored(KEY, asked as Tongue);
         location.reload();
     });
 }
@@ -65,27 +67,4 @@ export function wireTongue(buttons: HTMLElement): void
 function known(what: string | null | undefined): what is Tongue
 {
     return what === 'en' || what === 'ru' || what === 'fr';
-}
-
-function readStored(): string | null
-{
-    try
-    {
-        return localStorage.getItem(KEY);
-    }
-    catch
-    {
-        return null;
-    }
-}
-
-function writeStored(tongue: Tongue): void
-{
-    try
-    {
-        localStorage.setItem(KEY, tongue);
-    }
-    catch
-    {
-    }
 }

@@ -1,3 +1,5 @@
+import { readStored, writeStored } from './stored';
+
 export type Theme = 'light' | 'dark';
 
 export const THEME_KEY = 'theme';
@@ -32,36 +34,13 @@ export function wireTheme(root: HTMLElement, button: HTMLElement): void
         button.textContent = themeLabel(theme);
     };
 
-    show(firstTheme(readStored(), prefersDark));
+    show(firstTheme(readStored(THEME_KEY), prefersDark));
 
     button.addEventListener('click', () =>
     {
         const next = otherTheme((root.dataset.theme as Theme) ?? 'light');
 
         show(next);
-        writeStored(next);
+        writeStored(THEME_KEY, next);
     });
-}
-
-function readStored(): string | null
-{
-    try
-    {
-        return localStorage.getItem(THEME_KEY);
-    }
-    catch
-    {
-        return null;
-    }
-}
-
-function writeStored(theme: Theme): void
-{
-    try
-    {
-        localStorage.setItem(THEME_KEY, theme);
-    }
-    catch
-    {
-    }
 }
