@@ -20,7 +20,7 @@ export function mastheadSection(): HTMLElement
     const theme = el('button', { class: 'theme', type: 'button', text: HEADS.dark });
 
     wireTongue(tongues);
-    wireTheme(document.documentElement, theme);
+    wireTheme(document.documentElement, theme, HEADS);
 
     return el('header', { class: 'top' },
     [

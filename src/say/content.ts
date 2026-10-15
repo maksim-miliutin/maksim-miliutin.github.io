@@ -407,6 +407,7 @@ const EN =
         kit: 'What I build with',
         atlas: 'Where I am going',
         dark: 'Dark',
+        light: 'Light',
     },
 
     rules: '“Cannot compute” is an answer · every rate carries its dates '
@@ -806,6 +807,7 @@ const RU: Copy =
         kit: 'Чем я строю',
         atlas: 'Куда я еду',
         dark: 'Тёмная',
+        light: 'Светлая',
     },
 
     rules: '«Не могу посчитать» это ответ · у каждой ставки есть дата · вкладка, '
@@ -1220,6 +1222,7 @@ const FR: Copy =
         kit: 'Avec quoi je construis',
         atlas: 'Où je vais',
         dark: 'Sombre',
+        light: 'Clair',
     },
 
     rules: '« Je ne peux pas calculer » est une réponse · chaque taux porte ses dates '
