@@ -397,6 +397,51 @@ const EN =
 				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Plafond' },
 				{ label: 'Try it', href: 'https://maksim-miliutin.github.io/Plafond' },
 			],
+			story:
+			[
+				{
+					head: 'What it was asked to do',
+					body: 'Tell a tenant in France, in figures, whether the landlord is asking too '
+						+ 'much: a rent above the legal cap, a deposit kept past its month, '
+						+ 'charges the law does not let him pass on, a rise on a flat rated F or '
+						+ 'G. Then write the formal notice that asks for the money back.',
+				},
+				{
+					head: 'What it stands on',
+					body: 'Published open data, never a figure typed from memory. Each rate keeps '
+						+ 'the day it takes effect, the day it ends and the prefect\'s decree '
+						+ 'behind it, and a lease is checked against the rates in force on the day '
+						+ 'it was signed. The import reads the decree\'s own annexes and checks '
+						+ 'every line by the decree\'s own rules: furnished is empty plus its '
+						+ 'supplement, majored is twenty percent above, reduced thirty below.',
+				},
+				{
+					head: 'What stays on the phone',
+					body: 'The calculation runs on the device. The address goes once, straight to '
+						+ 'the public geocoder of the Géoplateforme, to find the quartier, and '
+						+ 'never through a server of mine; the rent goes nowhere at all. No '
+						+ 'account, no fee, no ads.',
+				},
+				{
+					head: 'Where it is now',
+					body: 'Live, and it can be put on the home screen of a phone. Four checks, '
+						+ 'each ending in a letter: a hundred and twenty one commits in a week, '
+						+ 'four hundred and twenty five tests, fourteen of them in real browsers, '
+						+ 'iPhones among them. Eight rents read by hand off the prefecture\'s own '
+						+ 'map match the ones Plafond holds.',
+				},
+				{
+					head: 'What I learnt',
+					body: 'Three bugs crashed nothing, and each now has a test of its own. After '
+						+ 'the 2026 rents went out, a phone kept last year\'s table for ten '
+						+ 'minutes, as long as Pages lets a browser keep a file, and refused a '
+						+ 'July lease; now every opening asks the server whether the tables '
+						+ 'changed. A badge took the class name label and turned every form label '
+						+ 'into a square that took the taps meant for the choices around it. And a '
+						+ 'letter written after the six months had run out asked the landlord to '
+						+ 'keep the proofs until a day already past.',
+				},
+			],
 		},
 	] as Work[],
 
@@ -810,6 +855,53 @@ const RU: Copy =
 			[
 				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Plafond' },
 				{ label: 'Попробовать', href: 'https://maksim-miliutin.github.io/Plafond' },
+			],
+			story:
+			[
+				{
+					head: 'Что он должен был делать',
+					body: 'Сказать арендатору во Франции цифрами, не просит ли хозяин лишнего: '
+						+ 'аренда выше законного потолка, депозит, задержанный дольше месяца, '
+						+ 'расходы, которые закон не разрешает перекладывать на жильца, повышение '
+						+ 'аренды в квартире класса F или G. А потом написать официальную '
+						+ 'претензию с требованием вернуть деньги.',
+				},
+				{
+					head: 'На чём он стоит',
+					body: 'Только опубликованные открытые данные, ни одной цифры по памяти. У '
+						+ 'каждой ставки есть день, с которого она действует, день, когда '
+						+ 'перестаёт, и указ префекта за ней, и договор проверяется по ставкам, '
+						+ 'действовавшим в день подписания. Импорт читает приложения самого указа '
+						+ 'и проверяет каждую строку по его же правилам: ставка с мебелью равна '
+						+ 'пустой плюс надбавка, повышенная на двадцать процентов выше, пониженная '
+						+ 'на тридцать ниже.',
+				},
+				{
+					head: 'Что остаётся на телефоне',
+					body: 'Расчёт идёт на устройстве. Адрес уходит один раз, напрямую в публичный '
+						+ 'геокодер Géoplateforme, чтобы найти квартал, и никогда не проходит '
+						+ 'через мой сервер; аренда не уходит никуда. Ни учётной записи, ни платы, '
+						+ 'ни рекламы.',
+				},
+				{
+					head: 'Где он сейчас',
+					body: 'Работает, и его можно поставить на главный экран телефона. Четыре '
+						+ 'проверки, каждая заканчивается письмом: сто двадцать один коммит за '
+						+ 'неделю, четыреста двадцать пять тестов, четырнадцать из них в настоящих '
+						+ 'браузерах, айфоны среди них. Восемь ставок, прочитанных вручную с карты '
+						+ 'самой префектуры, совпадают с теми, что держит Plafond.',
+				},
+				{
+					head: 'Чему научился',
+					body: 'Три бага ничего не роняли, и у каждого теперь свой тест. Когда вышли '
+						+ 'ставки 2026 года, телефон ещё десять минут держал прошлогоднюю таблицу, '
+						+ 'столько Pages разрешает браузеру хранить файл, и отказывал договору, '
+						+ 'подписанному в июле; теперь каждое открытие спрашивает сервер, не '
+						+ 'поменялись ли таблицы. Значок взял имя класса label и превратил каждую '
+						+ 'подпись формы в квадрат, который забирал нажатия у соседних вариантов. '
+						+ 'А письмо, написанное после того, как шесть месяцев истекли, просило '
+						+ 'хозяина хранить документы до дня, который уже прошёл.',
+				},
 			],
 		},
 	] as Work[],
@@ -1239,6 +1331,55 @@ const FR: Copy =
 			[
 				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Plafond' },
 				{ label: 'Essayer', href: 'https://maksim-miliutin.github.io/Plafond' },
+			],
+			story:
+			[
+				{
+					head: 'Ce qu’on lui demandait',
+					body: 'Dire à un locataire en France, chiffres à l’appui, si le propriétaire '
+						+ 'demande trop : un loyer au-dessus du plafond légal, un dépôt rendu '
+						+ 'après le délai, des charges que la loi ne permet pas de récupérer, une '
+						+ 'hausse sur un logement classé F ou G. Puis rédiger la mise en demeure '
+						+ 'qui réclame l’argent.',
+				},
+				{
+					head: 'Sur quoi il repose',
+					body: 'Des données ouvertes publiées, jamais un chiffre tapé de mémoire. '
+						+ 'Chaque taux garde le jour où il entre en vigueur, celui où il prend fin '
+						+ 'et l’arrêté préfectoral qui le fixe, et un bail est vérifié avec les '
+						+ 'taux en vigueur le jour de sa signature. L’import lit les annexes de '
+						+ 'l’arrêté et contrôle chaque ligne selon ses propres règles : le meublé '
+						+ 'vaut le vide plus son complément, le majoré vingt pour cent de plus, le '
+						+ 'minoré trente de moins.',
+				},
+				{
+					head: 'Ce qui reste sur le téléphone',
+					body: 'Le calcul se fait sur l’appareil. L’adresse part une seule fois, '
+						+ 'directement vers le géocodeur public de la Géoplateforme, pour trouver '
+						+ 'le quartier, et ne passe jamais par un serveur à moi ; le loyer ne part '
+						+ 'nulle part. Pas de compte, pas de frais, pas de publicité.',
+				},
+				{
+					head: 'Où il en est',
+					body: 'En ligne, et on peut l’ajouter à l’écran d’accueil d’un téléphone. '
+						+ 'Quatre vérifications, chacune finit par une lettre : cent vingt et un '
+						+ 'commits en une semaine, quatre cent vingt-cinq tests, dont quatorze '
+						+ 'dans de vrais navigateurs, iPhone compris. Huit loyers relevés à la '
+						+ 'main sur la carte de la préfecture elle-même correspondent à ceux que '
+						+ 'Plafond détient.',
+				},
+				{
+					head: 'Ce que j’ai appris',
+					body: 'Trois bugs ne faisaient rien planter, et chacun a maintenant son test. '
+						+ 'Après la sortie des loyers 2026, un téléphone a gardé la table de l’an '
+						+ 'dernier pendant dix minutes, le temps que Pages laisse un navigateur '
+						+ 'garder un fichier, et refusait un bail de juillet ; désormais chaque '
+						+ 'ouverture demande au serveur si les tables ont changé. Un badge a pris '
+						+ 'le nom de classe label et transformé chaque libellé de formulaire en '
+						+ 'carré qui volait les touches destinées aux choix voisins. Et une lettre '
+						+ 'écrite après les six mois demandait au propriétaire de garder les '
+						+ 'justificatifs jusqu’à un jour déjà passé.',
+				},
 			],
 		},
 	] as Work[],

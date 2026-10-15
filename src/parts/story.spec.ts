@@ -8,7 +8,7 @@ describe('the stories behind the work', () =>
 	it('tells one for the projects that have something to tell', () =>
 	{
 		expect(told.map((one) => one.name).sort())
-			.toEqual(['NetCheck', 'Netwatch', 'Obxod']);
+			.toEqual(['NetCheck', 'Netwatch', 'Obxod', 'Plafond']);
 	});
 
 	it('starts each one with the problem and ends with what was learnt', () =>
@@ -83,7 +83,7 @@ describe('what makes a story worth reading', () =>
 	{
 		const open = told.filter((one) => one.ways !== undefined);
 
-		expect(open.map((one) => one.name)).toEqual(['Netwatch', 'Obxod']);
+		expect(open.map((one) => one.name)).toEqual(['Netwatch', 'Obxod', 'Plafond']);
 	});
 });
 
