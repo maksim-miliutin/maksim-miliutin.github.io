@@ -34,10 +34,12 @@ describe('otherTheme', () =>
 
 describe('themeLabel', () =>
 {
+    const names = { light: 'Светлая', dark: 'Тёмная' };
+
     it('names where pressing it goes, not where you are', () =>
     {
-        expect(themeLabel('dark')).toBe('Light');
-        expect(themeLabel('light')).toBe('Dark');
+        expect(themeLabel('dark', names)).toBe('Светлая');
+        expect(themeLabel('light', names)).toBe('Тёмная');
     });
 });
 

@@ -19,12 +19,16 @@ export function otherTheme(theme: Theme): Theme
     return theme === 'dark' ? 'light' : 'dark';
 }
 
-export function themeLabel(theme: Theme): string
+export function themeLabel(theme: Theme, names: Record<Theme, string>): string
 {
-    return theme === 'dark' ? 'Light' : 'Dark';
+    return names[otherTheme(theme)];
 }
 
-export function wireTheme(root: HTMLElement, button: HTMLElement): void
+export function wireTheme(
+    root: HTMLElement,
+    button: HTMLElement,
+    names: Record<Theme, string>,
+): void
 {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -34,7 +38,7 @@ export function wireTheme(root: HTMLElement, button: HTMLElement): void
     {
         shown = theme;
         root.dataset.theme = theme;
-        button.textContent = themeLabel(theme);
+        button.textContent = themeLabel(theme, names);
     };
 
     show(shown);
