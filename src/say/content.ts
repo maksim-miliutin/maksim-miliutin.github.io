@@ -410,6 +410,8 @@ const EN =
         light: 'Light',
     },
 
+    kitSay: 'Seven of these are most of my day.',
+
     rules: '“Cannot compute” is an answer · every rate carries its dates '
     + '· a tab left open overnight was not nine hours of YouTube',
 
@@ -809,6 +811,8 @@ const RU: Copy =
         dark: 'Тёмная',
         light: 'Светлая',
     },
+
+    kitSay: 'Семь из них и есть почти весь мой день.',
 
     rules: '«Не могу посчитать» это ответ · у каждой ставки есть дата · вкладка, '
         + 'забытая на ночь, не была девятью часами YouTube',
@@ -1225,6 +1229,8 @@ const FR: Copy =
         light: 'Clair',
     },
 
+    kitSay: 'Sept d’entre eux font l’essentiel de ma journée.',
+
     rules: '« Je ne peux pas calculer » est une réponse · chaque taux porte ses dates '
         + '· un onglet laissé ouvert la nuit n’était pas neuf heures de YouTube',
 
@@ -1244,6 +1250,7 @@ export const TALLY = said.tally;
 export const WORKS = said.works;
 export const REACH = said.reach;
 export const HEADS = said.heads;
+export const KIT_SAY = said.kitSay;
 export const RULES = said.rules;
 export const COLOPHON = said.colophon;
 
