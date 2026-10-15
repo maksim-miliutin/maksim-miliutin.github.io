@@ -10,58 +10,58 @@ const KEY = 'tongue';
 
 export function tongueName(tongue: Tongue): string
 {
-    return NAMES[tongue];
+	return NAMES[tongue];
 }
 
 // Two letters rather than a word: the header already carries a role, a city,
 // four links and a theme button, and three names take a quarter of the line.
 export function tongueShort(tongue: Tongue): string
 {
-    return tongue.toUpperCase();
+	return tongue.toUpperCase();
 }
 
 export function firstTongue(stored: string | null, asked: readonly string[]): Tongue
 {
-    if (known(stored))
-    {
-        return stored;
-    }
+	if (known(stored))
+	{
+		return stored;
+	}
 
-    for (const one of asked)
-    {
-        const short = one.slice(0, 2).toLowerCase();
+	for (const one of asked)
+	{
+		const short = one.slice(0, 2).toLowerCase();
 
-        if (known(short))
-        {
-            return short;
-        }
-    }
+		if (known(short))
+		{
+			return short;
+		}
+	}
 
-    return 'en';
+	return 'en';
 }
 
 export function spoken(): Tongue
 {
-    return firstTongue(readStored(KEY), navigator.languages ?? []);
+	return firstTongue(readStored(KEY), navigator.languages ?? []);
 }
 
 export function wireTongue(buttons: HTMLElement): void
 {
-    buttons.addEventListener('click', (event) =>
-    {
-        const asked = (event.target as HTMLElement).dataset.tongue;
+	buttons.addEventListener('click', (event) =>
+	{
+		const asked = (event.target as HTMLElement).dataset.tongue;
 
-        if (!known(asked) || asked === spoken())
-        {
-            return;
-        }
+		if (!known(asked) || asked === spoken())
+		{
+			return;
+		}
 
-        writeStored(KEY, asked);
-        location.reload();
-    });
+		writeStored(KEY, asked);
+		location.reload();
+	});
 }
 
 function known(what: string | null | undefined): what is Tongue
 {
-    return TONGUES.some((tongue) => tongue === what);
+	return TONGUES.some((tongue) => tongue === what);
 }

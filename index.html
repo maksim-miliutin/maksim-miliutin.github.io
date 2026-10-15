@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maksim Miliutin, full-stack engineer</title>
-<meta name="description" content="Maksim Miliutin, full-stack engineer in Moscow. I run a collectibles marketplace I built alone, and six more products beside it.">
+<meta name="description" content="Maksim Miliutin, full-stack engineer in Moscow. I run a collectibles marketplace I built alone, and more beside it.">
 <meta name="author" content="Maksim Miliutin">
 <link rel="canonical" href="%VITE_SITE_URL%/">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Maksim Miliutin, full-stack engineer">
-<meta property="og:description" content="A marketplace built and run solo, and six more products beside it.">
+<meta property="og:description" content="A marketplace built and run solo, and more beside it.">
 <meta property="og:url" content="%VITE_SITE_URL%/">
 <meta property="og:image" content="%VITE_SITE_URL%/assets/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -24,34 +24,28 @@
 <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png?v=3">
 <link rel="apple-touch-icon" href="assets/icon-512.png?v=3">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-
-
-
 <script>
 // Runs before the modules so the first paint is already the kept theme, not white.
 (function ()
 {
-    var root = document.documentElement;
-    var kept = null;
+	var root = document.documentElement;
+	var kept = null;
 
-    try
-    {
-        kept = localStorage.getItem('theme');
-    }
-    catch (refused)
-    {
-    }
+	try
+	{
+		kept = localStorage.getItem('theme');
+	}
+	catch (refused)
+	{
+	}
 
-    if (kept === 'dark' || kept === 'light')
-    {
-        root.dataset.theme = kept;
-        return;
-    }
+	if (kept === 'dark' || kept === 'light')
+	{
+		root.dataset.theme = kept;
+		return;
+	}
 
-    root.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	root.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 })();
 </script>
 
@@ -65,20 +59,20 @@
 <body>
 
 <div class="screen">
-    <div id="masthead"></div>
+	<div id="masthead"></div>
 
-    <div class="left-col">
-        <div id="hero"></div>
-        <div id="kit"></div>
-    </div>
+	<div class="left-col">
+		<div id="hero"></div>
+		<div id="kit"></div>
+	</div>
 
-    <div class="right-col">
-        <div id="works"></div>
-        <div id="reach"></div>
-        <div id="atlas"></div>
-    </div>
+	<div class="right-col">
+		<div id="works"></div>
+		<div id="reach"></div>
+		<div id="atlas"></div>
+	</div>
 
-    <div id="foot"></div>
+	<div id="foot"></div>
 </div>
 
 <script type="module" src="/src/main.ts"></script>
