@@ -36,7 +36,7 @@ const EN =
 		name: 'Maksim Miliutin',
 		role: 'full-stack engineer',
 		where: 'Moscow',
-		when: 'remote now, on site from 2027',
+		when: 'remote now, open to relocation',
 		bio: 'Two years of Computer Science at RTU MIREA, then everything else learned by '
 			+ 'shipping and fixing what I shipped.',
 	},
@@ -472,8 +472,8 @@ const EN =
 		cities:
 		{
 			moscow: { name: 'Moscow', say: 'Here now. Remote straight away.' },
-			paris: { name: 'Paris', say: 'Paris. On site from 2027, paperwork mine to start.' },
-			dublin: { name: 'Dublin', say: 'Dublin. On site from 2027, paperwork mine to start.' },
+			paris: { name: 'Paris', say: 'Paris. On site with a sponsored work visa.' },
+			dublin: { name: 'Dublin', say: 'Dublin. On site with a sponsored work visa.' },
 		},
 	},
 
@@ -492,7 +492,7 @@ const RU: Copy =
 		name: 'Максим Милютин',
 		role: 'фулстек-разработчик',
 		where: 'Москва',
-		when: 'сейчас удалённо, с 2027 в офисе',
+		when: 'сейчас удалённо, готов к переезду',
 		bio: 'Два года информатики в РТУ МИРЭА, остальное выучено на том, что выпускал '
 			+ 'и потом чинил.',
 	},
@@ -933,8 +933,8 @@ const RU: Copy =
 		cities:
 		{
 			moscow: { name: 'Москва', say: 'Здесь сейчас. Удалённо можно сразу.' },
-			paris: { name: 'Париж', say: 'Париж. С 2027 в офисе, документы оформляю сам.' },
-			dublin: { name: 'Дублин', say: 'Дублин. С 2027 в офисе, документы оформляю сам.' },
+			paris: { name: 'Париж', say: 'Париж. В офисе, если компания оформит рабочую визу.' },
+			dublin: { name: 'Дублин', say: 'Дублин. В офисе, если компания оформит рабочую визу.' },
 		},
 	},
 
@@ -951,7 +951,7 @@ const FR: Copy =
 		name: 'Maksim Miliutin',
 		role: 'ingénieur full stack',
 		where: 'Moscou',
-		when: 'à distance pour le moment, sur site à partir de 2027',
+		when: 'à distance pour le moment, ouvert à la mobilité',
 		bio: 'Deux ans d’informatique à RTU MIREA, puis tout le reste appris en '
 			+ 'livrant et en réparant ce que j’avais livré.',
 	},
@@ -1411,8 +1411,8 @@ const FR: Copy =
 		cities:
 		{
 			moscow: { name: 'Moscou', say: 'Ici pour le moment. À distance tout de suite.' },
-			paris: { name: 'Paris', say: 'Paris. Sur site dès 2027, les démarches sont à moi.' },
-			dublin: { name: 'Dublin', say: 'Dublin. Sur site dès 2027, les démarches sont à moi.' },
+			paris: { name: 'Paris', say: 'Paris. Sur site avec un visa de travail sponsorisé.' },
+			dublin: { name: 'Dublin', say: 'Dublin. Sur site avec un visa de travail sponsorisé.' },
 		},
 	},
 
