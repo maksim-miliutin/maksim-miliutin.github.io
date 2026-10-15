@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { SAID } from './content';
+import { LEAD, SAID } from './content';
 import { TONGUES } from './tongue';
 
 const tables = TONGUES.map((tongue) => [tongue, SAID[tongue]] as const);
@@ -107,6 +107,21 @@ describe('the column on the right', () =>
                 .map((one) => one.figure);
 
             expect(new Set(out).size, `${tongue}: ${out.join(', ')}`).toBe(1);
+        }
+    });
+});
+
+describe('the line under the kit', () =>
+{
+    it('says as many as it leads with, in every language', () =>
+    {
+        const seven = { en: /^Seven /, ru: /^Семь /, fr: /^Sept / };
+
+        expect(LEAD).toHaveLength(7);
+
+        for (const [tongue, table] of tables)
+        {
+            expect(table.kitSay, tongue).toMatch(seven[tongue]);
         }
     });
 });
