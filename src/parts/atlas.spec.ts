@@ -7,7 +7,7 @@ describe('project', () =>
 	{
 		expect(project(37.6, 55.75).x).toBeCloseTo(327.3, 0);
 		expect(project(2.35, 48.85).x).toBeCloseTo(92.3, 0);
-		expect(project(-6.26, 53.35).x).toBeCloseTo(34.9, 0);
+		expect(project(4.9, 52.37).x).toBeCloseTo(109.3, 0);
 	});
 
 	it('runs north to south down the picture', () =>
@@ -26,6 +26,12 @@ describe('the cities', () =>
 	it('starts at home', () =>
 	{
 		expect(HOME).toBe(CITIES.moscow);
+	});
+
+	it('puts Amsterdam north of Paris and a little east of it', () =>
+	{
+		expect(CITIES.amsterdam.y).toBeLessThan(CITIES.paris.y);
+		expect(CITIES.amsterdam.x).toBeGreaterThan(CITIES.paris.x);
 	});
 });
 
@@ -76,11 +82,11 @@ describe('pathTo', () =>
 {
 	it('draws from home to the city through the arc', () =>
 	{
-		const d = pathTo(CITIES.dublin);
-		const { midX } = arcTo(CITIES.dublin);
+		const d = pathTo(CITIES.amsterdam);
+		const { midX } = arcTo(CITIES.amsterdam);
 
 		expect(d.startsWith(`M${HOME.x}`)).toBe(true);
 		expect(d).toContain(midX.toString());
-		expect(d.endsWith(`${CITIES.dublin.x} ${CITIES.dublin.y}`)).toBe(true);
+		expect(d.endsWith(`${CITIES.amsterdam.x} ${CITIES.amsterdam.y}`)).toBe(true);
 	});
 });

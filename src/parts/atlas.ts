@@ -36,9 +36,9 @@ export const CITIES =
 		...project(2.35, 48.85),
 		label: { anchor: 'middle', dx: 0, dy: 15 },
 	},
-	dublin:
+	amsterdam:
 	{
-		...project(-6.26, 53.35),
+		...project(4.9, 52.37),
 		label: { anchor: 'start', dx: 7, dy: 3 },
 	},
 } satisfies Record<CityName, City>;
