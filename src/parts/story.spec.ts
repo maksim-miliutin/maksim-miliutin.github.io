@@ -128,6 +128,6 @@ describe('the shelves', () =>
 		const native = WORKS.filter((one) => one.shelf === 'mobile');
 
 		expect(native.map((one) => one.name))
-			.toEqual(['Trellis', 'Vydokh', 'Veilla', 'Pasmurno']);
+			.toEqual(['Trellis', 'Vydokh', 'Veilla', 'Pasmurno', 'Mira']);
 	});
 });
