@@ -1,11 +1,15 @@
 import { Tongue, spoken } from './tongue';
 
+export type Shelf = 'out' | 'going' | 'mobile' | 'frozen';
+
+export const SHELVES: Shelf[] = ['out', 'going', 'mobile', 'frozen'];
+
 export interface Work
 {
 	name: string;
 	what: string;
 	figure: string;
-	state: 'shipped' | 'unfinished';
+	shelf: Shelf;
 	ways?: Way[];
 	story?: Part[];
 }
@@ -103,14 +107,14 @@ const EN =
 			name: 'Bronyka Shop',
 			what: 'Collectibles marketplace in production. NestJS · Prisma '
 				+ '· Postgres · Redis · React.',
-			state: 'shipped',
+			shelf: 'out',
 			figure: 'shipped',
 		},
 		{
 			name: 'Netwatch',
 			what: 'A list of what was watched and listened to on this machine, across '
 				+ 'thirty-seven services. One Go binary, and it listens on loopback only.',
-			state: 'shipped',
+			shelf: 'out',
 			figure: 'shipped',
 			ways:
 			[
@@ -170,7 +174,7 @@ const EN =
 				+ 'length where the real one goes, then the real one over the top. The '
 				+ 'inspector reads in the order things arrive and stops at the first; the '
 				+ 'server puts them back by number and keeps the last.',
-			state: 'shipped',
+			shelf: 'out',
 			figure: 'shipped',
 			ways:
 			[
@@ -244,7 +248,7 @@ const EN =
 			what: 'Checks a French rent against its legal cap, a deposit against its deadline, '
 				+ 'a charges statement against what may be passed on, and writes the formal '
 				+ 'notice. Runs on your device, nothing sent to a server.',
-			state: 'shipped',
+			shelf: 'out',
 			figure: 'shipped',
 			ways:
 			[
@@ -298,11 +302,64 @@ const EN =
 			],
 		},
 		{
+			name: 'NormPrichel',
+			what: 'A crosshair overlay for Windows games, written in Go. No game memory read, '
+				+ 'no input sent, no screen capture. Twelve shapes, a profile per game.',
+			shelf: 'going',
+			figure: '12 shapes',
+			ways:
+			[
+				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/NormPrichel' },
+			],
+		},
+		{
+			name: 'obxod-mobile',
+			what: 'The same bypass on Android: a local VPN service with no root and no '
+				+ 'server in the middle, so traffic goes straight to the sites. The Go '
+				+ 'core is shared through gomobile.',
+			shelf: 'going',
+			figure: 'back soon',
+			ways:
+			[
+				{
+					label: 'Open code',
+					href: 'https://github.com/maksim-miliutin/obxod-mobile',
+				},
+			],
+		},
+		{
+			name: 'Trellis',
+			what: 'Grammar as a dependency graph rather than a list of topics. Not shipped yet.',
+			shelf: 'mobile',
+			figure: '598 tests',
+		},
+		{
+			name: 'Vydokh',
+			what: 'Quitting vape without shame. A slip resets one number and leaves the other two '
+				+ 'alone.',
+			shelf: 'mobile',
+			figure: '262 tests',
+		},
+		{
+			name: 'Veilla',
+			what: 'A daily check-in call for a parent living alone. Audio and transcript are never '
+				+ 'stored.',
+			shelf: 'mobile',
+			figure: '157 checks',
+		},
+		{
+			name: 'Pasmurno',
+			what: 'A mood journal for five close people. No feed, no algorithm, chat encrypted on '
+				+ 'the device.',
+			shelf: 'mobile',
+			figure: '8 languages',
+		},
+		{
 			name: 'NetCheck',
 			what: 'Named the layer where a connection stops working: the router, the '
 				+ 'provider, the names, the handshake. Diagnosis ran into a ceiling '
 				+ 'rather than a wall, and the measuring went on into Obxod.',
-			state: 'unfinished',
+			shelf: 'frozen',
 			figure: 'closed',
 			story:
 			[
@@ -375,70 +432,17 @@ const EN =
 			],
 		},
 		{
-			name: 'obxod-mobile',
-			what: 'The same bypass on Android: a local VPN service with no root and no '
-				+ 'server in the middle, so traffic goes straight to the sites. The Go '
-				+ 'core is shared through gomobile.',
-			state: 'unfinished',
-			figure: 'paused',
-			ways:
-			[
-				{
-					label: 'Open code',
-					href: 'https://github.com/maksim-miliutin/obxod-mobile',
-				},
-			],
-		},
-		{
-			name: 'Trellis',
-			what: 'Grammar as a dependency graph rather than a list of topics. Not shipped yet.',
-			state: 'unfinished',
-			figure: '598 tests',
-		},
-		{
-			name: 'Vydokh',
-			what: 'Quitting vape without shame. A slip resets one number and leaves the other two '
-				+ 'alone.',
-			state: 'unfinished',
-			figure: '262 tests',
-		},
-		{
-			name: 'Veilla',
-			what: 'A daily check-in call for a parent living alone. Audio and transcript are never '
-				+ 'stored.',
-			state: 'unfinished',
-			figure: '157 checks',
-		},
-		{
 			name: 'Reste',
 			what: 'An €800 French crown at “70% reimbursed” returns €84. Reste says what you will '
 				+ 'actually pay.',
-			state: 'unfinished',
+			shelf: 'frozen',
 			figure: '67 tests',
-		},
-		{
-			name: 'Pasmurno',
-			what: 'A mood journal for five close people. No feed, no algorithm, chat encrypted on '
-				+ 'the device.',
-			state: 'unfinished',
-			figure: '8 languages',
-		},
-		{
-			name: 'NormPrichel',
-			what: 'A crosshair overlay for Windows games, written in Go. No game memory read, '
-				+ 'no input sent, no screen capture. Twelve shapes, a profile per game.',
-			state: 'unfinished',
-			figure: '12 shapes',
-			ways:
-			[
-				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/NormPrichel' },
-			],
 		},
 		{
 			name: 'MiniVPN',
 			what: 'A small VPN built to show how one works rather than to replace one: one '
 				+ 'server, one client, one shared key, no key rotation yet.',
-			state: 'unfinished',
+			shelf: 'frozen',
 			figure: '2 setups tested',
 			ways:
 			[
@@ -458,7 +462,9 @@ const EN =
 	{
 		works: 'Everything I have built',
 		out: 'Out',
-		started: 'Started, not finished',
+		going: 'In progress',
+		mobile: 'Mobile apps in React Native, frozen',
+		frozen: 'Frozen',
 		kit: 'What I build with',
 		atlas: 'Where I am going',
 		dark: 'Dark',
@@ -561,14 +567,14 @@ const RU: Copy =
 			name: 'Bronyka Shop',
 			what: 'Магазин коллекционных фигурок в бою. NestJS · Prisma · Postgres '
 				+ '· Redis · React.',
-			state: 'shipped',
+			shelf: 'out',
 			figure: 'выпущен',
 		},
 		{
 			name: 'Netwatch',
 			what: 'Список того, что смотрели и слушали на этой машине, по тридцати '
 				+ 'семи службам. Один бинарник на Go, слушает только петлю.',
-			state: 'shipped',
+			shelf: 'out',
 			figure: 'выпущен',
 			ways:
 			[
@@ -630,7 +636,7 @@ const RU: Copy =
 				+ 'кладёт поверх. Проверяющий читает в порядке прихода и '
 				+ 'останавливается на первом; сервер собирает по номерам и оставляет '
 				+ 'последнее.',
-			state: 'shipped',
+			shelf: 'out',
 			figure: 'выпущен',
 			ways:
 			[
@@ -706,7 +712,7 @@ const RU: Copy =
 				+ 'срока возврата, счёт за обслуживание против того, что можно переложить '
 				+ 'на жильца, и пишет официальную претензию. Считает на вашем устройстве, '
 				+ 'ничего не уходит на сервер.',
-			state: 'shipped',
+			shelf: 'out',
 			figure: 'выпущен',
 			ways:
 			[
@@ -762,11 +768,65 @@ const RU: Copy =
 			],
 		},
 		{
+			name: 'NormPrichel',
+			what: 'Оверлей-прицел для игр на Windows, на Go. Не читает память игры, не '
+				+ 'эмулирует ввод, не захватывает экран. Двенадцать форм, свой профиль '
+				+ 'на игру.',
+			shelf: 'going',
+			figure: '12 форм',
+			ways:
+			[
+				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/NormPrichel' },
+			],
+		},
+		{
+			name: 'obxod-mobile',
+			what: 'Тот же обход на Android: служба VPN на самом телефоне, без рута и '
+				+ 'без сервера посередине, трафик идёт прямо на сайты. Ядро на Go '
+				+ 'общее, через gomobile.',
+			shelf: 'going',
+			figure: 'скоро продолжу',
+			ways:
+			[
+				{
+					label: 'Open code',
+					href: 'https://github.com/maksim-miliutin/obxod-mobile',
+				},
+			],
+		},
+		{
+			name: 'Trellis',
+			what: 'Грамматика как граф зависимостей, а не список тем. Ещё не выпущен.',
+			shelf: 'mobile',
+			figure: '598 тестов',
+		},
+		{
+			name: 'Vydokh',
+			what: 'Бросить вейп без стыда. Срыв сбрасывает одно число и не трогает два '
+				+ 'других.',
+			shelf: 'mobile',
+			figure: '262 теста',
+		},
+		{
+			name: 'Veilla',
+			what: 'Ежедневный звонок-проверка родителю, живущему одному. Ни запись, ни '
+				+ 'расшифровка не хранятся.',
+			shelf: 'mobile',
+			figure: '157 проверок',
+		},
+		{
+			name: 'Pasmurno',
+			what: 'Дневник настроения для пятерых близких. Ни ленты, ни алгоритма, чат '
+				+ 'шифруется на устройстве.',
+			shelf: 'mobile',
+			figure: '8 языков',
+		},
+		{
 			name: 'NetCheck',
 			what: 'Называл слой, на котором связь перестаёт работать: роутер, '
 				+ 'провайдер, имена, рукопожатие. Диагностика упёрлась в потолок, а '
 				+ 'не в стену, и измерение ушло в Obxod.',
-			state: 'unfinished',
+			shelf: 'frozen',
 			figure: 'закрыт',
 			story:
 			[
@@ -837,71 +897,17 @@ const RU: Copy =
 			],
 		},
 		{
-			name: 'obxod-mobile',
-			what: 'Тот же обход на Android: служба VPN на самом телефоне, без рута и '
-				+ 'без сервера посередине, трафик идёт прямо на сайты. Ядро на Go '
-				+ 'общее, через gomobile.',
-			state: 'unfinished',
-			figure: 'на паузе',
-			ways:
-			[
-				{
-					label: 'Open code',
-					href: 'https://github.com/maksim-miliutin/obxod-mobile',
-				},
-			],
-		},
-		{
-			name: 'Trellis',
-			what: 'Грамматика как граф зависимостей, а не список тем. Ещё не выпущен.',
-			state: 'unfinished',
-			figure: '598 тестов',
-		},
-		{
-			name: 'Vydokh',
-			what: 'Бросить вейп без стыда. Срыв сбрасывает одно число и не трогает два '
-				+ 'других.',
-			state: 'unfinished',
-			figure: '262 теста',
-		},
-		{
-			name: 'Veilla',
-			what: 'Ежедневный звонок-проверка родителю, живущему одному. Ни запись, ни '
-				+ 'расшифровка не хранятся.',
-			state: 'unfinished',
-			figure: '157 проверок',
-		},
-		{
 			name: 'Reste',
 			what: 'Коронка во Франции за 800 евро при «возмещаем 70%» возвращает 84. '
 				+ 'Reste говорит, сколько вы заплатите на самом деле.',
-			state: 'unfinished',
+			shelf: 'frozen',
 			figure: '67 тестов',
-		},
-		{
-			name: 'Pasmurno',
-			what: 'Дневник настроения для пятерых близких. Ни ленты, ни алгоритма, чат '
-				+ 'шифруется на устройстве.',
-			state: 'unfinished',
-			figure: '8 языков',
-		},
-		{
-			name: 'NormPrichel',
-			what: 'Оверлей-прицел для игр на Windows, на Go. Не читает память игры, не '
-				+ 'эмулирует ввод, не захватывает экран. Двенадцать форм, свой профиль '
-				+ 'на игру.',
-			state: 'unfinished',
-			figure: '12 форм',
-			ways:
-			[
-				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/NormPrichel' },
-			],
 		},
 		{
 			name: 'MiniVPN',
 			what: 'Маленький VPN, чтобы показать, как он устроен, а не чтобы заменить '
 				+ 'настоящий: один сервер, один клиент, один общий ключ, без смены ключей.',
-			state: 'unfinished',
+			shelf: 'frozen',
 			figure: '2 стенда',
 			ways:
 			[
@@ -921,7 +927,9 @@ const RU: Copy =
 	{
 		works: 'Всё, что я сделал',
 		out: 'Выпущено',
-		started: 'Начато, не доведено',
+		going: 'В работе',
+		mobile: 'Мобильные приложения на React Native, заморожены',
+		frozen: 'Заморожено',
 		kit: 'Чем я строю',
 		atlas: 'Куда я еду',
 		dark: 'Тёмная',
@@ -1024,7 +1032,7 @@ const FR: Copy =
 			name: 'Bronyka Shop',
 			what: 'Boutique d’objets de collection en production. NestJS · Prisma '
 				+ '· Postgres · Redis · React.',
-			state: 'shipped',
+			shelf: 'out',
 			figure: 'publié',
 		},
 		{
@@ -1032,7 +1040,7 @@ const FR: Copy =
 			what: 'Une liste de ce qui a été regardé et écouté sur cette machine, sur '
 				+ 'trente sept services. Un seul binaire Go, qui n’écoute que la '
 				+ 'boucle locale.',
-			state: 'shipped',
+			shelf: 'out',
 			figure: 'publié',
 			ways:
 			[
@@ -1095,7 +1103,7 @@ const FR: Copy =
 				+ 'la même longueur là où va le vrai, puis le vrai par dessus. '
 				+ 'L’inspecteur lit dans l’ordre d’arrivée et s’arrête au premier ; le '
 				+ 'serveur les remet par numéro et garde le dernier.',
-			state: 'shipped',
+			shelf: 'out',
 			figure: 'publié',
 			ways:
 			[
@@ -1175,7 +1183,7 @@ const FR: Copy =
 				+ 'délai, un décompte de charges contre ce qui peut être refacturé, et rédige '
 				+ 'la mise en demeure. Calcule sur votre appareil, rien n’est envoyé à un '
 				+ 'serveur.',
-			state: 'shipped',
+			shelf: 'out',
 			figure: 'publié',
 			ways:
 			[
@@ -1233,12 +1241,67 @@ const FR: Copy =
 			],
 		},
 		{
+			name: 'NormPrichel',
+			what: 'Un viseur en surimpression pour les jeux Windows, écrit en Go. Ne lit pas '
+				+ 'la mémoire du jeu, n’envoie aucune entrée, ne capture pas l’écran. Douze '
+				+ 'formes, un profil par jeu.',
+			shelf: 'going',
+			figure: '12 formes',
+			ways:
+			[
+				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/NormPrichel' },
+			],
+		},
+		{
+			name: 'obxod-mobile',
+			what: 'Le même contournement sur Android : un service VPN local, sans root '
+				+ 'et sans serveur au milieu, le trafic va droit aux sites. Le coeur '
+				+ 'en Go est partagé via gomobile.',
+			shelf: 'going',
+			figure: 'reprise bientôt',
+			ways:
+			[
+				{
+					label: 'Open code',
+					href: 'https://github.com/maksim-miliutin/obxod-mobile',
+				},
+			],
+		},
+		{
+			name: 'Trellis',
+			what: 'La grammaire comme graphe de dépendances plutôt que liste de sujets. '
+				+ 'Pas encore livré.',
+			shelf: 'mobile',
+			figure: '598 tests',
+		},
+		{
+			name: 'Vydokh',
+			what: 'Arrêter la vape sans honte. Une rechute remet un seul compteur à zéro '
+				+ 'et laisse les deux autres.',
+			shelf: 'mobile',
+			figure: '262 tests',
+		},
+		{
+			name: 'Veilla',
+			what: 'Un appel quotidien pour un parent qui vit seul. Ni l’audio ni la '
+				+ 'transcription ne sont conservés.',
+			shelf: 'mobile',
+			figure: '157 contrôles',
+		},
+		{
+			name: 'Pasmurno',
+			what: 'Un journal d’humeur pour cinq proches. Pas de fil, pas d’algorithme, '
+				+ 'discussion chiffrée sur l’appareil.',
+			shelf: 'mobile',
+			figure: '8 langues',
+		},
+		{
 			name: 'NetCheck',
 			what: 'Nommait la couche où une connexion cesse de marcher : le routeur, '
 				+ 'le fournisseur, les noms, la poignée de main. Le diagnostic a '
 				+ 'touché un plafond plutôt qu’un mur, et la mesure a continué dans '
 				+ 'Obxod.',
-			state: 'unfinished',
+			shelf: 'frozen',
 			figure: 'fermé',
 			story:
 			[
@@ -1315,73 +1378,18 @@ const FR: Copy =
 			],
 		},
 		{
-			name: 'obxod-mobile',
-			what: 'Le même contournement sur Android : un service VPN local, sans root '
-				+ 'et sans serveur au milieu, le trafic va droit aux sites. Le coeur '
-				+ 'en Go est partagé via gomobile.',
-			state: 'unfinished',
-			figure: 'en pause',
-			ways:
-			[
-				{
-					label: 'Open code',
-					href: 'https://github.com/maksim-miliutin/obxod-mobile',
-				},
-			],
-		},
-		{
-			name: 'Trellis',
-			what: 'La grammaire comme graphe de dépendances plutôt que liste de sujets. '
-				+ 'Pas encore livré.',
-			state: 'unfinished',
-			figure: '598 tests',
-		},
-		{
-			name: 'Vydokh',
-			what: 'Arrêter la vape sans honte. Une rechute remet un seul compteur à zéro '
-				+ 'et laisse les deux autres.',
-			state: 'unfinished',
-			figure: '262 tests',
-		},
-		{
-			name: 'Veilla',
-			what: 'Un appel quotidien pour un parent qui vit seul. Ni l’audio ni la '
-				+ 'transcription ne sont conservés.',
-			state: 'unfinished',
-			figure: '157 contrôles',
-		},
-		{
 			name: 'Reste',
 			what: 'Une couronne à 800 euros « remboursée à 70% » rend 84 euros. Reste dit '
 				+ 'ce que vous paierez vraiment.',
-			state: 'unfinished',
+			shelf: 'frozen',
 			figure: '67 tests',
-		},
-		{
-			name: 'Pasmurno',
-			what: 'Un journal d’humeur pour cinq proches. Pas de fil, pas d’algorithme, '
-				+ 'discussion chiffrée sur l’appareil.',
-			state: 'unfinished',
-			figure: '8 langues',
-		},
-		{
-			name: 'NormPrichel',
-			what: 'Un viseur en surimpression pour les jeux Windows, écrit en Go. Ne lit pas '
-				+ 'la mémoire du jeu, n’envoie aucune entrée, ne capture pas l’écran. Douze '
-				+ 'formes, un profil par jeu.',
-			state: 'unfinished',
-			figure: '12 formes',
-			ways:
-			[
-				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/NormPrichel' },
-			],
 		},
 		{
 			name: 'MiniVPN',
 			what: 'Un petit VPN fait pour montrer comment ça marche plutôt que pour en '
 				+ 'remplacer un vrai : un serveur, un client, une seule clé partagée, pas '
 				+ 'encore de rotation de clé.',
-			state: 'unfinished',
+			shelf: 'frozen',
 			figure: '2 essais',
 			ways:
 			[
@@ -1401,7 +1409,9 @@ const FR: Copy =
 	{
 		works: 'Tout ce que j’ai construit',
 		out: 'Livrés',
-		started: 'Commencés, non finis',
+		going: 'En cours',
+		mobile: 'Applications mobiles en React Native, gelées',
+		frozen: 'Gelés',
 		kit: 'Avec quoi je construis',
 		atlas: 'Où je vais',
 		dark: 'Sombre',
