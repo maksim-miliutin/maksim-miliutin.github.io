@@ -470,12 +470,12 @@ const EN =
 
 	map:
 	{
-		label: 'Map of Europe with Moscow, Paris and Dublin marked',
+		label: 'Map of Europe with Moscow, Paris and Amsterdam marked',
 		cities:
 		{
 			moscow: { name: 'Moscow', say: 'Here now. Remote straight away.' },
 			paris: { name: 'Paris', say: 'Paris. On site with a sponsored work visa.' },
-			dublin: { name: 'Dublin', say: 'Dublin. On site with a sponsored work visa.' },
+			amsterdam: { name: 'Amsterdam', say: 'Amsterdam. On site with a sponsored work visa.' },
 		},
 	},
 
@@ -933,12 +933,12 @@ const RU: Copy =
 
 	map:
 	{
-		label: 'Карта Европы, на ней отмечены Москва, Париж и Дублин',
+		label: 'Карта Европы, на ней отмечены Москва, Париж и Амстердам',
 		cities:
 		{
 			moscow: { name: 'Москва', say: 'Здесь сейчас. Удалённо можно сразу.' },
 			paris: { name: 'Париж', say: 'Париж. В офисе, если компания оформит рабочую визу.' },
-			dublin: { name: 'Дублин', say: 'Дублин. В офисе, если компания оформит рабочую визу.' },
+			amsterdam: { name: 'Амстердам', say: 'Амстердам. В офисе, если компания оформит рабочую визу.' },
 		},
 	},
 
@@ -1413,12 +1413,12 @@ const FR: Copy =
 
 	map:
 	{
-		label: 'Carte de l’Europe où sont marquées Moscou, Paris et Dublin',
+		label: 'Carte de l’Europe où sont marquées Moscou, Paris et Amsterdam',
 		cities:
 		{
 			moscow: { name: 'Moscou', say: 'Ici pour le moment. À distance tout de suite.' },
 			paris: { name: 'Paris', say: 'Paris. Sur site avec un visa de travail sponsorisé.' },
-			dublin: { name: 'Dublin', say: 'Dublin. Sur site avec un visa de travail sponsorisé.' },
+			amsterdam: { name: 'Amsterdam', say: 'Amsterdam. Sur site avec un visa de travail sponsorisé.' },
 		},
 	},
 
