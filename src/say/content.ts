@@ -46,6 +46,7 @@ const EN =
 		{ label: 'Email', href: 'mailto:maksim.milutin06@gmail.com' },
 		{ label: 'Telegram', href: 'https://t.me/QQWaffles' },
 		{ label: 'GitHub', href: 'https://github.com/maksim-miliutin' },
+		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/miliutin-maksim/' },
 		{ label: 'CV', href: '/Maksim-Miliutin-CV.pdf' },
 	],
 
@@ -503,6 +504,7 @@ const RU: Copy =
 		{ label: 'Почта', href: 'mailto:maksim.milutin06@gmail.com' },
 		{ label: 'Телеграм', href: 'https://t.me/QQWaffles' },
 		{ label: 'GitHub', href: 'https://github.com/maksim-miliutin' },
+		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/miliutin-maksim/' },
 		{ label: 'Резюме', href: '/Maksim-Miliutin-CV.pdf' },
 	],
 
@@ -963,6 +965,7 @@ const FR: Copy =
 		{ label: 'Courriel', href: 'mailto:maksim.milutin06@gmail.com' },
 		{ label: 'Telegram', href: 'https://t.me/QQWaffles' },
 		{ label: 'GitHub', href: 'https://github.com/maksim-miliutin' },
+		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/miliutin-maksim/' },
 		{ label: 'CV', href: '/Maksim-Miliutin-CV.pdf' },
 	],
 
