@@ -355,6 +355,13 @@ const EN =
 			figure: '8 languages',
 		},
 		{
+			name: 'Mira',
+			what: 'A camera on the plate for calories and macros, and on yourself for a read '
+				+ 'of face and skin, correlated on the device.',
+			shelf: 'mobile',
+			figure: '8 languages',
+		},
+		{
 			name: 'NetCheck',
 			what: 'Named the layer where a connection stops working: the router, the '
 				+ 'provider, the names, the handshake. Diagnosis ran into a ceiling '
@@ -818,6 +825,13 @@ const RU: Copy =
 			name: 'Pasmurno',
 			what: 'Дневник настроения для пятерых близких. Ни ленты, ни алгоритма, чат '
 				+ 'шифруется на устройстве.',
+			shelf: 'mobile',
+			figure: '8 языков',
+		},
+		{
+			name: 'Mira',
+			what: 'Камера на тарелку для калорий и БЖУ и на себя для оценки лица и кожи, '
+				+ 'всё сопоставляется на устройстве.',
 			shelf: 'mobile',
 			figure: '8 языков',
 		},
@@ -1292,6 +1306,13 @@ const FR: Copy =
 			name: 'Pasmurno',
 			what: 'Un journal d’humeur pour cinq proches. Pas de fil, pas d’algorithme, '
 				+ 'discussion chiffrée sur l’appareil.',
+			shelf: 'mobile',
+			figure: '8 langues',
+		},
+		{
+			name: 'Mira',
+			what: 'Une caméra sur l’assiette pour les calories et les macros, et sur soi pour '
+				+ 'lire le visage et la peau, croisées sur l’appareil.',
 			shelf: 'mobile',
 			figure: '8 langues',
 		},
