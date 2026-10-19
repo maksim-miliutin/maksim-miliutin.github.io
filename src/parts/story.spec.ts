@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { TALLY, WORKS } from '../say/content';
+import { SHELVES, TALLY, WORKS } from '../say/content';
 
 const told = WORKS.filter((one) => one.story !== undefined);
 
@@ -87,28 +87,26 @@ describe('what makes a story worth reading', () =>
 	});
 });
 
-describe('shipped and unfinished', () =>
+describe('the shelves', () =>
 {
-	it('says of every project which of the two it is', () =>
+	it('puts every project on a shelf the page draws', () =>
 	{
 		for (const one of WORKS)
 		{
-			expect(['shipped', 'unfinished'], one.name).toContain(one.state);
+			expect(SHELVES, one.name).toContain(one.shelf);
 		}
 	});
 
-	it('puts what is out at the top, so nobody has to hunt for it', () =>
+	it('keeps each shelf together, what is out at the top', () =>
 	{
-		const states = WORKS.map((one) => one.state);
-		const lastShipped = states.lastIndexOf('shipped');
-		const firstUnfinished = states.indexOf('unfinished');
+		const places = WORKS.map((one) => SHELVES.indexOf(one.shelf));
 
-		expect(lastShipped).toBeLessThan(firstUnfinished);
+		expect(places).toEqual([...places].sort((a, b) => a - b));
 	});
 
 	it('counts four shipped, which is what the tally claims', () =>
 	{
-		const shipped = WORKS.filter((one) => one.state === 'shipped');
+		const shipped = WORKS.filter((one) => one.shelf === 'out');
 
 		const claimed = TALLY.find((one) => one.label === 'shipped solo');
 
@@ -117,11 +115,19 @@ describe('shipped and unfinished', () =>
 		expect(claimed?.figure).toBe(String(shipped.length));
 	});
 
-	it('carries the android bypass, paused rather than hidden', () =>
+	it('carries the android bypass among the work in progress', () =>
 	{
 		const mobile = WORKS.find((one) => one.name === 'obxod-mobile');
 
-		expect(mobile?.state).toBe('unfinished');
+		expect(mobile?.shelf).toBe('going');
 		expect(mobile?.ways?.[0]?.href).toContain('obxod-mobile');
+	});
+
+	it('keeps the React Native apps on a shelf of their own', () =>
+	{
+		const native = WORKS.filter((one) => one.shelf === 'mobile');
+
+		expect(native.map((one) => one.name))
+			.toEqual(['Trellis', 'Vydokh', 'Veilla', 'Pasmurno']);
 	});
 });

@@ -113,7 +113,7 @@ describe('the column on the right', () =>
 		for (const [tongue, table] of tables)
 		{
 			const out = table.works
-				.filter((one) => one.state === 'shipped')
+				.filter((one) => one.shelf === 'out')
 				.map((one) => one.figure);
 
 			expect(new Set(out).size, `${tongue}: ${out.join(', ')}`).toBe(1);

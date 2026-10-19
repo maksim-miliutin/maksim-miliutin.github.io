@@ -1,5 +1,5 @@
 import { el } from '../dom';
-import { HEADS, WORKS, Work } from '../say/content';
+import { HEADS, SHELVES, WORKS, Work } from '../say/content';
 import { storyBox, tell } from './story';
 
 function named(work: Work, box: HTMLDialogElement): HTMLElement
@@ -26,8 +26,8 @@ function row(work: Work, box: HTMLDialogElement): HTMLElement
 	]);
 }
 
-// Shipped above started: the first question a reader has is what is real, and
-// a list that mixes the two makes them hunt for the answer.
+// Out above the rest: the first question a reader has is what is real, and a
+// list that mixes the two makes them hunt for the answer.
 function group(said: string, some: Work[], box: HTMLDialogElement): HTMLElement[]
 {
 	if (some.length === 0)
@@ -45,17 +45,13 @@ export function worksSection(): HTMLElement
 {
 	const box = storyBox();
 
-	const out = WORKS.filter((work) => work.state === 'shipped');
-	const started = WORKS.filter((work) => work.state === 'unfinished');
+	const shelves = SHELVES.flatMap((shelf) =>
+		group(HEADS[shelf], WORKS.filter((work) => work.shelf === shelf), box));
 
 	return el('section', { class: 'made' },
 	[
 		el('h2', { text: HEADS.works }),
-		el('div', { class: 'scroll' },
-		[
-			...group(HEADS.out, out, box),
-			...group(HEADS.started, started, box),
-		]),
+		el('div', { class: 'scroll' }, shelves),
 		box,
 	]);
 }
