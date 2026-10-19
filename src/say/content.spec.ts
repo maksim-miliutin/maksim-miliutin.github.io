@@ -45,6 +45,16 @@ describe('the three languages', () =>
 		});
 	});
 
+	it('sends every language to the same places', () =>
+	{
+		const where = tables.map(([, table]) => table.links.map((one) => one.href));
+
+		for (const one of where)
+		{
+			expect(one).toEqual(where[0]);
+		}
+	});
+
 	it('counts the same things in the tally', () =>
 	{
 		const figures = tables.map(([, table]) => table.tally.map((one) => one.figure));
