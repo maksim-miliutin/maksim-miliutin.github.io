@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { WORKS } from '../say/content';
+import { TALLY, WORKS } from '../say/content';
 
 const told = WORKS.filter((one) => one.story !== undefined);
 
@@ -106,12 +106,15 @@ describe('shipped and unfinished', () =>
 		expect(lastShipped).toBeLessThan(firstUnfinished);
 	});
 
-	it('counts three shipped, which is what the tally claims', () =>
+	it('counts four shipped, which is what the tally claims', () =>
 	{
 		const shipped = WORKS.filter((one) => one.state === 'shipped');
 
+		const claimed = TALLY.find((one) => one.label === 'shipped solo');
+
 		expect(shipped.map((one) => one.name))
-			.toEqual(['Bronyka Shop', 'Netwatch', 'Obxod']);
+			.toEqual(['Bronyka Shop', 'Netwatch', 'Obxod', 'Plafond']);
+		expect(claimed?.figure).toBe(String(shipped.length));
 	});
 
 	it('carries the android bypass, paused rather than hidden', () =>
