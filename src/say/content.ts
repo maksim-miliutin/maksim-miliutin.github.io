@@ -83,10 +83,11 @@ const EN =
 			+ 'to the landlord. Lyon and Villeurbanne are next, then the other cities '
 			+ 'where rents are capped.',
 
-			'Netwatch and Obxod are out too: a list of what was watched that never leaves '
-			+ 'the machine it was watched on, and one executable that answers a block by '
-			+ 'giving the inspector a different name from the one the server is left '
-			+ 'holding. The Android Obxod is started and paused.',
+			'Obxod reached v1.0.0: a complete Windows DPI-bypass application built in Go, '
+			+ 'with automatic method selection, a desktop interface, and live rule switching '
+			+ 'without restarting its packet-processing driver. Sublayer has its first public '
+			+ 'release too. It captures speaker audio during calls, recognises speech locally, '
+			+ 'and displays translated subtitles over the desktop.',
 
 			'Looking for a full-stack or backend role where I keep this much ownership and '
 			+ 'learn from people who have run systems larger than mine.',
@@ -98,7 +99,7 @@ const EN =
 		{ figure: '70+', label: 'orders' },
 		{ figure: '2026', label: 'running since' },
 		{ figure: '1', label: 'engineer' },
-		{ figure: '4', label: 'shipped solo' },
+		{ figure: '5', label: 'shipped solo' },
 	],
 
 	works:
@@ -241,6 +242,87 @@ const EN =
 						+ 'before a UDP datagram is changed. An exclusion that knows one protocol '
 						+ 'excludes by half. This was one setup watched by hand, not a sweep of '
 						+ 'every network.',
+				},
+			],
+		},
+		{
+			name: 'Sublayer',
+			what: 'Live translated subtitles for Windows calls, built in Go. Captures speaker '
+				+ 'audio through WASAPI, uses local whisper.cpp speech recognition, and '
+				+ 'displays translations in a transparent, click-through overlay.',
+			shelf: 'out',
+			figure: 'v0.1.0 · early release',
+			ways:
+			[
+				{
+					label: 'Download v0.1.0',
+					href: 'https://github.com/maksim-miliutin/Sublayer/releases/tag/v0.1.0',
+				},
+				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Sublayer' },
+			],
+			story:
+			[
+				{
+					head: 'Why I built it',
+					body: 'A call in a foreign language is easier to follow with the words on the '
+						+ 'screen. Sublayer puts them there for Discord, Teams or any other '
+						+ 'program that plays through the speakers, and it never records the '
+						+ 'microphone: only the other side of the call is transcribed.',
+				},
+				{
+					head: 'Audio capture',
+					body: 'Go code opens Windows WASAPI in loopback mode, which hands over what '
+						+ 'the speakers are playing rather than what a microphone hears. The '
+						+ 'stream is resampled for recognition and cut into phrases at pauses; '
+						+ 'the shortest speech that counts, the pause that ends a phrase and the '
+						+ 'longest phrase are all settings.',
+				},
+				{
+					head: 'Speech recognition and translation',
+					body: 'Each finished phrase goes to a local whisper.cpp server and then to '
+						+ 'LibreTranslate. This release hears French and English, telling them '
+						+ 'apart phrase by phrase if asked, and translates into Russian or '
+						+ 'English, French reaching Russian through English. A phrase is '
+						+ 'translated once it ends, so the subtitles follow a phrase behind the '
+						+ 'speaker rather than word by word.',
+				},
+				{
+					head: 'Windows integration',
+					body: 'The subtitles sit in a transparent window above every other one, and '
+						+ 'clicks pass through them to whatever is underneath. One key unlocks '
+						+ 'them to be dragged, and the next start remembers where they were left. '
+						+ 'A tray icon whose colour tells the state, global hotkeys to show, '
+						+ 'pause and copy the last pair, and a settings window that applies the '
+						+ 'languages and the look of the subtitles at once.',
+				},
+				{
+					head: 'Privacy',
+					body: 'With the default local servers, speech is recognised and translated on '
+						+ 'the machine. Both servers are only addresses in the settings, though: '
+						+ 'point one at a remote host and the audio or the text goes there. '
+						+ 'Subtitle pairs are held in memory, and this release writes no '
+						+ 'transcript to disk. The people on the call should still be told that '
+						+ 'subtitles are on.',
+				},
+				{
+					head: 'Engineering details',
+					body: 'A bounded queue sits between cutting and recognition: when whisper.cpp '
+						+ 'falls behind, the oldest waiting phrases are dropped and reported '
+						+ 'rather than piling up, so the subtitles stay close to the '
+						+ 'conversation. The two servers are child processes with a lifecycle of '
+						+ 'their own: started only when nothing answers at their address, waited '
+						+ 'on with a time limit, and stopped on exit only if Sublayer started '
+						+ 'them. The overlay is a layered, transparent, topmost Win32 window, and '
+						+ 'the hotkeys go through RegisterHotKey, which says when another program '
+						+ 'already holds a key.',
+				},
+				{
+					head: 'Current limitations',
+					body: 'v0.1.0 is an early public release, not a finished product. It runs on '
+						+ 'Windows 10 and 11, x64; Linux and macOS are not available yet. '
+						+ 'whisper.cpp with a recognition model and LibreTranslate have to be '
+						+ 'installed and named in the settings first: the download is the '
+						+ 'program alone, not a bundle with everything inside.',
 				},
 			],
 		},
@@ -551,10 +633,11 @@ const RU: Copy =
 			+ 'и каждая заканчивается письмом владельцу. Дальше Лион и Вильёрбан, '
 			+ 'потом остальные города, где аренда ограничена.',
 
-			'Netwatch и Obxod тоже выпущены: список просмотров, который не покидает '
-			+ 'машину, где их смотрели, и один файл, который отвечает на блокировку '
-			+ 'тем, что показывает проверяющему одно имя, а серверу оставляет другое. '
-			+ 'Obxod для Android начат и приостановлен.',
+			'Obxod дошёл до v1.0.0: законченное приложение на Go для обхода DPI на Windows, '
+			+ 'с автоматическим подбором метода, оконным интерфейсом и сменой правил на лету, '
+			+ 'без перезапуска драйвера, который обрабатывает пакеты. У Sublayer тоже первый '
+			+ 'публичный выпуск: во время звонка он берёт звук из динамиков, распознаёт речь '
+			+ 'на самом компьютере и показывает переведённые субтитры поверх рабочего стола.',
 
 			'Ищу работу на фулстеке или бэкенде, где останется столько же '
 			+ 'ответственности и появятся люди, водившие системы больше моих.',
@@ -566,7 +649,7 @@ const RU: Copy =
 		{ figure: '70+', label: 'заказов' },
 		{ figure: '2026', label: 'работает с' },
 		{ figure: '1', label: 'разработчик' },
-		{ figure: '4', label: 'выпущено в одиночку' },
+		{ figure: '5', label: 'выпущено в одиночку' },
 	],
 
 	works:
@@ -711,6 +794,87 @@ const RU: Copy =
 						+ 'проверяется до того, как UDP-датаграмма будет изменена. Исключение, '
 						+ 'которое знает один протокол, исключает наполовину. Это одна '
 						+ 'конфигурация, проверенная вручную, а не обход всех сетей.',
+				},
+			],
+		},
+		{
+			name: 'Sublayer',
+			what: 'Субтитры с переводом для звонков на Windows, на Go. Захватывает звук '
+				+ 'динамиков через WASAPI, распознаёт речь локальным whisper.cpp и показывает '
+				+ 'перевод в прозрачном оверлее, сквозь который проходят клики.',
+			shelf: 'out',
+			figure: 'v0.1.0 · ранний выпуск',
+			ways:
+			[
+				{
+					label: 'Скачать v0.1.0',
+					href: 'https://github.com/maksim-miliutin/Sublayer/releases/tag/v0.1.0',
+				},
+				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Sublayer' },
+			],
+			story:
+			[
+				{
+					head: 'Зачем я его сделал',
+					body: 'Звонок на чужом языке легче понять, когда слова видны на экране. '
+						+ 'Sublayer выводит их для Discord, Teams и любой другой программы, '
+						+ 'которая играет через динамики, и никогда не записывает микрофон: '
+						+ 'расшифровывается только собеседник.',
+				},
+				{
+					head: 'Захват звука',
+					body: 'Код на Go открывает Windows WASAPI в режиме loopback, и тот отдаёт '
+						+ 'то, что играют динамики, а не то, что слышит микрофон. Поток '
+						+ 'пересчитывается под частоту распознавания и режется на фразы по '
+						+ 'паузам; самая короткая речь, которая считается, пауза, которая '
+						+ 'завершает фразу, и самая длинная фраза задаются в настройках.',
+				},
+				{
+					head: 'Распознавание и перевод',
+					body: 'Каждая законченная фраза идёт в локальный сервер whisper.cpp, а затем '
+						+ 'в LibreTranslate. Этот выпуск слышит французский и английский, а если '
+						+ 'попросить, различает их по каждой фразе, и переводит на русский или '
+						+ 'английский; французский попадает в русский через английский. Фраза '
+						+ 'переводится, когда закончилась, поэтому субтитры отстают на фразу, а '
+						+ 'не идут слово в слово.',
+				},
+				{
+					head: 'Интеграция с Windows',
+					body: 'Субтитры лежат в прозрачном окне поверх всех остальных, и клики '
+						+ 'проходят сквозь них к тому, что под ними. Одна клавиша открепляет их, '
+						+ 'чтобы перетащить, и следующий запуск помнит, где их оставили. Значок в '
+						+ 'трее, цвет которого показывает состояние, глобальные горячие клавиши, '
+						+ 'чтобы показать, поставить на паузу и скопировать последнюю пару, и '
+						+ 'окно настроек, которое сразу применяет языки и вид субтитров.',
+				},
+				{
+					head: 'Приватность',
+					body: 'С локальными серверами по умолчанию речь распознаётся и переводится на '
+						+ 'самом компьютере. Но оба сервера в настройках лишь адреса: если '
+						+ 'указать удалённый, звук или текст уйдёт туда. Пары субтитров хранятся '
+						+ 'в памяти, на диск этот выпуск расшифровку не пишет. Собеседников всё '
+						+ 'равно стоит предупредить, что субтитры включены.',
+				},
+				{
+					head: 'Инженерные детали',
+					body: 'Между нарезкой и распознаванием стоит ограниченная очередь: когда '
+						+ 'whisper.cpp отстаёт, самые старые ждущие фразы выбрасываются с '
+						+ 'отметкой об этом, а не копятся, и субтитры не отрываются от разговора. '
+						+ 'Оба сервера это дочерние процессы со своим жизненным циклом: '
+						+ 'запускаются, только если по адресу никто не отвечает, ждутся с '
+						+ 'ограничением по времени и останавливаются при выходе, только если их '
+						+ 'запустил сам Sublayer. Оверлей это прозрачное многослойное окно Win32 '
+						+ 'поверх остальных, а горячие клавиши регистрируются через '
+						+ 'RegisterHotKey, который сообщает, если клавишу уже держит другая '
+						+ 'программа.',
+				},
+				{
+					head: 'Текущие ограничения',
+					body: 'v0.1.0 ранний публичный выпуск, а не законченный продукт. Работает на '
+						+ 'Windows 10 и 11, x64; Linux и macOS пока недоступны. whisper.cpp с '
+						+ 'моделью распознавания и LibreTranslate нужно сначала установить и '
+						+ 'указать в настройках: в загрузке только сама программа, а не комплект '
+						+ 'со всем внутри.',
 				},
 			],
 		},
@@ -1022,10 +1186,12 @@ const FR: Copy =
 			+ 'chacune se termine par une lettre au propriétaire. Ensuite Lyon et '
 			+ 'Villeurbanne, puis les autres villes où les loyers sont encadrés.',
 
-			'Netwatch et Obxod sont sortis aussi : une liste de ce qui a été regardé '
-			+ 'qui ne quitte jamais la machine, et un exécutable qui répond à un '
-			+ 'blocage en montrant à l’inspecteur un nom autre que celui qui reste au '
-			+ 'serveur. La version Android d’Obxod est commencée et en pause.',
+			'Obxod est arrivé à la v1.0.0 : une application Windows complète de contournement '
+			+ 'du DPI, écrite en Go, avec le choix automatique de la méthode, une interface de '
+			+ 'bureau et le changement de règles à chaud, sans redémarrer le pilote qui traite '
+			+ 'les paquets. Sublayer a aussi sa première version publique : il capte le son des '
+			+ 'haut-parleurs pendant les appels, reconnaît la parole en local et affiche des '
+			+ 'sous-titres traduits par-dessus le bureau.',
 
 			'Je cherche un poste full stack ou back end où je garde autant de '
 			+ 'responsabilité et où j’apprends de gens qui ont mené des systèmes '
@@ -1038,7 +1204,7 @@ const FR: Copy =
 		{ figure: '70+', label: 'commandes' },
 		{ figure: '2026', label: 'en service depuis' },
 		{ figure: '1', label: 'ingénieur' },
-		{ figure: '4', label: 'livrés seul' },
+		{ figure: '5', label: 'livrés seul' },
 	],
 
 	works:
@@ -1192,6 +1358,91 @@ const FR: Copy =
 						+ 'exclusion qui ne connaît qu’un protocole n’exclut qu’à moitié. C’est '
 						+ 'une configuration observée à la main, pas un passage en revue de tous '
 						+ 'les réseaux.',
+				},
+			],
+		},
+		{
+			name: 'Sublayer',
+			what: 'Des sous-titres traduits en direct pour les appels sous Windows, écrit en Go. '
+				+ 'Capte le son des haut-parleurs par WASAPI, reconnaît la parole avec '
+				+ 'whisper.cpp en local et affiche les traductions dans une surimpression '
+				+ 'transparente que les clics traversent.',
+			shelf: 'out',
+			figure: 'v0.1.0 · préversion',
+			ways:
+			[
+				{
+					label: 'Télécharger v0.1.0',
+					href: 'https://github.com/maksim-miliutin/Sublayer/releases/tag/v0.1.0',
+				},
+				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Sublayer' },
+			],
+			story:
+			[
+				{
+					head: 'Pourquoi je l’ai fait',
+					body: 'Un appel dans une langue étrangère se suit mieux avec les mots à '
+						+ 'l’écran. Sublayer les y met pour Discord, Teams ou tout autre '
+						+ 'programme qui joue par les haut-parleurs, et n’enregistre jamais le '
+						+ 'micro : seul l’interlocuteur est transcrit.',
+				},
+				{
+					head: 'La capture du son',
+					body: 'Le code Go ouvre Windows WASAPI en mode loopback, qui livre ce que '
+						+ 'jouent les haut-parleurs plutôt que ce qu’entend un micro. Le flux est '
+						+ 'rééchantillonné pour la reconnaissance et coupé en phrases aux pauses ; '
+						+ 'la parole la plus courte qui compte, la pause qui clôt une phrase et la '
+						+ 'phrase la plus longue sont des réglages.',
+				},
+				{
+					head: 'Reconnaissance et traduction',
+					body: 'Chaque phrase terminée part vers un serveur whisper.cpp local, puis '
+						+ 'vers LibreTranslate. Cette version entend le français et l’anglais, en '
+						+ 'les distinguant phrase par phrase si on le demande, et traduit vers le '
+						+ 'russe ou l’anglais, le français passant par l’anglais pour aller au '
+						+ 'russe. Une phrase est traduite une fois finie, si bien que les '
+						+ 'sous-titres suivent avec une phrase de retard plutôt que mot à mot.',
+				},
+				{
+					head: 'L’intégration à Windows',
+					body: 'Les sous-titres sont dans une fenêtre transparente au-dessus de toutes '
+						+ 'les autres, et les clics la traversent vers ce qui est dessous. Une '
+						+ 'touche les libère pour les déplacer, et le démarrage suivant se '
+						+ 'souvient de leur place. Une icône de notification dont la couleur dit '
+						+ 'l’état, des raccourcis globaux pour afficher, mettre en pause et '
+						+ 'copier la dernière paire, et une fenêtre de réglages qui applique tout '
+						+ 'de suite les langues et l’aspect des sous-titres.',
+				},
+				{
+					head: 'La confidentialité',
+					body: 'Avec les serveurs locaux par défaut, la parole est reconnue et traduite '
+						+ 'sur la machine. Mais les deux serveurs ne sont que des adresses dans '
+						+ 'les réglages : pointez l’un vers un hôte distant et le son ou le texte '
+						+ 'y part. Les paires de sous-titres restent en mémoire, et cette version '
+						+ 'n’écrit aucune transcription sur le disque. Il reste correct de '
+						+ 'prévenir les gens de l’appel que les sous-titres sont actifs.',
+				},
+				{
+					head: 'Détails d’ingénierie',
+					body: 'Une file bornée sépare le découpage de la reconnaissance : quand '
+						+ 'whisper.cpp prend du retard, les phrases en attente les plus anciennes '
+						+ 'sont abandonnées et signalées au lieu de s’empiler, et les sous-titres '
+						+ 'restent près de la conversation. Les deux serveurs sont des processus '
+						+ 'enfants avec leur propre cycle de vie : lancés seulement si rien ne '
+						+ 'répond à leur adresse, attendus avec une limite de temps, et arrêtés à '
+						+ 'la sortie seulement si Sublayer les a lancés. La surimpression est une '
+						+ 'fenêtre Win32 layered, transparente et toujours au premier plan, et '
+						+ 'les raccourcis passent par RegisterHotKey, qui signale quand un autre '
+						+ 'programme tient déjà une touche.',
+				},
+				{
+					head: 'Limites actuelles',
+					body: 'La v0.1.0 est une première version publique, pas un produit fini. Elle '
+						+ 'tourne sous Windows 10 et 11, x64 ; Linux et macOS ne sont pas encore '
+						+ 'disponibles. whisper.cpp avec un modèle de reconnaissance et '
+						+ 'LibreTranslate doivent d’abord être installés et indiqués dans les '
+						+ 'réglages : le téléchargement contient le programme seul, pas un paquet '
+						+ 'avec tout dedans.',
 				},
 			],
 		},

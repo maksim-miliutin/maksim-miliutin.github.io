@@ -143,15 +143,27 @@ describe('the column on the right', () =>
 	});
 });
 
-describe('the Obxod release', () =>
+describe('the two Windows releases', () =>
 {
 	const obxod = 'https://github.com/maksim-miliutin/Obxod';
+	const sublayer = 'https://github.com/maksim-miliutin/Sublayer';
 
 	it('shows Obxod as 1.0.0 and shipped, in every language', () =>
 	{
 		for (const tongue of TONGUES)
 		{
 			expect(work(tongue, 'Obxod').figure).toBe(`v1.0.0 · ${shipped(tongue)}`);
+		}
+	});
+
+	it('shows Sublayer as an early 0.1.0 rather than as finished', () =>
+	{
+		for (const tongue of TONGUES)
+		{
+			const figure = work(tongue, 'Sublayer').figure;
+
+			expect(figure, tongue).toMatch(/^v0\.1\.0 · /);
+			expect(figure.replace(VERSION, ''), tongue).not.toBe(shipped(tongue));
 		}
 	});
 
@@ -162,6 +174,20 @@ describe('the Obxod release', () =>
 			{ label: 'Download for Windows', href: `${obxod}/releases/tag/v1.0.0` },
 			{ label: 'Open code', href: obxod },
 		]);
+
+		expect(work('en', 'Sublayer').ways).toEqual(
+		[
+			{ label: 'Download v0.1.0', href: `${sublayer}/releases/tag/v0.1.0` },
+			{ label: 'Open code', href: sublayer },
+		]);
+	});
+
+	it('keeps Sublayer next to Obxod among what is out', () =>
+	{
+		const names = SAID.en.works.map((one) => one.name);
+
+		expect(names.indexOf('Sublayer')).toBe(names.indexOf('Obxod') + 1);
+		expect(work('en', 'Sublayer').shelf).toBe('out');
 	});
 
 	// The Windows release and the Android port are separate things; a link from one
@@ -182,6 +208,7 @@ describe('the Obxod release', () =>
 		const names =
 		{
 			Obxod: ['WinDivert', 'TLS ClientHello', 'atomic.Pointer', 'STUN'],
+			Sublayer: ['WASAPI', 'whisper.cpp'],
 		};
 
 		for (const tongue of TONGUES)
@@ -195,6 +222,31 @@ describe('the Obxod release', () =>
 					expect(said, `${tongue}: ${project}`).toContain(term);
 				}
 			}
+		}
+	});
+
+	// The bug this guards: the brief for this page listed German and Spanish, and
+	// 0.1.0 hears French and English only. A claim the program cannot back up is
+	// the quickest way to lose a reader who downloads it.
+	it('claims no language Sublayer 0.1.0 does not hear', () =>
+	{
+		const others = { en: /German|Spanish/i, ru: /немец|испан/i, fr: /allemand|espagnol/i };
+
+		for (const tongue of TONGUES)
+		{
+			expect(JSON.stringify(work(tongue, 'Sublayer')), tongue).not.toMatch(others[tongue]);
+		}
+	});
+
+	it('names both releases in the line about now, in every language', () =>
+	{
+		for (const [tongue, table] of tables)
+		{
+			const now = table.now.lines.join(' ');
+
+			expect(now, tongue).toContain('Obxod');
+			expect(now, tongue).toContain('v1.0.0');
+			expect(now, tongue).toContain('Sublayer');
 		}
 	});
 });
