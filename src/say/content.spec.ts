@@ -1,8 +1,28 @@
 import { describe, expect, it } from 'vitest';
-import { LEAD, SAID } from './content';
-import { TONGUES } from './tongue';
+import { LEAD, SAID, Work } from './content';
+import { TONGUES, Tongue } from './tongue';
 
 const tables = TONGUES.map((tongue) => [tongue, SAID[tongue]] as const);
+
+const VERSION = /^v\d+\.\d+\.\d+ · /;
+
+function work(tongue: Tongue, name: string): Work
+{
+	const found = SAID[tongue].works.find((one) => one.name === name);
+
+	if (found === undefined)
+	{
+		throw new Error(`${tongue}: no ${name} on the page`);
+	}
+
+	return found;
+}
+
+// The word the rest of the out shelf carries, so a release can be held to it.
+function shipped(tongue: Tongue): string
+{
+	return work(tongue, 'Bronyka Shop').figure;
+}
 
 describe('the three languages', () =>
 {
@@ -108,15 +128,73 @@ describe('the headings', () =>
 
 describe('the column on the right', () =>
 {
-	it('says the same thing for everything that is out', () =>
+	// A version in front is the one thing allowed to differ, and an early release
+	// is let off the shared word: calling a 0.1 shipped would oversell it.
+	it('says the same thing for everything that is out, a version aside', () =>
 	{
 		for (const [tongue, table] of tables)
 		{
 			const out = table.works
-				.filter((one) => one.shelf === 'out')
-				.map((one) => one.figure);
+				.filter((one) => one.shelf === 'out' && !one.figure.startsWith('v0.'))
+				.map((one) => one.figure.replace(VERSION, ''));
 
 			expect(new Set(out).size, `${tongue}: ${out.join(', ')}`).toBe(1);
+		}
+	});
+});
+
+describe('the Obxod release', () =>
+{
+	const obxod = 'https://github.com/maksim-miliutin/Obxod';
+
+	it('shows Obxod as 1.0.0 and shipped, in every language', () =>
+	{
+		for (const tongue of TONGUES)
+		{
+			expect(work(tongue, 'Obxod').figure).toBe(`v1.0.0 · ${shipped(tongue)}`);
+		}
+	});
+
+	it('sends the download to the release and the code to the repository', () =>
+	{
+		expect(work('en', 'Obxod').ways).toEqual(
+		[
+			{ label: 'Download for Windows', href: `${obxod}/releases/tag/v1.0.0` },
+			{ label: 'Open code', href: obxod },
+		]);
+	});
+
+	// The Windows release and the Android port are separate things; a link from one
+	// to the other in the release's own story reads as if the port shipped with it.
+	it('leaves the Android port out of the Windows release', () =>
+	{
+		for (const tongue of TONGUES)
+		{
+			const hrefs = (work(tongue, 'Obxod').ways ?? []).map((way) => way.href);
+
+			expect(hrefs.join(' '), tongue).not.toContain('obxod-mobile');
+			expect(work(tongue, 'obxod-mobile').shelf, tongue).toBe('going');
+		}
+	});
+
+	it('keeps the technical names as they are, in every language', () =>
+	{
+		const names =
+		{
+			Obxod: ['WinDivert', 'TLS ClientHello', 'atomic.Pointer', 'STUN'],
+		};
+
+		for (const tongue of TONGUES)
+		{
+			for (const [project, terms] of Object.entries(names))
+			{
+				const said = JSON.stringify(work(tongue, project));
+
+				for (const term of terms)
+				{
+					expect(said, `${tongue}: ${project}`).toContain(term);
+				}
+			}
 		}
 	});
 });

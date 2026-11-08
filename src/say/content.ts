@@ -170,76 +170,77 @@ const EN =
 		},
 		{
 			name: 'Obxod',
-			what: 'Cuts a TLS hello at the name into four, puts a made up name of the same '
-				+ 'length where the real one goes, then the real one over the top. The '
-				+ 'inspector reads in the order things arrive and stops at the first; the '
-				+ 'server puts them back by number and keeps the last.',
+			what: 'An open-source Windows DPI bypass tool built in Go. Fifteen packet-handling '
+				+ 'methods, automatic method selection, live rule switching, TCP/UDP process '
+				+ 'exclusions, and a native desktop interface.',
 			shelf: 'out',
-			figure: 'shipped',
+			figure: 'v1.0.0 · shipped',
 			ways:
 			[
-				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
 				{
-					label: 'Android, in progress',
-					href: 'https://github.com/maksim-miliutin/obxod-mobile',
+					label: 'Download for Windows',
+					href: 'https://github.com/maksim-miliutin/Obxod/releases/tag/v1.0.0',
 				},
+				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
 			],
 			story:
 			[
 				{
 					head: 'The problem',
-					body: 'The provider reads the first packet of a TLS connection, finds '
-						+ 'the name of the site in it and cuts the line. The inspector has '
-						+ 'to see one name while the server gets another, the real one.',
+					body: 'A provider can cut a connection by the site name it reads in the TLS '
+						+ 'ClientHello, the first packet of the handshake. Obxod reshapes that '
+						+ 'packet on its way out, so the inspector in the middle misses the name '
+						+ 'while the server still gets it whole. That answers a block by name and '
+						+ 'nothing more: a service blocked by its IP address stays blocked, and '
+						+ 'the console version can tell which of the two a site is.',
 				},
 				{
-					head: 'Where I was stuck for a week',
-					body: 'The obvious move is to send a forged copy of the hello ahead, '
-						+ 'with somebody else\'s name, spoiled so the server throws it '
-						+ 'away. It half worked: the handshake went through, the server '
-						+ 'answered, and the stream broke at about eighteen kilobytes out '
-						+ 'of sixty five. A dozen ways of spoiling the copy all gave the '
-						+ 'same number: the spoiling decided who would drop the copy, and '
-						+ 'the inspector took the name out of the real packet anyway.',
+					head: 'The engine',
+					body: 'Go on top of the WinDivert driver, which hands outgoing packets to the '
+						+ 'program before they leave the machine. Fifteen packet-handling '
+						+ 'methods, each a mix of moves: split and multisplit at the name, '
+						+ 'overlapping segments, fake packets sent ahead, disorder, IP fragments, '
+						+ 'a name swapped in place. QUIC gets fake packets for the sites that need '
+						+ 'them, and Discord voice has a UDP path of its own. Providers differ, so '
+						+ 'the auto-pick runs the methods against a live probe and keeps the one '
+						+ 'that works on this network.',
 				},
 				{
-					head: 'What it turned out to be',
-					body: 'I stopped guessing and read the source of a mature tool. The '
-						+ 'hello is not copied there but cut at the boundaries of the name '
-						+ 'into four. The third part carries a made up name of exactly the '
-						+ 'same length, in place of the real one; the fourth carries the '
-						+ 'real one, at the same number, over the top. The inspector reads '
-						+ 'in the order things arrive and stops at the forgery. The server '
-						+ 'puts them back by number, and the last packet wins.',
+					head: 'An engineering challenge: live rule switching',
+					body: 'Changing the method used to mean closing the WinDivert session and '
+						+ 'opening a new one, and every open connection dropped with it. Now the '
+						+ 'driver stays open. Whatever changes the method stores the new rule set '
+						+ 'in an atomic.Pointer[rules.Set], and the packet loop swaps it in before '
+						+ 'its next packet. That pointer is the only thing that crosses between '
+						+ 'goroutines, so switching adds no mutex to the path every packet takes.',
 				},
 				{
-					head: 'The detail that decided it',
-					body: 'The sequence number of the forgery has to stay right. It must '
-						+ 'be spoiled so the server drops it and the inspector does not, '
-						+ 'or nobody reads it at all. A shifted timestamp does that; a '
-						+ 'shifted number does not, it carries the packet out of the '
-						+ 'window. After that the page loads whole in a tenth of a '
-						+ 'second, where before it stopped at eighteen kilobytes of '
-						+ 'sixty five.',
+					head: 'The application',
+					body: 'A desktop window built with Gio, and a console version of the same '
+						+ 'engine. One button turns the bypass on; closing the window leaves it '
+						+ 'running in the tray. Apps can be excluded by name or by folder, and '
+						+ 'your own domains go on top of the built-in list. Logs, a speed graph, '
+						+ 'start with Windows, English and Russian. One executable for Windows '
+						+ '10 and 11, with the driver inside it.',
 				},
 				{
-					head: 'Where it is now',
-					body: 'Shipped as one executable with the driver inside it: a '
-						+ 'window with an on switch, a picker of tested methods because '
-						+ 'providers differ, your own sites, a speed line, a log, a '
-						+ 'tray icon and an optional start with Windows. Twenty five '
-						+ 'packages behind it and thirty five files of tests. Android '
-						+ 'is next: the same method as a local VPN service, with no '
-						+ 'root and no server in the middle, so traffic goes straight '
-						+ 'to the sites.',
+					head: 'Testing',
+					body: 'Unit tests across the engine, run again under the race detector, and '
+						+ 'fuzz tests for the IP, TCP, UDP and ClientHello parsers. go vet, the '
+						+ 'tests and a build run on Linux and on Windows for every change. The '
+						+ 'window stays out of CI and is checked by hand on Windows, and each of '
+						+ 'the fifteen methods was confirmed by hand against a live DPI.',
 				},
 				{
-					head: 'What I learnt',
-					body: 'The name on the forgery is not decoration. With one name the '
-						+ 'page loads whole, with another a third of it arrives: the '
-						+ 'inspector parses the name and judges by it. And a week of '
-						+ 'building versions before looking at the data produced almost '
-						+ 'nothing that was right.',
+					head: 'What I learnt from a clash with Radmin VPN',
+					body: 'With Obxod on, Radmin VPN misbehaved, and two causes met there. STUN '
+						+ 'recognition was not specific to Discord, so the STUN datagrams Radmin '
+						+ 'uses to get through NAT were handled as Discord voice. And excluding '
+						+ 'an app only looked up who owned TCP ports. Now the owners of UDP ports '
+						+ 'are found too, through the Windows API, and the exclusion is checked '
+						+ 'before a UDP datagram is changed. An exclusion that knows one protocol '
+						+ 'excludes by half. This was one setup watched by hand, not a sweep of '
+						+ 'every network.',
 				},
 			],
 		},
@@ -638,78 +639,78 @@ const RU: Copy =
 		},
 		{
 			name: 'Obxod',
-			what: 'Режет приветствие TLS по границам имени на четыре части, ставит '
-				+ 'выдуманное имя той же длины на место настоящего, а настоящее '
-				+ 'кладёт поверх. Проверяющий читает в порядке прихода и '
-				+ 'останавливается на первом; сервер собирает по номерам и оставляет '
-				+ 'последнее.',
+			what: 'Открытая утилита для обхода DPI на Windows, написанная на Go. Пятнадцать '
+				+ 'способов обработки пакетов, автоматический подбор метода, смена правил на '
+				+ 'лету, исключения процессов для TCP и UDP и нативный оконный интерфейс.',
 			shelf: 'out',
-			figure: 'выпущен',
+			figure: 'v1.0.0 · выпущен',
 			ways:
 			[
-				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
 				{
-					label: 'Android, в работе',
-					href: 'https://github.com/maksim-miliutin/obxod-mobile',
+					label: 'Скачать для Windows',
+					href: 'https://github.com/maksim-miliutin/Obxod/releases/tag/v1.0.0',
 				},
+				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
 			],
 			story:
 			[
 				{
 					head: 'Задача',
-					body: 'Провайдер читает первый пакет TLS-соединения, находит в нём '
-						+ 'имя сайта и рвёт связь. Нужно, чтобы проверяющая железка '
-						+ 'увидела одно имя, а сервер получил другое, настоящее.',
+					body: 'Провайдер может оборвать соединение по имени сайта, которое прочитал в '
+						+ 'TLS ClientHello, первом пакете рукопожатия. Obxod перекраивает этот '
+						+ 'пакет на выходе: проверяющая железка имени не видит, а сервер получает '
+						+ 'его целиком. Это ответ на блокировку по имени и ни на что больше: '
+						+ 'сервис, заблокированный по IP-адресу, остаётся заблокированным, а '
+						+ 'консольная версия умеет сказать, какой из двух случаев у сайта.',
 				},
 				{
-					head: 'Где застрял на неделю',
-					body: 'Очевидный ход: послать вперёд поддельную копию приветствия '
-						+ 'с чужим именем и испортить её так, чтобы сервер выбросил. '
-						+ 'Работало наполовину: рукопожатие проходило, сервер отвечал, '
-						+ 'а поток обрывался примерно на восемнадцати килобайтах из '
-						+ 'шестидесяти пяти. Десяток способов испортить копию дали одно '
-						+ 'и то же число: порча решала лишь, кто выбросит копию, а имя '
-						+ 'железка всё равно доставала из настоящего пакета.',
+					head: 'Движок',
+					body: 'Go поверх драйвера WinDivert, который отдаёт исходящие пакеты программе '
+						+ 'раньше, чем они покинут машину. Пятнадцать способов обработки пакетов, '
+						+ 'и каждый собран из приёмов: split и multisplit по имени, перекрывающиеся '
+						+ 'сегменты, фейковые пакеты впереди, disorder, IP-фрагменты, подмена '
+						+ 'имени на месте. QUIC получает фейковые пакеты там, где сайту это нужно, '
+						+ 'у голоса Discord свой путь по UDP. Провайдеры разные, поэтому '
+						+ 'автоподбор гоняет методы на живой пробе и оставляет тот, что работает '
+						+ 'в этой сети.',
 				},
 				{
-					head: 'Что оказалось',
-					body: 'Я перестал подбирать и прочитал исходники зрелого аналога. '
-						+ 'Приветствие там не копируется, а режется по границам имени '
-						+ 'на четыре части. Третья несёт выдуманное имя ровно той же '
-						+ 'длины, на месте настоящего; четвёртая несёт настоящее, с '
-						+ 'тем же номером, поверх. Железка читает в порядке прихода и '
-						+ 'останавливается на подделке. Сервер собирает по номерам, и '
-						+ 'последний пакет затирает предыдущий.',
+					head: 'Инженерная задача: смена правил на лету',
+					body: 'Раньше, чтобы сменить метод, приходилось закрыть сессию WinDivert и '
+						+ 'открыть новую, и все открытые соединения рвались. Теперь драйвер '
+						+ 'остаётся открытым. Тот, кто меняет метод, кладёт новый набор правил в '
+						+ 'atomic.Pointer[rules.Set], а цикл обработки забирает его перед '
+						+ 'следующим пакетом. Этот указатель единственное, что переходит между '
+						+ 'горутинами, поэтому смена правил не добавляет мьютекса на путь, по '
+						+ 'которому идёт каждый пакет.',
 				},
 				{
-					head: 'Мелочь, которая всё решила',
-					body: 'Номер последовательности подделки должен остаться '
-						+ 'правильным. Испортить её нужно так, чтобы выбросил сервер, '
-						+ 'а не железка, иначе подделку никто не прочитает. Подходит '
-						+ 'сдвиг метки времени; сдвиг номера нет, он уводит пакет за '
-						+ 'пределы окна. После этого страница грузится целиком за '
-						+ 'десятую долю секунды, а раньше вставала на восемнадцати '
-						+ 'килобайтах из шестидесяти пяти.',
+					head: 'Приложение',
+					body: 'Окно на Gio и консольная версия того же движка. Одна кнопка включает '
+						+ 'обход; если закрыть окно, он продолжает работать из трея. Приложения '
+						+ 'исключаются по имени или по папке, свои домены добавляются к '
+						+ 'встроенному списку. Логи, график скорости, автозапуск с Windows, '
+						+ 'английский и русский интерфейс. Один исполняемый файл для Windows 10 '
+						+ 'и 11, драйвер внутри.',
 				},
 				{
-					head: 'Где он сейчас',
-					body: 'Выпущен одним исполняемым файлом с драйвером внутри: окно с '
-						+ 'выключателем, выбор из проверенных способов, потому что у '
-						+ 'провайдеров они разные, свои сайты, строка скорости, журнал, '
-						+ 'значок у часов и запуск с Windows. За этим двадцать пять '
-						+ 'пакетов и тридцать пять файлов тестов. Дальше Android: тот '
-						+ 'же приём службой VPN на самом телефоне, без рута и без '
-						+ 'сервера посередине, трафик идёт прямо на сайты.',
+					head: 'Тестирование',
+					body: 'Модульные тесты по всему движку, повторный прогон с детектором гонок и '
+						+ 'фаззинг разборщиков IP, TCP, UDP и ClientHello. go vet, тесты и сборка '
+						+ 'идут на Linux и на Windows при каждом изменении. Окно в CI не входит и '
+						+ 'проверяется вручную на Windows, а каждый из пятнадцати методов '
+						+ 'подтверждён вручную на живом DPI.',
 				},
 				{
-					head: 'Чему научился',
-					body: 'Имя на подделке не украшение. С одним именем страница '
-						+ 'грузится целиком, с другим приходит треть: железка разбирает '
-						+ 'имя и судит по нему. Подбор правил перебирает сорок пять '
-						+ 'сочетаний и судит по тому, повторил ли клиент приветствие, '
-						+ 'а это слабый признак: повторы случаются и без помощи. И '
-						+ 'неделя версий, построенных до взгляда на данные, дала почти '
-						+ 'ничего верного.',
+					head: 'Чему научил конфликт с Radmin VPN',
+					body: 'С включённым Obxod сбоил Radmin VPN, и сошлись две причины. '
+						+ 'Распознавание STUN не было привязано к Discord, поэтому STUN-датаграммы, '
+						+ 'которыми Radmin пробивает NAT, обрабатывались как голос Discord. А '
+						+ 'исключение приложения смотрело только на владельцев TCP-портов. Теперь '
+						+ 'владельцы UDP-портов тоже определяются через Windows API, и исключение '
+						+ 'проверяется до того, как UDP-датаграмма будет изменена. Исключение, '
+						+ 'которое знает один протокол, исключает наполовину. Это одна '
+						+ 'конфигурация, проверенная вручную, а не обход всех сетей.',
 				},
 			],
 		},
@@ -1113,81 +1114,84 @@ const FR: Copy =
 		},
 		{
 			name: 'Obxod',
-			what: 'Coupe un salut TLS aux bords du nom en quatre, met un nom inventé de '
-				+ 'la même longueur là où va le vrai, puis le vrai par dessus. '
-				+ 'L’inspecteur lit dans l’ordre d’arrivée et s’arrête au premier ; le '
-				+ 'serveur les remet par numéro et garde le dernier.',
+			what: 'Un outil open source de contournement du DPI pour Windows, écrit en Go. '
+				+ 'Quinze méthodes de traitement des paquets, choix automatique de la méthode, '
+				+ 'changement de règles à chaud, exclusions de processus TCP et UDP, et une '
+				+ 'interface de bureau native.',
 			shelf: 'out',
-			figure: 'publié',
+			figure: 'v1.0.0 · publié',
 			ways:
 			[
-				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
 				{
-					label: 'Android, en cours',
-					href: 'https://github.com/maksim-miliutin/obxod-mobile',
+					label: 'Télécharger pour Windows',
+					href: 'https://github.com/maksim-miliutin/Obxod/releases/tag/v1.0.0',
 				},
+				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Obxod' },
 			],
 			story:
 			[
 				{
 					head: 'Le problème',
-					body: 'Le fournisseur lit le premier paquet d’une connexion TLS, y '
-						+ 'trouve le nom du site et coupe la ligne. Il faut que '
-						+ 'l’inspecteur voie un nom tandis que le serveur reçoit '
-						+ 'l’autre, le vrai.',
+					body: 'Un fournisseur peut couper une connexion d’après le nom du site qu’il '
+						+ 'lit dans le TLS ClientHello, le premier paquet de la poignée de main. '
+						+ 'Obxod remanie ce paquet à la sortie : l’inspecteur au milieu manque le '
+						+ 'nom, et le serveur le reçoit entier. Cela répond à un blocage par nom '
+						+ 'et à rien d’autre : un service bloqué par son adresse IP le reste, et '
+						+ 'la version console sait dire lequel des deux touche un site.',
 				},
 				{
-					head: 'Où je suis resté coincé une semaine',
-					body: 'Le geste évident est d’envoyer devant une copie falsifiée du '
-						+ 'salut, avec le nom d’un autre, abîmée pour que le serveur la '
-						+ 'jette. Cela marchait à moitié : la poignée de main passait, '
-						+ 'le serveur répondait, et le flux s’arrêtait vers dix huit '
-						+ 'kilooctets sur soixante cinq. Une douzaine de façons '
-						+ 'd’abîmer la copie donnaient le même nombre : l’abîmage '
-						+ 'décidait seulement qui jetterait la copie, et l’inspecteur '
-						+ 'prenait le nom dans le vrai paquet de toute façon.',
+					head: 'Le moteur',
+					body: 'Du Go au-dessus du pilote WinDivert, qui remet les paquets sortants au '
+						+ 'programme avant qu’ils quittent la machine. Quinze méthodes de '
+						+ 'traitement des paquets, chacune un assemblage de gestes : split et '
+						+ 'multisplit au nom, segments qui se recouvrent, faux paquets envoyés '
+						+ 'devant, disorder, fragments IP, nom remplacé sur place. QUIC reçoit de '
+						+ 'faux paquets pour les sites qui en ont besoin, et la voix de Discord a '
+						+ 'son propre chemin UDP. Les fournisseurs diffèrent, alors la sélection '
+						+ 'automatique essaie les méthodes sur une sonde réelle et garde celle '
+						+ 'qui marche sur ce réseau.',
 				},
 				{
-					head: 'Ce que c’était',
-					body: 'J’ai cessé de deviner et lu le code d’un outil mûr. Le salut '
-						+ 'n’y est pas copié mais coupé aux bords du nom en quatre. La '
-						+ 'troisième partie porte un nom inventé exactement de la même '
-						+ 'longueur, à la place du vrai ; la quatrième porte le vrai, '
-						+ 'au même numéro, par dessus. L’inspecteur lit dans l’ordre '
-						+ 'd’arrivée et s’arrête à la contrefaçon. Le serveur les remet '
-						+ 'par numéro, et le dernier paquet gagne.',
+					head: 'Un défi d’ingénierie : changer les règles à chaud',
+					body: 'Changer de méthode voulait dire fermer la session WinDivert et en '
+						+ 'ouvrir une autre, et toutes les connexions ouvertes tombaient avec. '
+						+ 'Désormais le pilote reste ouvert. Ce qui change la méthode dépose le '
+						+ 'nouveau jeu de règles dans un atomic.Pointer[rules.Set], et la boucle '
+						+ 'des paquets le prend avant son paquet suivant. Ce pointeur est la seule '
+						+ 'chose qui passe d’une goroutine à l’autre, donc changer de règles '
+						+ 'n’ajoute aucun mutex sur le chemin de chaque paquet.',
 				},
 				{
-					head: 'Le détail qui a décidé',
-					body: 'Le numéro de séquence de la contrefaçon doit rester juste. '
-						+ 'Elle doit être abîmée de sorte que le serveur la jette et '
-						+ 'que l’inspecteur ne la jette pas, sinon personne ne la lit. '
-						+ 'Un horodatage décalé fait cela ; un numéro décalé non, il '
-						+ 'porte le paquet hors de la fenêtre. Ensuite la page charge '
-						+ 'entièrement en un dixième de seconde, là où elle s’arrêtait '
-						+ 'à dix huit kilooctets sur soixante cinq.',
+					head: 'L’application',
+					body: 'Une fenêtre de bureau faite avec Gio, et une version console du même '
+						+ 'moteur. Un bouton active le contournement ; fermer la fenêtre le laisse '
+						+ 'tourner dans la zone de notification. Les applications s’excluent par '
+						+ 'nom ou par dossier, vos propres domaines s’ajoutent à la liste '
+						+ 'intégrée. Journaux, graphique de débit, démarrage avec Windows, '
+						+ 'anglais et russe. Un seul exécutable pour Windows 10 et 11, le pilote '
+						+ 'à l’intérieur.',
 				},
 				{
-					head: 'Où il en est',
-					body: 'Publié en un seul exécutable, le pilote à l’intérieur : une '
-						+ 'fenêtre avec un interrupteur, un choix de méthodes testées '
-						+ 'car les fournisseurs diffèrent, vos propres sites, une ligne '
-						+ 'de débit, un journal, une icône près de l’horloge et un '
-						+ 'démarrage avec Windows. Vingt cinq paquets derrière, et '
-						+ 'trente cinq fichiers de tests. Ensuite Android : la même '
-						+ 'méthode en service VPN local, sans root et sans serveur au '
-						+ 'milieu, le trafic va droit aux sites.',
+					head: 'Les tests',
+					body: 'Des tests unitaires sur tout le moteur, relancés avec le race detector, '
+						+ 'et du fuzzing pour les analyseurs IP, TCP, UDP et ClientHello. go vet, '
+						+ 'les tests et une compilation tournent sous Linux et sous Windows à '
+						+ 'chaque changement. La fenêtre reste hors de la CI et se vérifie à la '
+						+ 'main sous Windows, et chacune des quinze méthodes a été confirmée à la '
+						+ 'main face à un DPI réel.',
 				},
 				{
-					head: 'Ce que j’ai appris',
-					body: 'Le nom sur la contrefaçon n’est pas un ornement. Avec un nom '
-						+ 'la page charge entièrement, avec un autre un tiers arrive : '
-						+ 'l’inspecteur analyse le nom et juge d’après lui. Le '
-						+ 'sélecteur de règles parcourt quarante cinq combinaisons et '
-						+ 'juge selon que le client répète son salut, ce qui est un '
-						+ 'signe faible : les répétitions arrivent sans aucune aide. Et '
-						+ 'une semaine de versions bâties avant de regarder les données '
-						+ 'n’a presque rien donné de juste.',
+					head: 'Ce que m’a appris un conflit avec Radmin VPN',
+					body: 'Avec Obxod actif, Radmin VPN se comportait mal, et deux causes se sont '
+						+ 'croisées. La détection de STUN n’était pas propre à Discord, si bien '
+						+ 'que les datagrammes STUN qui servent à Radmin pour traverser le NAT '
+						+ 'étaient traités comme la voix de Discord. Et l’exclusion d’une '
+						+ 'application ne regardait que les propriétaires des ports TCP. Désormais '
+						+ 'les propriétaires des ports UDP sont trouvés aussi, par l’API Windows, '
+						+ 'et l’exclusion est vérifiée avant de modifier un datagramme UDP. Une '
+						+ 'exclusion qui ne connaît qu’un protocole n’exclut qu’à moitié. C’est '
+						+ 'une configuration observée à la main, pas un passage en revue de tous '
+						+ 'les réseaux.',
 				},
 			],
 		},
