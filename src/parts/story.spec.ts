@@ -8,17 +8,21 @@ describe('the stories behind the work', () =>
 	it('tells one for the projects that have something to tell', () =>
 	{
 		expect(told.map((one) => one.name).sort())
-			.toEqual(['NetCheck', 'Netwatch', 'Obxod', 'Plafond']);
+			.toEqual(['NetCheck', 'Netwatch', 'Obxod', 'Plafond', 'Sublayer']);
 	});
 
-	it('starts each one with the problem and ends with what was learnt', () =>
+	// A release below 1.0 has not been out long enough to have taught much, and the
+	// reader deciding whether to download it needs most to know what it cannot do.
+	it('starts each one with the problem and ends with what was learnt or what is missing', () =>
 	{
 		for (const one of told)
 		{
 			const heads = (one.story ?? []).map((part) => part.head);
+			const early = one.figure.startsWith('v0.');
 
-			expect(heads[0], one.name).toMatch(/problem|wanted|asked|what it/i);
-			expect(heads[heads.length - 1], one.name).toMatch(/learnt|learned/i);
+			expect(heads[0], one.name).toMatch(/problem|wanted|asked|what it|why/i);
+			expect(heads[heads.length - 1], one.name)
+				.toMatch(early ? /limitations/i : /learnt|learned/i);
 		}
 	});
 
@@ -83,7 +87,8 @@ describe('what makes a story worth reading', () =>
 	{
 		const open = told.filter((one) => one.ways !== undefined);
 
-		expect(open.map((one) => one.name)).toEqual(['Netwatch', 'Obxod', 'Plafond']);
+		expect(open.map((one) => one.name))
+			.toEqual(['Netwatch', 'Obxod', 'Sublayer', 'Plafond']);
 	});
 });
 
@@ -104,14 +109,14 @@ describe('the shelves', () =>
 		expect(places).toEqual([...places].sort((a, b) => a - b));
 	});
 
-	it('counts four shipped, which is what the tally claims', () =>
+	it('counts five shipped, which is what the tally claims', () =>
 	{
 		const shipped = WORKS.filter((one) => one.shelf === 'out');
 
 		const claimed = TALLY.find((one) => one.label === 'shipped solo');
 
 		expect(shipped.map((one) => one.name))
-			.toEqual(['Bronyka Shop', 'Netwatch', 'Obxod', 'Plafond']);
+			.toEqual(['Bronyka Shop', 'Netwatch', 'Obxod', 'Sublayer', 'Plafond']);
 		expect(claimed?.figure).toBe(String(shipped.length));
 	});
 
