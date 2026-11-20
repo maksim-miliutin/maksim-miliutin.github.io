@@ -79,7 +79,7 @@ const EN =
 		heading: 'What I am doing now',
 		lines:
 		[
-			'Plafond is live: four checks for tenants in France, each ending in a letter '
+			'Plafond offers seven free checks for tenants in France. It can check rent limits in Paris, Lyon and Villeurbanne. '
 			+ 'to the landlord. Lyon and Villeurbanne are next, then the other cities '
 			+ 'where rents are capped.',
 
