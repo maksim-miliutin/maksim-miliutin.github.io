@@ -365,12 +365,13 @@ const EN =
 				},
 				{
 					head: 'Where it is now',
-					body: 'Live, and it can be put on the home screen of a phone. Four checks, '
-						+ 'each ending in a letter: a hundred and twenty one commits in a week, '
+					body: 'Live, and it can be put on the home screen of a phone. '
+						+ 'Plafond offers seven free checks, with a letter template when applicable. '
+						+ 'A hundred and twenty one commits in a week, '
 						+ 'four hundred and twenty five tests, fourteen of them in real browsers, '
 						+ 'iPhones among them. Eight rents read by hand off the prefecture\'s own '
 						+ 'map match the ones Plafond holds.',
-				},
+						,
 				{
 					head: 'What I learnt',
 					body: 'Three bugs crashed nothing, and each now has a test of its own. After '
