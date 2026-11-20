@@ -79,9 +79,7 @@ const EN =
 		heading: 'What I am doing now',
 		lines:
 		[
-			'Plafond offers seven free checks for tenants in France. It can check rent limits in Paris, Lyon and Villeurbanne. '
-			+ 'to the landlord. Lyon and Villeurbanne are next, then the other cities '
-			+ 'where rents are capped.',
+			'Plafond offers seven free checks for tenants in France. It can check rent limits in Paris, Lyon and Villeurbanne.',
 
 			'Obxod reached v1.0.0: a complete Windows DPI-bypass application built in Go, '
 			+ 'with automatic method selection, a desktop interface, and live rule switching '
@@ -371,7 +369,7 @@ const EN =
 						+ 'four hundred and twenty five tests, fourteen of them in real browsers, '
 						+ 'iPhones among them. Eight rents read by hand off the prefecture\'s own '
 						+ 'map match the ones Plafond holds.',
-						,
+				},
 				{
 					head: 'What I learnt',
 					body: 'Three bugs crashed nothing, and each now has a test of its own. After '
