@@ -8,21 +8,19 @@ describe('the stories behind the work', () =>
 	it('tells one for the projects that have something to tell', () =>
 	{
 		expect(told.map((one) => one.name).sort())
-			.toEqual(['NetCheck', 'Netwatch', 'Obxod', 'Plafond', 'Sublayer']);
+			.toEqual(['FileSweep', 'NetCheck', 'Netwatch', 'Obxod', 'Plafond', 'Sublayer']);
 	});
 
-	// A release below 1.0 has not been out long enough to have taught much, and the
-	// reader deciding whether to download it needs most to know what it cannot do.
-	it('starts each one with the problem and ends with what was learnt or what is missing', () =>
+	it('starts with the problem and ends with a lesson or the next step', () =>
 	{
 		for (const one of told)
 		{
 			const heads = (one.story ?? []).map((part) => part.head);
-			const early = one.figure.startsWith('v0.');
+			const early = one.shelf === 'going' || one.figure.startsWith('v0.');
 
 			expect(heads[0], one.name).toMatch(/problem|wanted|asked|what it|why/i);
 			expect(heads[heads.length - 1], one.name)
-				.toMatch(early ? /limitations/i : /learnt|learned/i);
+				.toMatch(early ? /limitations|next/i : /learnt|learned/i);
 		}
 	});
 
@@ -88,7 +86,7 @@ describe('what makes a story worth reading', () =>
 		const open = told.filter((one) => one.ways !== undefined);
 
 		expect(open.map((one) => one.name))
-			.toEqual(['Netwatch', 'Obxod', 'Sublayer', 'Plafond']);
+			.toEqual(['Netwatch', 'Obxod', 'Sublayer', 'Plafond', 'FileSweep']);
 	});
 });
 
