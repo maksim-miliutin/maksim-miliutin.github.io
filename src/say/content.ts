@@ -79,7 +79,9 @@ const EN =
 		heading: 'What I am doing now',
 		lines:
 		[
-			'Plafond offers seven free checks for tenants in France. It can check rent limits in Paris, Lyon and Villeurbanne.',
+			'I launched Plafond on leplafond.org, with commune search across Île-de-France '
+			+ 'and the Lyon metropolitan area. I am back to working on FileSweep, my Windows '
+			+ 'duplicate-file finder built with Rust and Tauri.',
 
 			'Obxod reached v1.0.0: a complete Windows DPI-bypass application built in Go, '
 			+ 'with automatic method selection, a desktop interface, and live rule switching '
@@ -326,49 +328,44 @@ const EN =
 		},
 		{
 			name: 'Plafond',
-			what: 'Checks a French rent against its legal cap, a deposit against its deadline, '
-				+ 'a charges statement against what may be passed on, and writes the formal '
-				+ 'notice. Runs on your device, nothing sent to a server.',
+			what: 'Free checks for tenants in France, from rent caps and deposits to notice '
+				+ 'periods and agency fees. Calculates in the browser and offers letter '
+				+ 'templates when applicable.',
 			shelf: 'out',
 			figure: 'shipped',
 			ways:
 			[
+				{ label: 'Try it', href: 'https://leplafond.org/' },
 				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Plafond' },
-				{ label: 'Try it', href: 'https://maksim-miliutin.github.io/Plafond' },
+				{ label: 'data.gouv.fr', href: 'https://www.data.gouv.fr/reuses/plafond-verifiez-vos-droits-de-locataire' },
 			],
 			story:
 			[
 				{
 					head: 'What it was asked to do',
-					body: 'Tell a tenant in France, in figures, whether the landlord is asking too '
-						+ 'much: a rent above the legal cap, a deposit kept past its month, '
-						+ 'charges the law does not let him pass on, a rise on a flat rated F or '
-						+ 'G. Then write the formal notice that asks for the money back.',
+					body: 'Help a tenant check the rent, work out when their notice ends or '
+						+ 'see whether their deposit is overdue. Plafond explains each calculation '
+						+ 'and can prepare a letter when the case calls for one.',
 				},
 				{
 					head: 'What it stands on',
-					body: 'Published open data, never a figure typed from memory. Each rate keeps '
-						+ 'the day it takes effect, the day it ends and the prefect\'s decree '
-						+ 'behind it, and a lease is checked against the rates in force on the day '
-						+ 'it was signed. The import reads the decree\'s own annexes and checks '
-						+ 'every line by the decree\'s own rules: furnished is empty plus its '
-						+ 'supplement, majored is twenty percent above, reduced thirty below.',
+					body: 'The import checks the tables against the published prefectural '
+						+ 'decrees and keeps each rate with its source and dates of application. '
+						+ 'The lease date selects the reference rent and the version of the zoning '
+						+ 'list used by the relevant checks.',
 				},
 				{
 					head: 'What stays on the phone',
-					body: 'The calculation runs on the device. The address goes once, straight to '
-						+ 'the public geocoder of the Géoplateforme, to find the quartier, and '
-						+ 'never through a server of mine; the rent goes nowhere at all. No '
-						+ 'account, no fee, no ads.',
+					body: 'The rent and calculations stay in the browser. Address and energy '
+						+ 'rating lookups go directly to the public Géoplateforme and ADEME '
+						+ 'services. The app is free to use without an account.',
 				},
 				{
-					head: 'Where it is now',
-					body: 'Live, and it can be put on the home screen of a phone. '
-						+ 'Plafond offers seven free checks, with a letter template when applicable. '
-						+ 'A hundred and twenty one commits in a week, '
-						+ 'four hundred and twenty five tests, fourteen of them in real browsers, '
-						+ 'iPhones among them. Eight rents read by hand off the prefecture\'s own '
-						+ 'map match the ones Plafond holds.',
+					head: 'What shipped',
+					body: 'The map and search cover 1,266 communes in Île-de-France and 58 in '
+						+ 'the Lyon metropolitan area. Rent-cap checks cover Paris, Est Ensemble, '
+						+ 'Plaine Commune, Lyon and Villeurbanne. There is a separate check for '
+						+ 'rent increases between tenancies. Browser tests run on desktop and iPhone.',
 				},
 				{
 					head: 'What I learnt',
@@ -628,9 +625,9 @@ const RU: Copy =
 		heading: 'Чем занят сейчас',
 		lines:
 		[
-			'Plafond работает: четыре проверки для тех, кто снимает жильё во Франции, '
-			+ 'и каждая заканчивается письмом владельцу. Дальше Лион и Вильёрбан, '
-			+ 'потом остальные города, где аренда ограничена.',
+			'Выпустил Plafond на leplafond.org. Поиск охватывает коммуны Иль-де-Франса '
+			+ 'и Лионской метрополии. Вернулся к FileSweep, приложению на Rust и Tauri '
+			+ 'для поиска дубликатов файлов в Windows.',
 
 			'Obxod дошёл до v1.0.0: законченное приложение на Go для обхода DPI на Windows, '
 			+ 'с автоматическим подбором метода, оконным интерфейсом и сменой правил на лету, '
@@ -879,51 +876,43 @@ const RU: Copy =
 		},
 		{
 			name: 'Plafond',
-			what: 'Проверяет аренду во Франции против законного потолка, депозит против '
-				+ 'срока возврата, счёт за обслуживание против того, что можно переложить '
-				+ 'на жильца, и пишет официальную претензию. Считает на вашем устройстве, '
-				+ 'ничего не уходит на сервер.',
+			what: 'Бесплатные проверки для арендаторов во Франции. Считает в браузере '
+				+ 'потолок аренды, срок уведомления о выезде и агентские сборы, а когда '
+				+ 'нужно, предлагает шаблон письма.',
 			shelf: 'out',
 			figure: 'выпущен',
 			ways:
 			[
-				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Plafond' },
-				{ label: 'Попробовать', href: 'https://maksim-miliutin.github.io/Plafond' },
+				{ label: 'Попробовать', href: 'https://leplafond.org/' },
+				{ label: 'Открыть код', href: 'https://github.com/maksim-miliutin/Plafond' },
+				{ label: 'data.gouv.fr', href: 'https://www.data.gouv.fr/reuses/plafond-verifiez-vos-droits-de-locataire' },
 			],
 			story:
 			[
 				{
 					head: 'Что он должен был делать',
-					body: 'Сказать арендатору во Франции цифрами, не просит ли хозяин лишнего: '
-						+ 'аренда выше законного потолка, депозит, задержанный дольше месяца, '
-						+ 'расходы, которые закон не разрешает перекладывать на жильца, повышение '
-						+ 'аренды в квартире класса F или G. А потом написать официальную '
-						+ 'претензию с требованием вернуть деньги.',
+					body: 'Помочь арендатору проверить размер платы, узнать дату окончания '
+						+ 'срока уведомления о выезде или выяснить, вовремя ли вернули залог. '
+						+ 'Plafond объясняет результат и при необходимости готовит шаблон письма.',
 				},
 				{
 					head: 'На чём он стоит',
-					body: 'Только опубликованные открытые данные, ни одной цифры по памяти. У '
-						+ 'каждой ставки есть день, с которого она действует, день, когда '
-						+ 'перестаёт, и указ префекта за ней, и договор проверяется по ставкам, '
-						+ 'действовавшим в день подписания. Импорт читает приложения самого указа '
-						+ 'и проверяет каждую строку по его же правилам: ставка с мебелью равна '
-						+ 'пустой плюс надбавка, повышенная на двадцать процентов выше, пониженная '
-						+ 'на тридцать ниже.',
+					body: 'При импорте таблицы сверяются с опубликованными актами префектур. '
+						+ 'У каждой ставки хранится источник и срок действия. По дате договора '
+						+ 'Plafond подбирает ставку и версию списка зон для нужной проверки.',
 				},
 				{
 					head: 'Что остаётся на телефоне',
-					body: 'Расчёт идёт на устройстве. Адрес уходит один раз, напрямую в публичный '
-						+ 'геокодер Géoplateforme, чтобы найти квартал, и никогда не проходит '
-						+ 'через мой сервер; аренда не уходит никуда. Ни учётной записи, ни платы, '
-						+ 'ни рекламы.',
+					body: 'Сумма аренды и расчёты остаются в браузере. Поиск адреса и '
+						+ 'энергетического сертификата обращается напрямую к публичным сервисам '
+						+ 'Géoplateforme и ADEME. Приложение бесплатное и работает без регистрации.',
 				},
 				{
-					head: 'Где он сейчас',
-					body: 'Работает, и его можно поставить на главный экран телефона. Четыре '
-						+ 'проверки, каждая заканчивается письмом: сто двадцать один коммит за '
-						+ 'неделю, четыреста двадцать пять тестов, четырнадцать из них в настоящих '
-						+ 'браузерах, айфоны среди них. Восемь ставок, прочитанных вручную с карты '
-						+ 'самой префектуры, совпадают с теми, что держит Plafond.',
+					head: 'Что вошло в выпуск',
+					body: 'Карта и поиск охватывают 1 266 коммун Иль-де-Франса и 58 коммун '
+						+ 'Лионской метрополии. Потолок аренды проверяется в Париже, Est Ensemble, '
+						+ 'Plaine Commune, Лионе и Вильёрбанне. Есть отдельная проверка повышения '
+						+ 'аренды при смене жильца. Браузерные тесты идут на компьютере и iPhone.',
 				},
 				{
 					head: 'Чему научился',
@@ -1181,9 +1170,9 @@ const FR: Copy =
 		heading: 'Ce que je fais en ce moment',
 		lines:
 		[
-			'Plafond est en ligne : quatre vérifications pour les locataires en France, '
-			+ 'chacune se termine par une lettre au propriétaire. Ensuite Lyon et '
-			+ 'Villeurbanne, puis les autres villes où les loyers sont encadrés.',
+			'J’ai mis Plafond en ligne sur leplafond.org, avec une recherche par commune '
+			+ 'en Île-de-France et dans la Métropole de Lyon. J’ai repris FileSweep, mon '
+			+ 'outil en Rust et Tauri pour trouver les fichiers en double sous Windows.',
 
 			'Obxod est arrivé à la v1.0.0 : une application Windows complète de contournement '
 			+ 'du DPI, écrite en Go, avec le choix automatique de la méthode, une interface de '
@@ -1447,52 +1436,46 @@ const FR: Copy =
 		},
 		{
 			name: 'Plafond',
-			what: 'Vérifie un loyer français contre son plafond légal, un dépôt contre son '
-				+ 'délai, un décompte de charges contre ce qui peut être refacturé, et rédige '
-				+ 'la mise en demeure. Calcule sur votre appareil, rien n’est envoyé à un '
-				+ 'serveur.',
+			what: 'Des vérifications gratuites pour les locataires en France, du plafond '
+				+ 'du loyer au préavis et aux frais d’agence. Les calculs se font dans le '
+				+ 'navigateur et un modèle de lettre est proposé selon le cas.',
 			shelf: 'out',
 			figure: 'publié',
 			ways:
 			[
-				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/Plafond' },
-				{ label: 'Essayer', href: 'https://maksim-miliutin.github.io/Plafond' },
+				{ label: 'Essayer', href: 'https://leplafond.org/' },
+				{ label: 'Code source', href: 'https://github.com/maksim-miliutin/Plafond' },
+				{ label: 'data.gouv.fr', href: 'https://www.data.gouv.fr/reuses/plafond-verifiez-vos-droits-de-locataire' },
 			],
 			story:
 			[
 				{
 					head: 'Ce qu’on lui demandait',
-					body: 'Dire à un locataire en France, chiffres à l’appui, si le propriétaire '
-						+ 'demande trop : un loyer au-dessus du plafond légal, un dépôt rendu '
-						+ 'après le délai, des charges que la loi ne permet pas de récupérer, une '
-						+ 'hausse sur un logement classé F ou G. Puis rédiger la mise en demeure '
-						+ 'qui réclame l’argent.',
+					body: 'Aider un locataire à vérifier son loyer, à calculer la fin de son '
+						+ 'préavis ou à savoir si son dépôt de garantie est en retard. Plafond '
+						+ 'explique le résultat et peut préparer un modèle de lettre selon le cas.',
 				},
 				{
 					head: 'Sur quoi il repose',
-					body: 'Des données ouvertes publiées, jamais un chiffre tapé de mémoire. '
-						+ 'Chaque taux garde le jour où il entre en vigueur, celui où il prend fin '
-						+ 'et l’arrêté préfectoral qui le fixe, et un bail est vérifié avec les '
-						+ 'taux en vigueur le jour de sa signature. L’import lit les annexes de '
-						+ 'l’arrêté et contrôle chaque ligne selon ses propres règles : le meublé '
-						+ 'vaut le vide plus son complément, le majoré vingt pour cent de plus, le '
-						+ 'minoré trente de moins.',
+					body: 'L’import contrôle les barèmes à partir des arrêtés préfectoraux '
+						+ 'publiés et conserve la source et les dates d’application de chaque '
+						+ 'valeur. La date du bail détermine le loyer de référence et la version '
+						+ 'du zonage utilisée par les vérifications concernées.',
 				},
 				{
 					head: 'Ce qui reste sur le téléphone',
-					body: 'Le calcul se fait sur l’appareil. L’adresse part une seule fois, '
-						+ 'directement vers le géocodeur public de la Géoplateforme, pour trouver '
-						+ 'le quartier, et ne passe jamais par un serveur à moi ; le loyer ne part '
-						+ 'nulle part. Pas de compte, pas de frais, pas de publicité.',
+					body: 'Le montant du loyer et les calculs restent dans le navigateur. '
+						+ 'La recherche d’adresse et la consultation du DPE interrogent directement '
+						+ 'les services publics de la Géoplateforme et de l’ADEME. L’application '
+						+ 'est gratuite et accessible sans compte.',
 				},
 				{
-					head: 'Où il en est',
-					body: 'En ligne, et on peut l’ajouter à l’écran d’accueil d’un téléphone. '
-						+ 'Quatre vérifications, chacune finit par une lettre : cent vingt et un '
-						+ 'commits en une semaine, quatre cent vingt-cinq tests, dont quatorze '
-						+ 'dans de vrais navigateurs, iPhone compris. Huit loyers relevés à la '
-						+ 'main sur la carte de la préfecture elle-même correspondent à ceux que '
-						+ 'Plafond détient.',
+					head: 'Ce qui est en ligne',
+					body: 'La carte et la recherche couvrent 1 266 communes d’Île-de-France '
+						+ 'et 58 de la Métropole de Lyon. Le plafond du loyer se vérifie à Paris, '
+						+ 'à Est Ensemble, à Plaine Commune, à Lyon et à Villeurbanne. Un '
+						+ 'calculateur vérifie aussi la hausse du loyer lors d’une nouvelle '
+						+ 'location. Les tests navigateur tournent sur ordinateur et iPhone.',
 				},
 				{
 					head: 'Ce que j’ai appris',
