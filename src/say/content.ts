@@ -349,7 +349,8 @@ const EN =
 				},
 				{
 					head: 'What it stands on',
-					body: 'The import checks the tables against the published prefectural '
+					body: 'I built it in Next.js and TypeScript, with Leaflet for the maps. '
+						+ 'The import checks the tables against the published prefectural '
 						+ 'decrees and keeps each rate with its source and dates of application. '
 						+ 'The lease date selects the reference rent and the version of the zoning '
 						+ 'list used by the relevant checks.',
@@ -365,7 +366,8 @@ const EN =
 					body: 'The map and search cover 1,266 communes in Île-de-France and 58 in '
 						+ 'the Lyon metropolitan area. Rent-cap checks cover Paris, Est Ensemble, '
 						+ 'Plaine Commune, Lyon and Villeurbanne. There is a separate check for '
-						+ 'rent increases between tenancies. Browser tests run on desktop and iPhone.',
+						+ 'rent increases between tenancies. Playwright tests cover desktop '
+						+ 'browsers and emulated iPhones.',
 				},
 				{
 					head: 'What I learnt',
@@ -377,6 +379,44 @@ const EN =
 						+ 'into a square that took the taps meant for the choices around it. And a '
 						+ 'letter written after the six months had run out asked the landlord to '
 						+ 'keep the proofs until a day already past.',
+				},
+			],
+		},
+		{
+			name: 'FileSweep',
+			what: 'An offline Windows tool that finds duplicate files and estimates how '
+				+ 'much space you could free up.',
+			shelf: 'going',
+			figure: 'prototype',
+			ways:
+			[
+				{ label: 'Open code', href: 'https://github.com/maksim-miliutin/FileSweep' },
+			],
+			story:
+			[
+				{
+					head: 'What I wanted to check',
+					body: 'Copies of a file can have different names and end up in separate '
+						+ 'folders. I wanted to see them together, with their paths, before '
+						+ 'deciding which ones to keep.',
+				},
+				{
+					head: 'How the scanner works',
+					body: 'The Rust scanner groups candidates by size and uses BLAKE3 to '
+						+ 'find matching contents. It accounts for hard links when estimating '
+						+ 'how much space the duplicates take up.',
+				},
+				{
+					head: 'What works today',
+					body: 'In the Tauri interface, built with React and TypeScript, I can '
+						+ 'choose folders, follow scan progress, pause, resume or cancel, '
+						+ 'and browse duplicate groups and skipped files.',
+				},
+				{
+					head: 'What comes next',
+					body: 'I am working on a review step for sending selected copies to '
+						+ 'the Windows Recycle Bin. The user will confirm the selection '
+						+ 'and keep at least one copy in each group.',
 				},
 			],
 		},
@@ -897,7 +937,8 @@ const RU: Copy =
 				},
 				{
 					head: 'На чём он стоит',
-					body: 'При импорте таблицы сверяются с опубликованными актами префектур. '
+					body: 'Сайт я сделал на Next.js и TypeScript, карты работают на Leaflet. '
+						+ 'При импорте таблицы сверяются с опубликованными актами префектур. '
 						+ 'У каждой ставки хранится источник и срок действия. По дате договора '
 						+ 'Plafond подбирает ставку и версию списка зон для нужной проверки.',
 				},
@@ -912,7 +953,8 @@ const RU: Copy =
 					body: 'Карта и поиск охватывают 1 266 коммун Иль-де-Франса и 58 коммун '
 						+ 'Лионской метрополии. Потолок аренды проверяется в Париже, Est Ensemble, '
 						+ 'Plaine Commune, Лионе и Вильёрбанне. Есть отдельная проверка повышения '
-						+ 'аренды при смене жильца. Браузерные тесты идут на компьютере и iPhone.',
+						+ 'аренды при смене жильца. Тесты Playwright проверяют сайт в настольных '
+						+ 'браузерах и в эмуляции iPhone.',
 				},
 				{
 					head: 'Чему научился',
@@ -924,6 +966,45 @@ const RU: Copy =
 						+ 'подпись формы в квадрат, который забирал нажатия у соседних вариантов. '
 						+ 'А письмо, написанное после того, как шесть месяцев истекли, просило '
 						+ 'хозяина хранить документы до дня, который уже прошёл.',
+				},
+			],
+		},
+		{
+			name: 'FileSweep',
+			what: 'Программа для Windows, которая ищет дубликаты файлов и оценивает, '
+				+ 'сколько места можно освободить. Поиск работает на компьютере.',
+			shelf: 'going',
+			figure: 'прототип',
+			ways:
+			[
+				{ label: 'Открыть код', href: 'https://github.com/maksim-miliutin/FileSweep' },
+			],
+			story:
+			[
+				{
+					head: 'Что я хотел проверить',
+					body: 'Копии одного файла могут называться по-разному и лежать в '
+						+ 'разных папках. Я хотел видеть их вместе и знать, где лежит '
+						+ 'каждая копия, прежде чем решать, какие оставить.',
+				},
+				{
+					head: 'Как работает сканер',
+					body: 'Сканер на Rust сначала группирует файлы по размеру, а затем '
+						+ 'ищет совпадения по содержимому с помощью BLAKE3. При оценке '
+						+ 'занятого места он учитывает жёсткие ссылки.',
+				},
+				{
+					head: 'Что уже работает',
+					body: 'В приложении на Tauri, React и TypeScript можно выбрать '
+						+ 'папки, следить за ходом поиска, приостановить, продолжить или '
+						+ 'отменить его, а затем посмотреть группы дубликатов и список '
+						+ 'пропущенных файлов.',
+				},
+				{
+					head: 'Что добавлю дальше',
+					body: 'Работаю над окном, где можно выбрать лишние копии, проверить '
+						+ 'выбор и подтвердить отправку в Корзину Windows. В каждой '
+						+ 'группе должна остаться хотя бы одна копия.',
 				},
 			],
 		},
@@ -1457,7 +1538,8 @@ const FR: Copy =
 				},
 				{
 					head: 'Sur quoi il repose',
-					body: 'L’import contrôle les barèmes à partir des arrêtés préfectoraux '
+					body: 'J’ai développé le site avec Next.js et TypeScript, et les cartes '
+						+ 'avec Leaflet. L’import contrôle les barèmes à partir des arrêtés préfectoraux '
 						+ 'publiés et conserve la source et les dates d’application de chaque '
 						+ 'valeur. La date du bail détermine le loyer de référence et la version '
 						+ 'du zonage utilisée par les vérifications concernées.',
@@ -1475,7 +1557,8 @@ const FR: Copy =
 						+ 'et 58 de la Métropole de Lyon. Le plafond du loyer se vérifie à Paris, '
 						+ 'à Est Ensemble, à Plaine Commune, à Lyon et à Villeurbanne. Un '
 						+ 'calculateur vérifie aussi la hausse du loyer lors d’une nouvelle '
-						+ 'location. Les tests navigateur tournent sur ordinateur et iPhone.',
+						+ 'location. Les tests Playwright couvrent les navigateurs de bureau '
+						+ 'et l’émulation d’iPhone.',
 				},
 				{
 					head: 'Ce que j’ai appris',
@@ -1488,6 +1571,44 @@ const FR: Copy =
 						+ 'carré qui volait les touches destinées aux choix voisins. Et une lettre '
 						+ 'écrite après les six mois demandait au propriétaire de garder les '
 						+ 'justificatifs jusqu’à un jour déjà passé.',
+				},
+			],
+		},
+		{
+			name: 'FileSweep',
+			what: 'Un logiciel Windows qui repère les fichiers en double et estime '
+				+ 'l’espace que l’on pourrait récupérer. L’analyse se fait sur l’ordinateur.',
+			shelf: 'going',
+			figure: 'prototype',
+			ways:
+			[
+				{ label: 'Code source', href: 'https://github.com/maksim-miliutin/FileSweep' },
+			],
+			story:
+			[
+				{
+					head: 'Ce que je voulais vérifier',
+					body: 'Les copies d’un fichier peuvent avoir des noms différents et '
+						+ 'se retrouver dans plusieurs dossiers. Je voulais voir leurs '
+						+ 'emplacements au même endroit avant de choisir lesquelles garder.',
+				},
+				{
+					head: 'Comment les fichiers sont analysés',
+					body: 'Le moteur en Rust regroupe les fichiers par taille, puis repère '
+						+ 'les contenus identiques avec BLAKE3. Il tient compte des liens '
+						+ 'physiques pour estimer l’espace occupé par les doublons.',
+				},
+				{
+					head: 'Ce qui fonctionne déjà',
+					body: 'Dans l’interface Tauri, React et TypeScript, on peut choisir les '
+						+ 'dossiers, suivre la progression, mettre en pause, reprendre ou '
+						+ 'annuler l’analyse, puis consulter les doublons et les fichiers ignorés.',
+				},
+				{
+					head: 'La suite',
+					body: 'Je travaille sur un écran pour vérifier les copies sélectionnées '
+						+ 'avant de confirmer leur déplacement vers la corbeille de Windows. '
+						+ 'Au moins une copie sera conservée dans chaque groupe.',
 				},
 			],
 		},
